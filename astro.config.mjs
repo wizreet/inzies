@@ -6,8 +6,8 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://yourusername.github.io",
-	base: "/inzies-band/",
+	site: "https://wizreet.github.io",
+	base: "/inzies/",
 	trailingSlash: "always",
 	output: "static",
 

@@ -36,7 +36,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "Indie Music Band",
 	description:
 		"",
-	siteURL: "https://yourusername.github.io/inzies-band/",
+	siteURL: "https://wizreet.github.io/inzies/",
 	lang: "en",
 
 	themeColor: {
@@ -75,11 +75,11 @@ export interface NavLink {
 }
 
 export const navConfig: NavLink[] = [
-	{ name: "Home", url: "/inzies-band/", icon: "material-symbols:home" },
-	{ name: "About", url: "/inzies-band/about/", icon: "material-symbols:info" },
-	{ name: "Music", url: "/inzies-band/music/", icon: "material-symbols:music-note" },
-	{ name: "Play Along", url: "/inzies-band/play/", icon: "material-symbols:play-circle" },
-	{ name: "Gallery", url: "/inzies-band/gallery/", icon: "material-symbols:photo-library" },
+	{ name: "Home", url: "/inzies/", icon: "material-symbols:home" },
+	{ name: "About", url: "/inzies/about/", icon: "material-symbols:info" },
+	{ name: "Music", url: "/inzies/music/", icon: "material-symbols:music-note" },
+	{ name: "Play Along", url: "/inzies/play/", icon: "material-symbols:play-circle" },
+	{ name: "Gallery", url: "/inzies/gallery/", icon: "material-symbols:photo-library" },
 ];
 
 // Strudel.cc Configuration

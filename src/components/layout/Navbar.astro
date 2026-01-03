@@ -1,7 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
 import { navConfig, siteConfig } from "../../config";
-import LightDarkSwitch from "../ui/LightDarkSwitch.svelte";
 
 const currentPath = Astro.url.pathname;
 
@@ -17,9 +16,9 @@ function isActive(linkUrl: string): boolean {
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-between h-[var(--header-height)]">
 			<!-- Logo -->
-			<a href="/inzies-band/" class="flex items-center gap-3 group">
+			<a href="/inzies/" class="flex items-center gap-3 group">
 				<img 
-					src="/inzies-band/LogoAnimations/logo-transparent.png" 
+					src="/inzies/LogoAnimations/logo-transparent.png" 
 					alt="Inzies"
 					class="h-8 w-auto group-hover:scale-110 transition-transform"
 				/>
@@ -56,19 +55,19 @@ function isActive(linkUrl: string): boolean {
 						class="absolute right-0 mt-2 w-48 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg shadow-lg hidden"
 					>
 						<div class="py-2">
-							<a href="{siteConfig.social.youtube}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+							<a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
 								<Icon name="fa6-brands:youtube" class="text-lg" />
 								<span class="text-sm">YouTube</span>
 							</a>
-							<a href="{siteConfig.social.spotify}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+							<a href={siteConfig.social.spotify} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
 								<Icon name="fa6-brands:spotify" class="text-lg" />
 								<span class="text-sm">Spotify</span>
 							</a>
-							<a href="{siteConfig.social.instagram}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+							<a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
 								<Icon name="fa6-brands:instagram" class="text-lg" />
 								<span class="text-sm">Instagram</span>
 							</a>
-							<a href="{siteConfig.social.facebook}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+							<a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
 								<Icon name="fa6-brands:facebook" class="text-lg" />
 								<span class="text-sm">Facebook</span>
 							</a>
