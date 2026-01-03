@@ -48,16 +48,10 @@ const currentYear = new Date().getFullYear();
 		</div>
 
 		<!-- Bottom Bar -->
-		<div class="mt-12 pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-4">
+		<div class="mt-12 pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-center gap-4">
 			<p class="text-sm text-[var(--text-muted)]">
 				© {currentYear} {siteConfig.title}
 			</p>
-			<div class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-				<span>Built with</span>
-				<Icon name="simple-icons:astro" class="text-lg text-[#FF5D01]" />
-				<span>&</span>
-				<Icon name="simple-icons:svelte" class="text-lg text-[#FF3E00]" />
-			</div>
 		</div>
 	</div>
 </footer>

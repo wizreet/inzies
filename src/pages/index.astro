@@ -130,11 +130,13 @@ const latestRelease = getLatestRelease();
 		mix-blend-mode: screen;
 	}
 	
-	.logo-container:hover .logo-static {
+	.logo-container:hover .logo-static,
+	.logo-container.is-active .logo-static {
 		opacity: 0;
 	}
 	
-	.logo-container:hover .logo-video-wrapper {
+	.logo-container:hover .logo-video-wrapper,
+	.logo-container.is-active .logo-video-wrapper {
 		opacity: 1;
 	}
 </style>
@@ -145,12 +147,34 @@ const latestRelease = getLatestRelease();
 		const video = container?.querySelector('video');
 		
 		if (container && video) {
+			// Desktop: mouseenter/mouseleave
 			container.addEventListener('mouseenter', () => {
+				container.classList.add('is-active');
 				video.currentTime = 0;
 				video.play();
 			});
 			
 			container.addEventListener('mouseleave', () => {
+				container.classList.remove('is-active');
+				video.pause();
+			});
+			
+			// Mobile: touchstart/touchend
+			container.addEventListener('touchstart', (e) => {
+				e.preventDefault();
+				container.classList.add('is-active');
+				video.currentTime = 0;
+				video.play();
+			}, { passive: false });
+			
+			container.addEventListener('touchend', () => {
+				container.classList.remove('is-active');
+				video.pause();
+			});
+			
+			// Also handle touch cancel
+			container.addEventListener('touchcancel', () => {
+				container.classList.remove('is-active');
 				video.pause();
 			});
 		}
