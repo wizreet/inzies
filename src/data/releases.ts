@@ -20,7 +20,7 @@ export const releases: Release[] = [
 		title: "Asha",
 		type: "single",
 		description: "A track about reminiscence and hope",
-		coverArt: "/images/releases/signal.jpg",
+		coverArt: "public/assets/images/releases/asha.png",
 		releaseDate: "2025-01-01",
 		spotifyUrl: "https://open.spotify.com/track/YOUR_TRACK_ID",
 		youtubeUrl: "https://youtube.com/watch?v=YOUR_VIDEO_ID",

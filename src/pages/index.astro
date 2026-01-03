@@ -17,18 +17,18 @@ const latestRelease = getLatestRelease();
 		<Navbar />
 
 		<!-- Hero Section -->
-		<section id="hero-trigger" class="group relative min-h-screen flex items-start justify-center overflow-hidden pt-40 md:pt-80">
+		<section id="hero-trigger" class="group relative min-h-0 md:min-h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-80 pb-4 md:pb-0">
 			<div class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"></div>
 			<div class="absolute inset-0 grid-bg opacity-20"></div>
+
 			<div class="absolute top-1/4 -left-32 w-96 h-96 bg-inzies-orange/20 rounded-full blur-[128px]"></div>
 			<div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-inzies-blue/20 rounded-full blur-[128px]"></div>
 
 			<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
 				<!-- Logo Container -->
-				<div class="mb-16 animate-fade-in flex justify-center">
-					<!-- Container width: w-56 on mobile, larger on desktop -->
-					<div class="relative w-56 md:w-96 lg:w-[32rem] h-48 logo-container cursor-pointer">
+				<div class="mb-12 md:mb-16 animate-fade-in flex justify-center">
+					<div class="relative w-52 md:w-96 lg:w-[32rem] h-40 md:h-48 logo-container cursor-pointer">
 
 						<div class="absolute inset-0 flex items-center justify-center logo-static-wrapper">
 							<img
@@ -51,22 +51,22 @@ const latestRelease = getLatestRelease();
 				</div>
 
 				<!-- Title (Indie Music Band) -->
-				<div class="mb-8 animate-fade-in" style="animation-delay: 0.2s;">
+				<div class="mb-6 md:mb-8 animate-fade-in" style="animation-delay: 0.2s;">
 					<p class="text-xl md:text-3xl text-[#FF6B00] font-bold tracking-wider uppercase">
 						{siteConfig.subtitle}
 					</p>
 				</div>
 
 				{siteConfig.description && (
-					<p class="max-w-2xl mx-auto text-lg md:text-xl text-[var(--text-secondary)] mb-12 animate-slide-up" style="animation-delay: 0.3s;">
+					<p class="max-w-2xl mx-auto text-lg md:text-xl text-[var(--text-secondary)] mb-10 md:mb-12 animate-slide-up" style="animation-delay: 0.3s;">
 						{siteConfig.description}
 					</p>
 				)}
 
 				<!-- Social Links -->
-				<div class="flex flex-col items-center animate-slide-up mt-24" style="animation-delay: 0.5s;">
+				<div class="flex flex-col items-center animate-slide-up mt-8 md:mt-24" style="animation-delay: 0.5s;">
 					<SocialLinks />
-					<p class="mt-8 text-sm text-[var(--text-secondary)]">
+					<p class="mt-6 md:mt-8 text-sm text-[var(--text-secondary)]">
 						Follow us on our social channels
 					</p>
 				</div>
@@ -75,9 +75,9 @@ const latestRelease = getLatestRelease();
 
 		<!-- Latest Release Section -->
 		{latestRelease && (
-			<section class="py-24 bg-[var(--bg-secondary)]/30">
+			<section class="pt-12 pb-8 md:py-24 bg-[var(--bg-secondary)]/30">
 				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<h2 class="section-title mb-12 scroll-reveal">Latest Release</h2>
+					<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Latest Release</h2>
 					<div class="scroll-reveal" style="animation-delay: 0.2s;">
 						<ReleaseCard release={latestRelease} />
 					</div>
@@ -85,53 +85,50 @@ const latestRelease = getLatestRelease();
 			</section>
 		)}
 
+		<!-- Play Along CTA -->
+		<section class="pt-4 pb-12 md:py-24">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<!-- CHANGED: Moved heading here and added section-title class to match Latest Release -->
+				<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Remix Our Stuff</h2>
+
+				<div class="card-base p-8 md:p-12 text-center">
+					<!-- Removed H2 from inside here -->
+					<p class="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
+						We put our beats on Strudel. You can mess with them, remix them, whatever.
+					</p>
+					<GlowButton
+						href="/inzies/play/"
+						variant="primary"
+						size="lg"
+						icon="material-symbols:code"
+					>
+						Play Around
+					</GlowButton>
+				</div>
+			</div>
+		</section>
+
 		<Footer />
 	</div>
 </Layout>
 
 <style>
 	.logo-container { overflow: visible; }
-
-	.logo-static-wrapper {
-		transition: opacity 0.3s ease;
-		z-index: 2;
-	}
-
-	.logo-gif-wrapper {
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		pointer-events: none;
-		z-index: 1;
-	}
-
+	.logo-static-wrapper { transition: opacity 0.3s ease; z-index: 2; }
+	.logo-gif-wrapper { opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 1; }
 	.logo-gif {
 		width: 100%;
 		height: auto;
 		transform-origin: center center;
-		/* DESKTOP SCALE */
 		transform: scale(2.25);
 	}
-
-	/* MOBILE ADJUSTMENTS */
 	@media (max-width: 767px) {
-		.logo-gif {
-			/*
-			   Reduced scale for mobile to match the static text size exactly.
-			   Added translateY(2px) to fix the vertical alignment from your screenshot.
-			*/
-			transform: scale(1.85) translateY(2px);
-		}
+		.logo-gif { transform: scale(1.7) translateY(2px); }
 	}
-
 	.group:hover .logo-static-wrapper,
-	.logo-container.is-active .logo-static-wrapper {
-		opacity: 0;
-	}
-
+	.logo-container.is-active .logo-static-wrapper { opacity: 0; }
 	.group:hover .logo-gif-wrapper,
-	.logo-container.is-active .logo-gif-wrapper {
-		opacity: 1;
-	}
+	.logo-container.is-active .logo-gif-wrapper { opacity: 1; }
 </style>
 
 <script>
@@ -142,7 +139,6 @@ const latestRelease = getLatestRelease();
 		const gifSrc = gifImg?.getAttribute('data-src');
 
 		let isPlaying = false;
-
 		const startAnimation = () => {
 			if (!isPlaying && gifImg && gifSrc) {
 				gifImg.src = `${gifSrc}?t=${new Date().getTime()}`;
@@ -150,7 +146,6 @@ const latestRelease = getLatestRelease();
 				container?.classList.add('is-active');
 			}
 		};
-
 		const stopAnimation = () => {
 			isPlaying = false;
 			container?.classList.remove('is-active');
@@ -165,14 +160,13 @@ const latestRelease = getLatestRelease();
 					if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
 						startAnimation();
 					} else {
-						if (!section?.matches(':hover')) {
-							stopAnimation();
-						}
+						const isHovered = document.querySelector('#hero-trigger:hover');
+						if (!isHovered) stopAnimation();
 					}
 				});
 			}, {
 				threshold: [0, 0.3, 1],
-				rootMargin: '150px 0px 150px 0px'
+				rootMargin: '100px 0px 100px 0px'
 			});
 			observer.observe(container);
 		}

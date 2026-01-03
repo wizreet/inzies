@@ -12,13 +12,13 @@ export interface StrudelPattern {
 export const strudelPatterns: StrudelPattern[] = [
 	{
 		id: "pattern-1",
-		title: "Foundation",
+		title: "Asha",
 		description: "The backbone – a solid groove to build on",
 		pattern: `stack(
   s("bd*2 bd bd*2 bd"),
   s("~ sd ~ sd"),
   s("hh*8")
-).slow(2)`,
+).slow(4)`,
 		bpm: 120,
 		category: "drums",
 		difficulty: "beginner",
@@ -90,6 +90,8 @@ export const getPatternsByCategory = (category: StrudelPattern["category"]): Str
 	return strudelPatterns.filter((p) => p.category === category);
 };
 
-export const getPatternsByDifficulty = (difficulty: StrudelPattern["difficulty"]): StrudelPattern[] => {
+export const getPatternsByDifficulty = (
+	difficulty: StrudelPattern["difficulty"]
+): StrudelPattern[] => {
 	return strudelPatterns.filter((p) => p.difficulty === difficulty);
 };
