@@ -17,66 +17,58 @@ const latestRelease = getLatestRelease();
 		<Navbar />
 
 		<!-- Hero Section -->
-		<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-			<!-- Background Gradient -->
+		<!-- Trigger animation by hovering ANYWHERE in this section -->
+		<section id="hero-trigger" class="group relative min-h-screen flex items-start justify-center overflow-hidden pt-64 md:pt-80">
 			<div class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"></div>
-
-			<!-- Animated Grid Background -->
 			<div class="absolute inset-0 grid-bg opacity-20"></div>
-
-			<!-- Glow Effects -->
 			<div class="absolute top-1/4 -left-32 w-96 h-96 bg-inzies-orange/20 rounded-full blur-[128px]"></div>
 			<div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-inzies-blue/20 rounded-full blur-[128px]"></div>
 
-			<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-				<!-- Logo with GIF animation on hover -->
-				<div class="mb-8 animate-fade-in flex justify-center">
-					<div class="relative w-64 md:w-80 lg:w-96 logo-container cursor-pointer">
-						<!-- Static Logo (shown by default) -->
-						<img
-							src="/inzies/LogoAnimations/logo-transparent.png"
-							alt="Inzies Logo"
-							class="w-full h-auto logo-static"
-						/>
-						<!-- Animated GIF (shown on hover) -->
+			<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+				<!-- Logo Container -->
+				<div class="mb-16 animate-fade-in flex justify-center">
+					<div class="relative w-72 md:w-96 lg:w-[32rem] h-48 logo-container cursor-pointer">
+
+						<!-- Static Logo (Frame 0) -->
+						<div class="absolute inset-0 flex items-center justify-center logo-static-wrapper">
+							<img
+								src="/inzies/LogoAnimations/logo-transparent.png"
+								alt="Inzies Logo"
+								class="w-full h-auto logo-static"
+							/>
+						</div>
+
+						<!-- Animated GIF -->
 						<div class="absolute inset-0 flex items-center justify-center logo-gif-wrapper">
 							<img
-								src="/inzies/LogoAnimations/Logo-gif.gif"
+								id="main-logo-gif"
+								data-src="/inzies/LogoAnimations/Logo-gif.gif"
+								src=""
 								alt="Inzies Animated Logo"
 								class="logo-gif"
 							/>
 						</div>
-						<!-- BACKUP: Animated Video (commented out for potential revert)
-						<div class="absolute inset-0 flex items-center justify-center logo-video-wrapper">
-							<video
-								muted
-								loop
-								playsinline
-								class="logo-video"
-							>
-								<source src="/inzies/LogoAnimations/Logo%2016%20-%209.mp4" type="video/mp4" />
-							</video>
-						</div>
-						-->
 					</div>
 				</div>
 
-				<!-- Title -->
+				<!-- Title (Indie Music Band) -->
 				<div class="mb-8 animate-fade-in" style="animation-delay: 0.2s;">
-				<p class="text-lg md:text-xl text-[#FF6B00] font-medium">
-					{siteConfig.subtitle}
-				</p>
-			</div>
-			{siteConfig.description && (
-				<p class="max-w-2xl mx-auto text-lg md:text-xl text-[var(--text-secondary)] mb-12 animate-slide-up" style="animation-delay: 0.3s;">
-					{siteConfig.description}
-				</p>
-			)}
+					<p class="text-xl md:text-3xl text-[#FF6B00] font-bold tracking-wider uppercase">
+						{siteConfig.subtitle}
+					</p>
+				</div>
+
+				{siteConfig.description && (
+					<p class="max-w-2xl mx-auto text-lg md:text-xl text-[var(--text-secondary)] mb-12 animate-slide-up" style="animation-delay: 0.3s;">
+						{siteConfig.description}
+					</p>
+				)}
 
 				<!-- Social Links -->
-				<div class="flex flex-col items-center animate-slide-up" style="animation-delay: 0.5s;">
+				<div class="flex flex-col items-center animate-slide-up mt-24" style="animation-delay: 0.5s;">
 					<SocialLinks />
-					<p class="mt-4 text-sm text-[var(--text-secondary)]">
+					<p class="mt-8 text-sm text-[var(--text-secondary)]">
 						Follow us on our social channels
 					</p>
 				</div>
@@ -95,145 +87,91 @@ const latestRelease = getLatestRelease();
 			</section>
 		)}
 
-		<!-- Play Along CTA -->
-		<section class="py-24">
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div class="card-base p-8 md:p-12 text-center">
-					<h2 class="text-3xl md:text-4xl font-bold mb-4">Remix Our Stuff</h2>
-					<p class="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
-						We put our beats on Strudel. You can mess with them, remix them, whatever.
-					</p>
-					<GlowButton
-						href="/inzies/play/"
-						variant="primary"
-						size="lg"
-						icon="material-symbols:code"
-					>
-						Play Around
-					</GlowButton>
-				</div>
-			</div>
-		</section>
-
 		<Footer />
 	</div>
 </Layout>
 
 <style>
-	.logo-static {
+	.logo-container { overflow: visible; }
+
+	.logo-static-wrapper {
 		transition: opacity 0.3s ease;
+		z-index: 2;
 	}
 
 	.logo-gif-wrapper {
 		opacity: 0;
 		transition: opacity 0.3s ease;
 		pointer-events: none;
+		z-index: 1;
 	}
 
 	.logo-gif {
 		width: 100%;
 		height: auto;
+		transform: scale(2.25);
+		transform-origin: center center;
 	}
 
-	/* BACKUP: Video styles (commented out for potential revert)
-	.logo-video-wrapper {
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		pointer-events: none;
-		overflow: visible;
-	}
-
-	.logo-video {
-		width: 200%;
-		height: auto;
-		mix-blend-mode: screen;
-	}
-	*/
-
-	.logo-container:hover .logo-static,
-	.logo-container.is-active .logo-static {
+	/* Trigger animation when group (section) is hovered OR when script adds .is-active */
+	.group:hover .logo-static-wrapper,
+	.logo-container.is-active .logo-static-wrapper {
 		opacity: 0;
 	}
 
-	.logo-container:hover .logo-gif-wrapper,
+	.group:hover .logo-gif-wrapper,
 	.logo-container.is-active .logo-gif-wrapper {
 		opacity: 1;
 	}
-
-	/* BACKUP: Video hover styles (commented out for potential revert)
-	.logo-container:hover .logo-video-wrapper,
-	.logo-container.is-active .logo-video-wrapper {
-		opacity: 1;
-	}
-	*/
 </style>
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
+		const section = document.getElementById('hero-trigger');
 		const container = document.querySelector('.logo-container');
-		const gif = container?.querySelector('.logo-gif');
+		const gifImg = document.getElementById('main-logo-gif') as HTMLImageElement;
+		const gifSrc = gifImg?.getAttribute('data-src');
 
-		if (container && gif) {
-			// GIF animation is automatic, we just need to show/hide it
-			// Desktop: mouseenter/mouseleave handled by CSS :hover
-			
-			// Mobile: Use Intersection Observer for scroll-based animation
-			const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+		let isPlaying = false;
 
-			if (isMobile) {
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-							// Logo is more than 50% visible - show GIF
-							container.classList.add('is-active');
-						} else {
-							// Logo is leaving viewport - hide GIF
-							container.classList.remove('is-active');
-						}
-					});
-				}, {
-					threshold: [0, 0.5, 1],
-					rootMargin: '-10% 0px -10% 0px'
-				});
-
-				observer.observe(container);
+		const startAnimation = () => {
+			if (!isPlaying && gifImg && gifSrc) {
+				// We append a timestamp to the URL to force the GIF to restart from frame 1
+				gifImg.src = `${gifSrc}?t=${new Date().getTime()}`;
+				isPlaying = true;
+				container?.classList.add('is-active');
 			}
-		}
+		};
 
-		/* BACKUP: Video script (commented out for potential revert)
-		const video = container?.querySelector('video');
-		if (container && video) {
-			container.addEventListener('mouseenter', () => {
-				container.classList.add('is-active');
-				video.currentTime = 0;
-				video.play();
-			});
+		const stopAnimation = () => {
+			isPlaying = false;
+			container?.classList.remove('is-active');
+			// Optionally clear src to save memory when not looking
+			// gifImg.src = "";
+		};
 
-			container.addEventListener('mouseleave', () => {
-				container.classList.remove('is-active');
-				video.pause();
-			});
+		// 1. Desktop Hover Logic (Wide Area)
+		section?.addEventListener('mouseenter', startAnimation);
+		section?.addEventListener('mouseleave', stopAnimation);
 
-			const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-			if (isMobile) {
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-							container.classList.add('is-active');
-							video.currentTime = 0;
-							video.play();
-						} else {
-							container.classList.remove('is-active');
-							video.pause();
+		// 2. Scroll/Periphery Logic
+		if (container) {
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+						startAnimation();
+					} else {
+						// Only stop if the mouse isn't currently hovering (prevents flickering)
+						if (!section?.matches(':hover')) {
+							stopAnimation();
 						}
-					});
-				}, {
-					threshold: [0, 0.5, 1],
-					rootMargin: '-10% 0px -10% 0px'
+					}
 				});
-				observer.observe(container);
-			}
+			}, {
+				threshold: [0, 0.3, 1],
+				rootMargin: '150px 0px 150px 0px' // "Nearby" trigger zone
+			});
+			observer.observe(container);
 		}
-		*/
 	});
 </script>
