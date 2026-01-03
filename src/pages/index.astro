@@ -76,9 +76,9 @@ const latestRelease = getLatestRelease();
 
 		<!-- Latest Release Section -->
 		{latestRelease && (
-			/* ADJUSTED: Reduced bottom padding (pb-8 and md:pb-8) to pull next section up */
-			<section class="pt-2 pb-8 md:pt-24 md:pb-8 bg-[var(--bg-secondary)]/30">
-				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			/* ADJUSTED: Better mobile padding */
+			<section class="pt-8 pb-12 md:pt-24 md:pb-8 bg-[var(--bg-secondary)]/30">
+				<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
 					<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Latest Release</h2>
 					<div class="scroll-reveal" style="animation-delay: 0.2s;">
 						<ReleaseCard release={latestRelease} />
@@ -88,9 +88,9 @@ const latestRelease = getLatestRelease();
 		)}
 
 		<!-- Play Along CTA -->
-		<!-- ADJUSTED: Reduced top padding (pt-0 and md:pt-8) to reduce gap -->
-		<section class="pt-0 pb-12 md:pt-8 md:pb-24">
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<!-- ADJUSTED: Better mobile padding -->
+		<section class="pt-8 pb-12 md:pt-8 md:pb-24">
+			<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
 
 				<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Remix Our Stuff</h2>
 
