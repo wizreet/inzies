@@ -35,13 +35,13 @@ const categories = [
 	<!-- Gallery Grid Placeholder -->
 	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 		{galleryImages.map((image, index) => (
-			<div 
+			<div
 				class="group relative aspect-square rounded-xl overflow-hidden card-base scroll-reveal"
 				style={`animation-delay: ${index * 0.1}s`}
 			>
-				<img 
-					src={image.src} 
-					alt={image.alt} 
+				<img
+					src={image.src}
+					alt={image.alt}
 					class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
 					loading="lazy"
 				/>
@@ -58,8 +58,8 @@ const categories = [
 		<p class="text-[var(--text-secondary)] max-w-md mx-auto mb-6">
 			We're updating our gallery. For now, check out our Instagram.
 		</p>
-		<a 
-			href="https://instagram.com/tameimpala" 
+		<a
+			href="https://instagram.com/inzies_"
 			target="_blank"
 			rel="noopener noreferrer"
 			class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
