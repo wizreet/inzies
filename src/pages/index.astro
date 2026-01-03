@@ -15,33 +15,41 @@ const latestRelease = getLatestRelease();
 <Layout>
 	<div class="relative min-h-screen flex flex-col z-10">
 		<Navbar />
-		
+
 		<!-- Hero Section -->
 		<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
 			<!-- Background Gradient -->
 			<div class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"></div>
-			
+
 			<!-- Animated Grid Background -->
 			<div class="absolute inset-0 grid-bg opacity-20"></div>
-			
+
 			<!-- Glow Effects -->
 			<div class="absolute top-1/4 -left-32 w-96 h-96 bg-inzies-orange/20 rounded-full blur-[128px]"></div>
 			<div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-inzies-blue/20 rounded-full blur-[128px]"></div>
 
 			<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-				<!-- Logo with video animation on hover -->
+				<!-- Logo with GIF animation on hover -->
 				<div class="mb-8 animate-fade-in flex justify-center">
 					<div class="relative w-64 md:w-80 lg:w-96 logo-container cursor-pointer">
 						<!-- Static Logo (shown by default) -->
-						<img 
-							src="/inzies/LogoAnimations/logo-transparent.png" 
+						<img
+							src="/inzies/LogoAnimations/logo-transparent.png"
 							alt="Inzies Logo"
 							class="w-full h-auto logo-static"
 						/>
-						<!-- Animated Video (shown on hover, scaled to match logo size) -->
+						<!-- Animated GIF (shown on hover) -->
+						<div class="absolute inset-0 flex items-center justify-center logo-gif-wrapper">
+							<img
+								src="/inzies/LogoAnimations/logo-gif.gif"
+								alt="Inzies Animated Logo"
+								class="logo-gif"
+							/>
+						</div>
+						<!-- BACKUP: Animated Video (commented out for potential revert)
 						<div class="absolute inset-0 flex items-center justify-center logo-video-wrapper">
-							<video 
-								muted 
+							<video
+								muted
 								loop
 								playsinline
 								class="logo-video"
@@ -49,6 +57,7 @@ const latestRelease = getLatestRelease();
 								<source src="/inzies/LogoAnimations/Logo%2016%20-%209.mp4" type="video/mp4" />
 							</video>
 						</div>
+						-->
 					</div>
 				</div>
 
@@ -94,9 +103,9 @@ const latestRelease = getLatestRelease();
 					<p class="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
 						We put our beats on Strudel. You can mess with them, remix them, whatever.
 					</p>
-					<GlowButton 
-						href="/inzies/play/" 
-						variant="primary" 
+					<GlowButton
+						href="/inzies/play/"
+						variant="primary"
 						size="lg"
 						icon="material-symbols:code"
 					>
@@ -114,76 +123,117 @@ const latestRelease = getLatestRelease();
 	.logo-static {
 		transition: opacity 0.3s ease;
 	}
-	
+
+	.logo-gif-wrapper {
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+	}
+
+	.logo-gif {
+		width: 100%;
+		height: auto;
+	}
+
+	/* BACKUP: Video styles (commented out for potential revert)
 	.logo-video-wrapper {
 		opacity: 0;
 		transition: opacity 0.3s ease;
 		pointer-events: none;
 		overflow: visible;
 	}
-	
+
 	.logo-video {
-		/* Scale video so the logo inside matches the static logo size */
-		/* The video has waves around it, so we scale it up */
 		width: 200%;
 		height: auto;
 		mix-blend-mode: screen;
 	}
-	
+	*/
+
 	.logo-container:hover .logo-static,
 	.logo-container.is-active .logo-static {
 		opacity: 0;
 	}
-	
+
+	.logo-container:hover .logo-gif-wrapper,
+	.logo-container.is-active .logo-gif-wrapper {
+		opacity: 1;
+	}
+
+	/* BACKUP: Video hover styles (commented out for potential revert)
 	.logo-container:hover .logo-video-wrapper,
 	.logo-container.is-active .logo-video-wrapper {
 		opacity: 1;
 	}
+	*/
 </style>
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		const container = document.querySelector('.logo-container');
+		const gif = container?.querySelector('.logo-gif');
+
+		if (container && gif) {
+			// GIF animation is automatic, we just need to show/hide it
+			// Desktop: mouseenter/mouseleave handled by CSS :hover
+			
+			// Mobile: Use Intersection Observer for scroll-based animation
+			const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+			if (isMobile) {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+							// Logo is more than 50% visible - show GIF
+							container.classList.add('is-active');
+						} else {
+							// Logo is leaving viewport - hide GIF
+							container.classList.remove('is-active');
+						}
+					});
+				}, {
+					threshold: [0, 0.5, 1],
+					rootMargin: '-10% 0px -10% 0px'
+				});
+
+				observer.observe(container);
+			}
+		}
+
+		/* BACKUP: Video script (commented out for potential revert)
 		const video = container?.querySelector('video');
-		
 		if (container && video) {
-			// Desktop: mouseenter/mouseleave
 			container.addEventListener('mouseenter', () => {
 				container.classList.add('is-active');
 				video.currentTime = 0;
 				video.play();
 			});
-			
+
 			container.addEventListener('mouseleave', () => {
 				container.classList.remove('is-active');
 				video.pause();
 			});
-			
-			// Mobile: Use Intersection Observer for scroll-based animation
-			// Animation plays when logo enters viewport, stops when it leaves
+
 			const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-			
 			if (isMobile) {
 				const observer = new IntersectionObserver((entries) => {
 					entries.forEach((entry) => {
 						if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-							// Logo is more than 50% visible - play animation
 							container.classList.add('is-active');
 							video.currentTime = 0;
 							video.play();
 						} else {
-							// Logo is leaving viewport - stop animation
 							container.classList.remove('is-active');
 							video.pause();
 						}
 					});
 				}, {
-					threshold: [0, 0.5, 1], // Trigger at 0%, 50%, and 100% visibility
-					rootMargin: '-10% 0px -10% 0px' // Slightly inset from viewport edges
+					threshold: [0, 0.5, 1],
+					rootMargin: '-10% 0px -10% 0px'
 				});
-				
 				observer.observe(container);
 			}
 		}
+		*/
 	});
 </script>
