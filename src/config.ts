@@ -47,7 +47,7 @@ export const siteConfig: SiteConfig = {
 	social: {
 		spotify: "https://open.spotify.com/artist/inzies",
 		youtube: "https://youtube.com/@inzies",
-		instagram: "https://wizreet.github.io/inzies/",
+		instagram: "https://instagram.com/inzies_/",
 		facebook: "https://facebook.com/inzies",
 	},
 
