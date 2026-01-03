@@ -10,7 +10,7 @@ import { strudelPatterns } from "../data/strudel-patterns";
 	<div class="mb-12">
 		<h1 class="section-title text-4xl md:text-5xl mb-6">Play Along</h1>
 		<p class="text-xl text-[var(--text-secondary)] max-w-3xl">
-			These are our beats. Click around, break stuff, have fun.
+			 Click around to our beats.
 		</p>
 	</div>
 
@@ -19,8 +19,8 @@ import { strudelPatterns } from "../data/strudel-patterns";
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 			{strudelPatterns.map((pattern, index) => (
 				<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
-					<StrudelPlayer 
-						client:load 
+					<StrudelPlayer
+						client:load
 						pattern={pattern.pattern}
 						title={pattern.title}
 						description={pattern.description}
@@ -41,9 +41,9 @@ import { strudelPatterns } from "../data/strudel-patterns";
 			<p class="text-[var(--text-secondary)] mb-6">
 				We made these patterns. You can remix them or just listen. Either way, cool.
 			</p>
-			<a 
-				href="https://strudel.cc" 
-				target="_blank" 
+			<a
+				href="https://strudel.cc"
+				target="_blank"
 				rel="noopener noreferrer"
 				class="inline-flex items-center gap-2 text-inzies-blue hover:text-inzies-blue-400 transition-colors"
 			>

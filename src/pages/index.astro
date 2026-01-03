@@ -18,9 +18,12 @@ const latestRelease = getLatestRelease();
 
 		<!-- Hero Section -->
 		<section id="hero-trigger" class="group relative min-h-0 md:min-h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-80 pb-4 md:pb-0">
+			<!-- Background Gradient -->
 			<div class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"></div>
+			<!-- Animated Grid Background -->
 			<div class="absolute inset-0 grid-bg opacity-20"></div>
 
+			<!-- Glow Effects -->
 			<div class="absolute top-1/4 -left-32 w-96 h-96 bg-inzies-orange/20 rounded-full blur-[128px]"></div>
 			<div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-inzies-blue/20 rounded-full blur-[128px]"></div>
 
@@ -29,7 +32,6 @@ const latestRelease = getLatestRelease();
 				<!-- Logo Container -->
 				<div class="mb-12 md:mb-16 animate-fade-in flex justify-center">
 					<div class="relative w-52 md:w-96 lg:w-[32rem] h-40 md:h-48 logo-container cursor-pointer">
-
 						<div class="absolute inset-0 flex items-center justify-center logo-static-wrapper">
 							<img
 								src="/inzies/LogoAnimations/logo-transparent.png"
@@ -37,7 +39,6 @@ const latestRelease = getLatestRelease();
 								class="w-full h-auto logo-static"
 							/>
 						</div>
-
 						<div class="absolute inset-0 flex items-center justify-center logo-gif-wrapper">
 							<img
 								id="main-logo-gif"
@@ -50,7 +51,7 @@ const latestRelease = getLatestRelease();
 					</div>
 				</div>
 
-				<!-- Title (Indie Music Band) -->
+				<!-- Title -->
 				<div class="mb-6 md:mb-8 animate-fade-in" style="animation-delay: 0.2s;">
 					<p class="text-xl md:text-3xl text-[#FF6B00] font-bold tracking-wider uppercase">
 						{siteConfig.subtitle}
@@ -67,7 +68,7 @@ const latestRelease = getLatestRelease();
 				<div class="flex flex-col items-center animate-slide-up mt-8 md:mt-24" style="animation-delay: 0.5s;">
 					<SocialLinks />
 					<p class="mt-6 md:mt-8 text-sm text-[var(--text-secondary)]">
-						Follow us on our social channels
+						Find us on our social channels
 					</p>
 				</div>
 			</div>
@@ -75,7 +76,8 @@ const latestRelease = getLatestRelease();
 
 		<!-- Latest Release Section -->
 		{latestRelease && (
-			<section class="pt-12 pb-8 md:py-24 bg-[var(--bg-secondary)]/30">
+			/* ADJUSTED: Reduced bottom padding (pb-8 and md:pb-8) to pull next section up */
+			<section class="pt-2 pb-8 md:pt-24 md:pb-8 bg-[var(--bg-secondary)]/30">
 				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Latest Release</h2>
 					<div class="scroll-reveal" style="animation-delay: 0.2s;">
@@ -86,25 +88,28 @@ const latestRelease = getLatestRelease();
 		)}
 
 		<!-- Play Along CTA -->
-		<section class="pt-4 pb-12 md:py-24">
+		<!-- ADJUSTED: Reduced top padding (pt-0 and md:pt-8) to reduce gap -->
+		<section class="pt-0 pb-12 md:pt-8 md:pb-24">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<!-- CHANGED: Moved heading here and added section-title class to match Latest Release -->
+
 				<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Remix Our Stuff</h2>
 
-				<div class="card-base p-8 md:p-12 text-center">
-					<!-- Removed H2 from inside here -->
-					<p class="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
-						We put our beats on Strudel. You can mess with them, remix them, whatever.
-					</p>
-					<GlowButton
-						href="/inzies/play/"
-						variant="primary"
-						size="lg"
-						icon="material-symbols:code"
-					>
-						Play Around
-					</GlowButton>
+				<div class="scroll-reveal" style="animation-delay: 0.2s;">
+					<div class="card-base p-8 md:p-12 text-center">
+						<p class="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
+							We put our beats on Strudel. You can mess with them, remix them, whatever.
+						</p>
+						<GlowButton
+							href="/inzies/play/"
+							variant="primary"
+							size="lg"
+							icon="material-symbols:code"
+						>
+							Play Around
+						</GlowButton>
+					</div>
 				</div>
+
 			</div>
 		</section>
 
@@ -114,21 +119,41 @@ const latestRelease = getLatestRelease();
 
 <style>
 	.logo-container { overflow: visible; }
-	.logo-static-wrapper { transition: opacity 0.3s ease; z-index: 2; }
-	.logo-gif-wrapper { opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 1; }
+
+	.logo-static-wrapper {
+		transition: opacity 0.3s ease;
+		z-index: 2;
+	}
+
+	.logo-gif-wrapper {
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+		z-index: 1;
+	}
+
 	.logo-gif {
 		width: 100%;
 		height: auto;
 		transform-origin: center center;
 		transform: scale(2.25);
 	}
+
 	@media (max-width: 767px) {
-		.logo-gif { transform: scale(1.7) translateY(2px); }
+		.logo-gif {
+			transform: scale(1.7) translateY(2px);
+		}
 	}
+
 	.group:hover .logo-static-wrapper,
-	.logo-container.is-active .logo-static-wrapper { opacity: 0; }
+	.logo-container.is-active .logo-static-wrapper {
+		opacity: 0;
+	}
+
 	.group:hover .logo-gif-wrapper,
-	.logo-container.is-active .logo-gif-wrapper { opacity: 1; }
+	.logo-container.is-active .logo-gif-wrapper {
+		opacity: 1;
+	}
 </style>
 
 <script>
@@ -139,6 +164,7 @@ const latestRelease = getLatestRelease();
 		const gifSrc = gifImg?.getAttribute('data-src');
 
 		let isPlaying = false;
+
 		const startAnimation = () => {
 			if (!isPlaying && gifImg && gifSrc) {
 				gifImg.src = `${gifSrc}?t=${new Date().getTime()}`;
@@ -146,6 +172,7 @@ const latestRelease = getLatestRelease();
 				container?.classList.add('is-active');
 			}
 		};
+
 		const stopAnimation = () => {
 			isPlaying = false;
 			container?.classList.remove('is-active');
@@ -161,7 +188,9 @@ const latestRelease = getLatestRelease();
 						startAnimation();
 					} else {
 						const isHovered = document.querySelector('#hero-trigger:hover');
-						if (!isHovered) stopAnimation();
+						if (!isHovered) {
+							stopAnimation();
+						}
 					}
 				});
 			}, {
