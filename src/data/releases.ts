@@ -17,9 +17,9 @@ export interface Release {
 export const releases: Release[] = [
 	{
 		id: "release-1",
-		title: "Signal",
+		title: "Asha",
 		type: "single",
-		description: "A track about finding clarity through the noise. Layers of sound building to something unmistakable.",
+		description: "A track about reminiscence and hope",
 		coverArt: "/images/releases/signal.jpg",
 		releaseDate: "2025-01-01",
 		spotifyUrl: "https://open.spotify.com/track/YOUR_TRACK_ID",
@@ -41,7 +41,8 @@ export const releases: Release[] = [
 		id: "release-3",
 		title: "Iteration",
 		type: "album",
-		description: "Our debut full-length. Ten tracks, three years in the making. Rock meets electronic, analog meets digital.",
+		description:
+			"Our debut full-length. Ten tracks, three years in the making. Rock meets electronic, analog meets digital.",
 		coverArt: "/images/releases/iteration.jpg",
 		releaseDate: "2024-03-01",
 		tracks: 10,
