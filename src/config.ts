@@ -34,8 +34,7 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
 	title: "INZIES",
 	subtitle: "Indie Music Band",
-	description:
-		"",
+	description: "",
 	siteURL: "https://wizreet.github.io/inzies/",
 	lang: "en",
 
@@ -46,10 +45,10 @@ export const siteConfig: SiteConfig = {
 	},
 
 	social: {
-		spotify: "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4",
-		youtube: "https://youtube.com/@daftpunk",
-		instagram: "https://instagram.com/tameimpala",
-		facebook: "https://facebook.com/arcadefire",
+		spotify: "https://open.spotify.com/artist/inzies",
+		youtube: "https://youtube.com/@inzies",
+		instagram: "https://wizreet.github.io/inzies/",
+		facebook: "https://facebook.com/inzies",
 	},
 
 	banner: {

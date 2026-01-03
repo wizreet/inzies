@@ -159,24 +159,31 @@ const latestRelease = getLatestRelease();
 				video.pause();
 			});
 			
-			// Mobile: touchstart/touchend
-			container.addEventListener('touchstart', (e) => {
-				e.preventDefault();
-				container.classList.add('is-active');
-				video.currentTime = 0;
-				video.play();
-			}, { passive: false });
+			// Mobile: Use Intersection Observer for scroll-based animation
+			// Animation plays when logo enters viewport, stops when it leaves
+			const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 			
-			container.addEventListener('touchend', () => {
-				container.classList.remove('is-active');
-				video.pause();
-			});
-			
-			// Also handle touch cancel
-			container.addEventListener('touchcancel', () => {
-				container.classList.remove('is-active');
-				video.pause();
-			});
+			if (isMobile) {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+							// Logo is more than 50% visible - play animation
+							container.classList.add('is-active');
+							video.currentTime = 0;
+							video.play();
+						} else {
+							// Logo is leaving viewport - stop animation
+							container.classList.remove('is-active');
+							video.pause();
+						}
+					});
+				}, {
+					threshold: [0, 0.5, 1], // Trigger at 0%, 50%, and 100% visibility
+					rootMargin: '-10% 0px -10% 0px' // Slightly inset from viewport edges
+				});
+				
+				observer.observe(container);
+			}
 		}
 	});
 </script>
