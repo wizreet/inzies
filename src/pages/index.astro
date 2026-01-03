@@ -17,8 +17,7 @@ const latestRelease = getLatestRelease();
 		<Navbar />
 
 		<!-- Hero Section -->
-		<!-- Trigger animation by hovering ANYWHERE in this section -->
-		<section id="hero-trigger" class="group relative min-h-screen flex items-start justify-center overflow-hidden pt-64 md:pt-80">
+		<section id="hero-trigger" class="group relative min-h-screen flex items-start justify-center overflow-hidden pt-40 md:pt-80">
 			<div class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"></div>
 			<div class="absolute inset-0 grid-bg opacity-20"></div>
 			<div class="absolute top-1/4 -left-32 w-96 h-96 bg-inzies-orange/20 rounded-full blur-[128px]"></div>
@@ -28,9 +27,9 @@ const latestRelease = getLatestRelease();
 
 				<!-- Logo Container -->
 				<div class="mb-16 animate-fade-in flex justify-center">
-					<div class="relative w-72 md:w-96 lg:w-[32rem] h-48 logo-container cursor-pointer">
+					<!-- Container width: w-56 on mobile, larger on desktop -->
+					<div class="relative w-56 md:w-96 lg:w-[32rem] h-48 logo-container cursor-pointer">
 
-						<!-- Static Logo (Frame 0) -->
 						<div class="absolute inset-0 flex items-center justify-center logo-static-wrapper">
 							<img
 								src="/inzies/LogoAnimations/logo-transparent.png"
@@ -39,7 +38,6 @@ const latestRelease = getLatestRelease();
 							/>
 						</div>
 
-						<!-- Animated GIF -->
 						<div class="absolute inset-0 flex items-center justify-center logo-gif-wrapper">
 							<img
 								id="main-logo-gif"
@@ -109,11 +107,22 @@ const latestRelease = getLatestRelease();
 	.logo-gif {
 		width: 100%;
 		height: auto;
-		transform: scale(2.25);
 		transform-origin: center center;
+		/* DESKTOP SCALE */
+		transform: scale(2.25);
 	}
 
-	/* Trigger animation when group (section) is hovered OR when script adds .is-active */
+	/* MOBILE ADJUSTMENTS */
+	@media (max-width: 767px) {
+		.logo-gif {
+			/*
+			   Reduced scale for mobile to match the static text size exactly.
+			   Added translateY(2px) to fix the vertical alignment from your screenshot.
+			*/
+			transform: scale(1.85) translateY(2px);
+		}
+	}
+
 	.group:hover .logo-static-wrapper,
 	.logo-container.is-active .logo-static-wrapper {
 		opacity: 0;
@@ -136,7 +145,6 @@ const latestRelease = getLatestRelease();
 
 		const startAnimation = () => {
 			if (!isPlaying && gifImg && gifSrc) {
-				// We append a timestamp to the URL to force the GIF to restart from frame 1
 				gifImg.src = `${gifSrc}?t=${new Date().getTime()}`;
 				isPlaying = true;
 				container?.classList.add('is-active');
@@ -146,22 +154,17 @@ const latestRelease = getLatestRelease();
 		const stopAnimation = () => {
 			isPlaying = false;
 			container?.classList.remove('is-active');
-			// Optionally clear src to save memory when not looking
-			// gifImg.src = "";
 		};
 
-		// 1. Desktop Hover Logic (Wide Area)
 		section?.addEventListener('mouseenter', startAnimation);
 		section?.addEventListener('mouseleave', stopAnimation);
 
-		// 2. Scroll/Periphery Logic
 		if (container) {
 			const observer = new IntersectionObserver((entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
 						startAnimation();
 					} else {
-						// Only stop if the mouse isn't currently hovering (prevents flickering)
 						if (!section?.matches(':hover')) {
 							stopAnimation();
 						}
@@ -169,7 +172,7 @@ const latestRelease = getLatestRelease();
 				});
 			}, {
 				threshold: [0, 0.3, 1],
-				rootMargin: '150px 0px 150px 0px' // "Nearby" trigger zone
+				rootMargin: '150px 0px 150px 0px'
 			});
 			observer.observe(container);
 		}
