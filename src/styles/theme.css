@@ -1,0 +1,89 @@
+/* Inzies Theme Variables */
+
+:root {
+	/* Brand Colors */
+	--color-orange: #FF6B00;
+	--color-orange-light: #FF9533;
+	--color-orange-dark: #CC5600;
+	--color-blue: #0066FF;
+	--color-blue-light: #3385FF;
+	--color-blue-dark: #0052CC;
+	--color-blue-glow: #00D4FF;
+	--color-black: #0A0A0A;
+
+	/* Light Theme */
+	--bg-primary: #FAFAFA;
+	--bg-secondary: #F0F0F0;
+	--bg-card: rgba(255, 255, 255, 0.9);
+	--text-primary: #0A0A0A;
+	--text-secondary: #4D4D4D;
+	--text-muted: #808080;
+	--border-color: rgba(0, 0, 0, 0.1);
+
+	/* Spacing */
+	--page-width: 1200px;
+	--header-height: 72px;
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 16px;
+	--radius-xl: 24px;
+}
+
+:root.dark {
+	/* Dark Theme */
+	--bg-primary: #0A0A0A;
+	--bg-secondary: #1A1A1A;
+	--bg-card: rgba(26, 26, 26, 0.9);
+	--text-primary: #FAFAFA;
+	--text-secondary: #B3B3B3;
+	--text-muted: #666666;
+	--border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Background Gradients */
+.bg-gradient-dark {
+	background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 50%, #0A0A0A 100%);
+}
+
+.bg-gradient-orange {
+	background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-orange-dark) 100%);
+}
+
+.bg-gradient-blue {
+	background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-blue-glow) 100%);
+}
+
+.bg-gradient-mixed {
+	background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-blue) 100%);
+}
+
+/* Glow Effects */
+.glow-orange {
+	box-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+}
+
+.glow-blue {
+	box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+}
+
+.glow-cyan {
+	box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+/* Text Shadows */
+.text-glow-orange {
+	text-shadow: 0 0 20px rgba(255, 107, 0, 0.7);
+}
+
+.text-glow-blue {
+	text-shadow: 0 0 20px rgba(0, 102, 255, 0.7);
+}
+
+/* Border Gradients */
+.border-gradient {
+	border: 2px solid transparent;
+	background-image: linear-gradient(var(--bg-card), var(--bg-card)),
+		linear-gradient(135deg, var(--color-orange), var(--color-blue));
+	background-origin: padding-box, border-box;
+	background-clip: padding-box, border-box;
+}

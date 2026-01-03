@@ -1,0 +1,63 @@
+---
+import { Icon } from "astro-icon/components";
+import { siteConfig } from "../../config";
+import SocialLinks from "../social/SocialLinks.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="relative z-10 border-t border-[var(--border-color)] bg-[var(--bg-secondary)]/50 backdrop-blur-sm">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+			<!-- Brand -->
+			<div class="space-y-4">
+				<div class="flex items-center gap-3">
+					<img 
+						src="/inzies-band/LogoAnimations/logo-transparent.png" 
+						alt="Inzies"
+						class="h-12 w-auto"
+					/>
+					<div>
+						<p class="text-sm text-[var(--text-muted)]">{siteConfig.subtitle}</p>
+					</div>
+				</div>
+				<p class="text-[var(--text-secondary)] text-sm leading-relaxed">
+					{siteConfig.description}
+				</p>
+			</div>
+
+			<!-- Quick Links -->
+			<div class="space-y-4">
+				<h4 class="font-bold text-lg">Links</h4>
+				<nav class="space-y-2">
+					<a href="/inzies-band/" class="block text-[var(--text-secondary)] hover:text-inzies-orange transition-colors">Home</a>
+					<a href="/inzies-band/about/" class="block text-[var(--text-secondary)] hover:text-inzies-orange transition-colors">About</a>
+					<a href="/inzies-band/music/" class="block text-[var(--text-secondary)] hover:text-inzies-orange transition-colors">Music</a>
+					<a href="/inzies-band/gallery/" class="block text-[var(--text-secondary)] hover:text-inzies-orange transition-colors">Gallery</a>
+				</nav>
+			</div>
+
+			<!-- Social & Contact -->
+			<div class="space-y-4">
+				<h4 class="font-bold text-lg">Connect</h4>
+				<SocialLinks />
+				<a href="mailto:hello@inzies.band" class="block text-sm text-[var(--text-muted)] hover:text-inzies-orange transition-colors">
+					hello@inzies.band
+				</a>
+			</div>
+		</div>
+
+		<!-- Bottom Bar -->
+		<div class="mt-12 pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-4">
+			<p class="text-sm text-[var(--text-muted)]">
+				© {currentYear} {siteConfig.title}
+			</p>
+			<div class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+				<span>Built with</span>
+				<Icon name="simple-icons:astro" class="text-lg text-[#FF5D01]" />
+				<span>&</span>
+				<Icon name="simple-icons:svelte" class="text-lg text-[#FF3E00]" />
+			</div>
+		</div>
+	</div>
+</footer>

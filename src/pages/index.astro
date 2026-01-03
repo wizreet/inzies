@@ -1,0 +1,158 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/layout/Navbar.astro";
+import Footer from "../components/layout/Footer.astro";
+import SocialLinks from "../components/social/SocialLinks.astro";
+import GlowButton from "../components/ui/GlowButton.astro";
+import ReleaseCard from "../components/music/ReleaseCard.astro";
+import { siteConfig } from "../config";
+import { getLatestRelease } from "../data/releases";
+
+const latestRelease = getLatestRelease();
+---
+
+<Layout>
+	<div class="relative min-h-screen flex flex-col z-10">
+		<Navbar />
+		
+		<!-- Hero Section -->
+		<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+			<!-- Background Gradient -->
+			<div class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"></div>
+			
+			<!-- Animated Grid Background -->
+			<div class="absolute inset-0 grid-bg opacity-20"></div>
+			
+			<!-- Glow Effects -->
+			<div class="absolute top-1/4 -left-32 w-96 h-96 bg-inzies-orange/20 rounded-full blur-[128px]"></div>
+			<div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-inzies-blue/20 rounded-full blur-[128px]"></div>
+
+			<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+				<!-- Logo with video animation on hover -->
+				<div class="mb-8 animate-fade-in flex justify-center">
+					<div class="relative w-64 md:w-80 lg:w-96 logo-container cursor-pointer">
+						<!-- Static Logo (shown by default) -->
+						<img 
+							src="/inzies-band/LogoAnimations/logo-transparent.png" 
+							alt="Inzies Logo"
+							class="w-full h-auto logo-static"
+						/>
+						<!-- Animated Video (shown on hover, scaled to match logo size) -->
+						<div class="absolute inset-0 flex items-center justify-center logo-video-wrapper">
+							<video 
+								muted 
+								loop
+								playsinline
+								class="logo-video"
+							>
+								<source src="/inzies-band/LogoAnimations/Logo%2016%20-%209.mp4" type="video/mp4" />
+							</video>
+						</div>
+					</div>
+				</div>
+
+				<!-- Title -->
+				<div class="mb-8 animate-fade-in" style="animation-delay: 0.2s;">
+				<p class="text-lg md:text-xl text-[#FF6B00] font-medium">
+					{siteConfig.subtitle}
+				</p>
+			</div>
+			{siteConfig.description && (
+				<p class="max-w-2xl mx-auto text-lg md:text-xl text-[var(--text-secondary)] mb-12 animate-slide-up" style="animation-delay: 0.3s;">
+					{siteConfig.description}
+				</p>
+			)}
+
+				<!-- Social Links -->
+				<div class="flex flex-col items-center animate-slide-up" style="animation-delay: 0.5s;">
+					<SocialLinks />
+					<p class="mt-4 text-sm text-[var(--text-secondary)]">
+						Follow us on our social channels
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Latest Release Section -->
+		{latestRelease && (
+			<section class="py-24 bg-[var(--bg-secondary)]/30">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<h2 class="section-title mb-12 scroll-reveal">Latest Release</h2>
+					<div class="scroll-reveal" style="animation-delay: 0.2s;">
+						<ReleaseCard release={latestRelease} />
+					</div>
+				</div>
+			</section>
+		)}
+
+		<!-- Play Along CTA -->
+		<section class="py-24">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="card-base p-8 md:p-12 text-center">
+					<h2 class="text-3xl md:text-4xl font-bold mb-4">Remix Our Stuff</h2>
+					<p class="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
+						We put our beats on Strudel. You can mess with them, remix them, whatever.
+					</p>
+					<GlowButton 
+						href="/inzies-band/play/" 
+						variant="primary" 
+						size="lg"
+						icon="material-symbols:code"
+					>
+						Play Around
+					</GlowButton>
+				</div>
+			</div>
+		</section>
+
+		<Footer />
+	</div>
+</Layout>
+
+<style>
+	.logo-static {
+		transition: opacity 0.3s ease;
+	}
+	
+	.logo-video-wrapper {
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+		overflow: visible;
+	}
+	
+	.logo-video {
+		/* Scale video so the logo inside matches the static logo size */
+		/* The video has waves around it, so we scale it up */
+		width: 200%;
+		height: auto;
+		mix-blend-mode: screen;
+	}
+	
+	.logo-container:hover .logo-static {
+		opacity: 0;
+	}
+	
+	.logo-container:hover .logo-video-wrapper {
+		opacity: 1;
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const container = document.querySelector('.logo-container');
+		const video = container?.querySelector('video');
+		
+		if (container && video) {
+			container.addEventListener('mouseenter', () => {
+				video.currentTime = 0;
+				video.play();
+			});
+			
+			container.addEventListener('mouseleave', () => {
+				video.pause();
+			});
+		}
+	});
+</script>

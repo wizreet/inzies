@@ -1,0 +1,167 @@
+---
+import { Icon } from "astro-icon/components";
+import { navConfig, siteConfig } from "../../config";
+import LightDarkSwitch from "../ui/LightDarkSwitch.svelte";
+
+const currentPath = Astro.url.pathname;
+
+// More precise path matching - normalize and compare
+function isActive(linkUrl: string): boolean {
+	const normalizedCurrent = currentPath.endsWith("/") ? currentPath : currentPath + "/";
+	const normalizedLink = linkUrl.endsWith("/") ? linkUrl : linkUrl + "/";
+	return normalizedCurrent === normalizedLink;
+}
+---
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-lg border-b border-[var(--border-color)]">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="flex items-center justify-between h-[var(--header-height)]">
+			<!-- Logo -->
+			<a href="/inzies-band/" class="flex items-center gap-3 group">
+				<img 
+					src="/inzies-band/LogoAnimations/logo-transparent.png" 
+					alt="Inzies"
+					class="h-8 w-auto group-hover:scale-110 transition-transform"
+				/>
+			</a>
+
+			<!-- Desktop Navigation -->
+			<div class="hidden md:flex items-center gap-1">
+				{navConfig.map((link) => (
+					<a
+						href={link.url}
+						data-nav-link
+						aria-current={isActive(link.url) ? "page" : undefined}
+						class:list={["nav-link nav-link-desktop", isActive(link.url) && "is-active"]}
+					>
+						{link.name}
+					</a>
+				))}
+			</div>
+
+			<!-- Right Side Actions -->
+			<div class="flex items-center gap-2">
+				<!-- Links Dropdown -->
+				<div class="relative hidden md:block">
+					<button 
+						id="links-dropdown-btn"
+						class="nav-link nav-link-desktop flex items-center gap-1"
+						aria-label="Links"
+					>
+						Links
+						<Icon name="material-symbols:arrow-drop-down-rounded" class="text-xl" />
+					</button>
+					<div 
+						id="links-dropdown-menu"
+						class="absolute right-0 mt-2 w-48 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg shadow-lg hidden"
+					>
+						<div class="py-2">
+							<a href="{siteConfig.social.youtube}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+								<Icon name="fa6-brands:youtube" class="text-lg" />
+								<span class="text-sm">YouTube</span>
+							</a>
+							<a href="{siteConfig.social.spotify}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+								<Icon name="fa6-brands:spotify" class="text-lg" />
+								<span class="text-sm">Spotify</span>
+							</a>
+							<a href="{siteConfig.social.instagram}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+								<Icon name="fa6-brands:instagram" class="text-lg" />
+								<span class="text-sm">Instagram</span>
+							</a>
+							<a href="{siteConfig.social.facebook}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-2 hover:bg-[var(--bg-primary)] transition-colors">
+								<Icon name="fa6-brands:facebook" class="text-lg" />
+								<span class="text-sm">Facebook</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Mobile Menu Button -->
+				<button 
+					id="mobile-menu-btn"
+					class="md:hidden btn-plain w-11 h-11 rounded-lg"
+					aria-label="Toggle menu"
+				>
+					<Icon name="material-symbols:menu-rounded" class="text-2xl" />
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Mobile Navigation -->
+	<div id="mobile-menu" class="hidden md:hidden border-t border-[var(--border-color)]">
+		<div class="px-4 py-4 space-y-1 bg-[var(--bg-secondary)]">
+			{navConfig.map((link) => (
+				<a
+					href={link.url}
+					data-nav-link
+					aria-current={isActive(link.url) ? "page" : undefined}
+					class:list={["nav-link nav-link-mobile", isActive(link.url) && "is-active"]}
+				>
+					<span class="flex items-center gap-3">
+						{link.icon && <Icon name={link.icon} class="text-xl" />}
+						{link.name}
+					</span>
+				</a>
+			))}
+		</div>
+	</div>
+</nav>
+
+<script>
+	const menuBtn = document.getElementById("mobile-menu-btn");
+	const mobileMenu = document.getElementById("mobile-menu");
+	const navbar = document.getElementById("navbar");
+	const linksDropdownBtn = document.getElementById("links-dropdown-btn");
+	const linksDropdownMenu = document.getElementById("links-dropdown-menu");
+
+	const normalizePath = (path) => (path.endsWith("/") ? path : `${path}/`);
+
+	const updateActiveNav = () => {
+		if (!navbar) return;
+		const current = normalizePath(window.location.pathname);
+		navbar.querySelectorAll("a[data-nav-link]").forEach((link) => {
+			const linkPath = normalizePath(new URL(link.href).pathname);
+			const active = current === linkPath;
+			link.classList.toggle("is-active", active);
+			if (active) link.setAttribute("aria-current", "page");
+			else link.removeAttribute("aria-current");
+		});
+	};
+
+	menuBtn?.addEventListener("click", () => {
+		mobileMenu?.classList.toggle("hidden");
+	});
+
+	// Links dropdown toggle
+	linksDropdownBtn?.addEventListener("click", (e) => {
+		e.stopPropagation();
+		linksDropdownMenu?.classList.toggle("hidden");
+	});
+
+	// Close dropdown when clicking outside
+	document.addEventListener("click", (e) => {
+		if (!linksDropdownMenu?.contains(e.target) && !linksDropdownBtn?.contains(e.target)) {
+			linksDropdownMenu?.classList.add("hidden");
+		}
+	});
+
+	// Close menu on link click
+	mobileMenu?.querySelectorAll("a").forEach((link) => {
+		link.addEventListener("click", () => {
+			mobileMenu?.classList.add("hidden");
+		});
+	});
+
+	// Swup keeps the navbar mounted while swapping <main>, so update active link on swaps.
+	document.addEventListener("astro:page-load", () => {
+		updateActiveNav();
+	});
+
+	document.addEventListener("astro:after-swap", () => {
+		updateActiveNav();
+		mobileMenu?.classList.add("hidden");
+	});
+
+	updateActiveNav();
+</script>

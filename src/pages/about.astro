@@ -1,0 +1,109 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../layouts/MainLayout.astro";
+import { siteConfig } from "../config";
+
+// Band member data - positioned like on stage
+const bandMembers = [
+	{ name: "Pratima", role: "Vocals", color: "orange", position: "front-center" },
+	{ name: "Reetwiz", role: "Guitar", color: "blue", position: "mid-left" },
+	{ name: "Aadish", role: "Guitar", color: "blue", position: "mid-right" },
+	{ name: "Biplob", role: "Keys", color: "purple", position: "back-left" },
+	{ name: "Prasanna", role: "Bass", color: "green", position: "back-center" },
+	{ name: "Prashanna", role: "Drums", color: "orange", position: "back-right" },
+];
+---
+
+<MainLayout title="About" description="Meet the band.">
+	<!-- Page Header -->
+	<div class="mb-16">
+		<h1 class="section-title text-4xl md:text-5xl mb-6 text-white">Indie Music Band</h1>
+	</div>
+
+	<!-- Our Story -->
+	<section class="mb-20">
+		<div class="card-base p-8 md:p-12 relative overflow-hidden">
+			<!-- Subtle logo watermark -->
+			<div class="absolute -right-16 -bottom-16 w-64 h-64 opacity-5 pointer-events-none">
+				<img 
+					src="/inzies-band/LogoAnimations/logo-transparent.png" 
+					alt="" 
+					class="w-full h-full object-contain"
+					aria-hidden="true"
+				/>
+			</div>
+			<div class="prose prose-invert max-w-none relative z-10">
+				<h3 class="text-2xl font-bold mb-6 text-inzies-orange">How it started</h3>
+				<p class="text-[var(--text-secondary)] text-lg leading-relaxed mb-6">
+					Met in 2021. Jammed. Kept jamming. Now we're here.
+				</p>
+				<p class="text-[var(--text-secondary)] text-lg leading-relaxed mb-6">
+					We play stuff that sounds like rock had a baby with electronic music. 
+					Guitars and synths, loud and quiet, that kind of thing.
+				</p>
+				<p class="text-[var(--text-secondary)] text-lg leading-relaxed">
+					We put our music everywhere, plus we share our beats on Strudel so you can remix them. 
+					That's more fun than just listening, honestly.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Band Members -->
+	<section class="mb-20">
+		<h2 class="section-title mb-8">The Band</h2>
+		
+		<div class="stage-container relative w-full aspect-[16/9] md:aspect-[2/1] rounded-2xl overflow-hidden bg-zinc-900/50">
+			<!-- Placeholder image -->
+			<img 
+				src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=1200&h=600&fit=crop" 
+				alt="Band placeholder" 
+				class="w-full h-full object-cover opacity-40"
+			/>
+			
+			<!-- Streaming Links Overlay -->
+			<div class="absolute inset-0 flex items-center justify-center gap-6">
+				<a 
+					href="https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb" 
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bg-[#1DB954] hover:bg-[#1ed760] text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl hover:scale-105"
+				>
+					<Icon name="material-symbols:music-note" class="text-2xl" />
+					Spotify
+				</a>
+				<a 
+					href="https://www.youtube.com/@InziesBand" 
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bg-[#FF0000] hover:bg-[#ff1a1a] text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl hover:scale-105"
+				>
+					<Icon name="material-symbols:play-circle" class="text-2xl" />
+					YouTube
+				</a>
+			</div>
+			
+			<!-- Hover hint -->
+			<div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-white/40 text-xs">
+				hover over us ✨
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact CTA -->
+	<section class="text-center">
+		<div class="card-base p-12">
+			<h2 class="text-3xl font-bold mb-4">Say Hi</h2>
+			<p class="text-[var(--text-secondary)] mb-8 max-w-xl mx-auto">
+				Wanna book us? Collab? Just chat? We're around.
+			</p>
+			<a 
+				href="mailto:hello@inzies.band" 
+				class="btn-glow inline-flex items-center gap-2"
+			>
+				<Icon name="material-symbols:mail" class="text-xl" />
+				hello@inzies.band
+			</a>
+		</div>
+	</section>
+</MainLayout>

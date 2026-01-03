@@ -1,0 +1,76 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/layout/Navbar.astro";
+import Footer from "../components/layout/Footer.astro";
+import GlowButton from "../components/ui/GlowButton.svelte";
+---
+
+<Layout title="404 - Page Not Found">
+	<div class="relative min-h-screen flex flex-col z-10">
+		<Navbar />
+		
+		<main class="flex-1 flex items-center justify-center px-4">
+			<div class="text-center max-w-2xl mx-auto">
+				<!-- 404 Display -->
+				<div class="mb-8">
+					<h1 class="text-[150px] md:text-[200px] font-bold leading-none gradient-text">
+						404
+					</h1>
+				</div>
+
+				<!-- Terminal Style Error -->
+				<div class="terminal-window mb-8 text-left">
+					<div class="terminal-header">
+						<div class="terminal-dot red"></div>
+						<div class="terminal-dot yellow"></div>
+						<div class="terminal-dot green"></div>
+						<span class="terminal-title">error.log</span>
+					</div>
+					<div class="terminal-body">
+						<p class="text-red-400 font-mono text-sm">
+							Error: Page not found
+						</p>
+						<p class="text-[var(--text-muted)] font-mono text-sm mt-2">
+							Looks like this route doesn't exist.
+						</p>
+						<p class="text-inzies-orange font-mono text-sm mt-4">
+							The page you're looking for has been moved, deleted, <br />
+							or maybe it was never here in the first place...
+						</p>
+					</div>
+				</div>
+
+				<!-- Message -->
+				<h2 class="text-2xl md:text-3xl font-bold mb-4">
+					This page doesn't exist
+				</h2>
+				<p class="text-[var(--text-secondary)] mb-8">
+					Looks like you've hit a broken link or mistyped the URL.
+				</p>
+
+				<!-- Actions -->
+				<div class="flex flex-wrap items-center justify-center gap-4">
+					<GlowButton 
+						client:load 
+						href="/" 
+						variant="primary"
+						icon="material-symbols:home"
+					>
+						Go Home
+					</GlowButton>
+					<GlowButton 
+						client:load 
+						href="/music/" 
+						variant="outline"
+						icon="material-symbols:music-note"
+					>
+						Listen to Music
+					</GlowButton>
+				</div>
+			</div>
+		</main>
+
+		<Footer />
+	</div>
+</Layout>

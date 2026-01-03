@@ -1,0 +1,80 @@
+---
+import { Icon } from "astro-icon/components";
+import { siteConfig } from "../../config";
+
+const social = siteConfig.social;
+---
+
+<div class="flex items-center gap-3 flex-wrap">
+	{social.spotify && (
+		<a
+			href={social.spotify}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="social-link"
+			aria-label="Spotify"
+		>
+			<Icon name="fa6-brands:spotify" class="text-3xl" />
+		</a>
+	)}
+	
+	{social.youtube && (
+		<a
+			href={social.youtube}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="social-link"
+			aria-label="YouTube"
+		>
+			<Icon name="fa6-brands:youtube" class="text-3xl" />
+		</a>
+	)}
+	
+	{social.instagram && (
+		<a
+			href={social.instagram}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="social-link"
+			aria-label="Instagram"
+		>
+			<Icon name="fa6-brands:instagram" class="text-3xl" />
+		</a>
+	)}
+	
+	{social.facebook && (
+		<a
+			href={social.facebook}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="social-link"
+			aria-label="Facebook"
+		>
+			<Icon name="fa6-brands:facebook" class="text-3xl" />
+		</a>
+	)}
+
+	{social.twitter && (
+		<a
+			href={social.twitter}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="social-link"
+			aria-label="X (Twitter)"
+		>
+			<Icon name="fa6-brands:x-twitter" class="text-3xl" />
+		</a>
+	)}
+
+	{social.tiktok && (
+		<a
+			href={social.tiktok}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="social-link"
+			aria-label="TikTok"
+		>
+			<Icon name="fa6-brands:tiktok" class="text-3xl" />
+		</a>
+	)}
+</div>

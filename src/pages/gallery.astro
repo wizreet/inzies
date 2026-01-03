@@ -1,0 +1,71 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../layouts/MainLayout.astro";
+
+// Gallery images with stock photos
+const galleryImages = [
+	{ src: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800", alt: "Live performance", category: "live" },
+	{ src: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800", alt: "Concert shot", category: "live" },
+	{ src: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800", alt: "Stage energy", category: "live" },
+	{ src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800", alt: "Studio session", category: "studio" },
+	{ src: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=800", alt: "Recording", category: "studio" },
+	{ src: "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800", alt: "Mixing desk", category: "studio" },
+	{ src: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800", alt: "Behind the scenes", category: "bts" },
+	{ src: "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=800", alt: "Band hangout", category: "bts" },
+	{ src: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800", alt: "Backstage", category: "bts" },
+];
+
+const categories = [
+	{ id: "all", name: "All" },
+	{ id: "live", name: "Live" },
+	{ id: "studio", name: "Studio" },
+	{ id: "bts", name: "BTS" },
+];
+---
+
+<MainLayout title="Gallery" description="Photos from shows, studio sessions, and behind the scenes.">
+	<!-- Page Header -->
+	<div class="mb-16">
+		<h1 class="section-title text-4xl md:text-5xl mb-6">Gallery</h1>
+		<p class="text-xl text-[var(--text-secondary)] max-w-3xl">
+			On stage, in the studio, and everything between.
+		</p>
+	</div>
+
+	<!-- Gallery Grid Placeholder -->
+	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+		{galleryImages.map((image, index) => (
+			<div 
+				class="group relative aspect-square rounded-xl overflow-hidden card-base scroll-reveal"
+				style={`animation-delay: ${index * 0.1}s`}
+			>
+				<img 
+					src={image.src} 
+					alt={image.alt} 
+					class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+					loading="lazy"
+				/>
+				<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+					<p class="text-white text-sm font-medium">{image.alt}</p>
+				</div>
+			</div>
+		))}
+	</div>
+
+	<!-- Coming Soon Notice -->
+	<div class="mt-12 card-base p-12 text-center">
+		<h3 class="text-xl font-bold mb-4">More Photos Coming</h3>
+		<p class="text-[var(--text-secondary)] max-w-md mx-auto mb-6">
+			We're updating our gallery. For now, check out our Instagram.
+		</p>
+		<a 
+			href="https://instagram.com/tameimpala" 
+			target="_blank"
+			rel="noopener noreferrer"
+			class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+		>
+			<Icon name="fa6-brands:instagram" class="text-xl" />
+			View on Instagram
+		</a>
+	</div>
+</MainLayout>

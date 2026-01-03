@@ -1,0 +1,74 @@
+---
+import { Icon } from "astro-icon/components";
+import type { BandMember } from "../../data/band-members";
+
+interface Props {
+	member: BandMember;
+}
+
+const { member } = Astro.props;
+---
+
+<div class="card-base p-6 hover-lift group">
+	<!-- ASCII Art Avatar -->
+	<div class="relative w-full aspect-square mb-4 rounded-lg overflow-hidden bg-gradient-to-br from-inzies-black via-[#111] to-[#0a0a0a] flex items-center justify-center">
+		<pre class="text-inzies-orange text-[10px] sm:text-xs leading-tight font-mono group-hover:text-inzies-blue transition-colors duration-300 select-none">{member.asciiArt}</pre>
+		
+		<!-- Role Badge -->
+		<div class="absolute bottom-3 left-3">
+			<span class="px-3 py-1 bg-inzies-orange/90 text-white text-xs font-bold rounded-full">
+				{member.role}
+			</span>
+		</div>
+	</div>
+
+	<!-- Info -->
+	<div class="space-y-3">
+		<div>
+			<h3 class="text-xl font-bold">{member.name}</h3>
+		</div>
+		
+		<p class="text-sm text-[var(--text-secondary)] line-clamp-3">
+			{member.bio}
+		</p>
+
+		<!-- Instruments -->
+		{member.instruments && (
+			<div class="flex flex-wrap gap-2">
+				{member.instruments.map((instrument) => (
+					<span class="px-2 py-1 bg-inzies-blue/10 text-inzies-blue text-xs rounded-lg font-mono">
+						{instrument}
+					</span>
+				))}
+			</div>
+		)}
+
+		<!-- Social Links -->
+		{member.social && (
+			<div class="flex items-center gap-3 pt-2">
+				{member.social.instagram && (
+					<a
+						href={member.social.instagram}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-[var(--text-muted)] hover:text-inzies-orange transition-colors"
+						aria-label={`${member.name}'s Instagram`}
+					>
+						<Icon name="fa6-brands:instagram" class="text-lg" />
+					</a>
+				)}
+				{member.social.twitter && (
+					<a
+						href={member.social.twitter}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-[var(--text-muted)] hover:text-inzies-blue transition-colors"
+						aria-label={`${member.name}'s Twitter`}
+					>
+						<Icon name="fa6-brands:x-twitter" class="text-lg" />
+					</a>
+				)}
+			</div>
+		)}
+	</div>
+</div>

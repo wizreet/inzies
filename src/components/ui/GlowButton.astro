@@ -1,0 +1,47 @@
+---
+interface Props {
+	href?: string;
+	variant?: "primary" | "secondary" | "outline";
+	size?: "sm" | "md" | "lg";
+	icon?: string;
+	external?: boolean;
+	class?: string;
+}
+
+import { Icon } from "astro-icon/components";
+
+const { 
+	href = "#", 
+	variant = "primary", 
+	size = "md", 
+	icon = "", 
+	external = false,
+	class: className = ""
+} = Astro.props;
+
+const baseClasses = "inline-flex items-center justify-center gap-2 font-bold rounded-lg transition-all duration-300";
+
+const variantClasses = {
+	primary: "bg-gradient-to-r from-inzies-orange to-inzies-orange-400 text-white hover:shadow-[0_0_30px_rgba(255,107,0,0.5)] hover:-translate-y-0.5",
+	secondary: "bg-gradient-to-r from-inzies-blue to-inzies-blue-400 text-white hover:shadow-[0_0_30px_rgba(0,102,255,0.5)] hover:-translate-y-0.5",
+	outline: "border-2 border-inzies-orange text-inzies-orange hover:bg-inzies-orange hover:text-white"
+};
+
+const sizeClasses = {
+	sm: "px-4 py-2 text-sm",
+	md: "px-6 py-3 text-base",
+	lg: "px-8 py-4 text-lg"
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+---
+
+<a
+	href={href}
+	class={classes}
+	target={external ? "_blank" : undefined}
+	rel={external ? "noopener noreferrer" : undefined}
+>
+	{icon && <Icon name={icon} class="text-lg" />}
+	<slot />
+</a>

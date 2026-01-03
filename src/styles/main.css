@@ -1,0 +1,203 @@
+/* Inzies Band - Main Styles */
+@import "./theme.css";
+@import "./terminal.css";
+@import "./animations.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Styles */
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Roboto Slab", serif;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	min-height: 100vh;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Roboto Slab", serif;
+	font-weight: 700;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-orange);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-orange-dark);
+}
+
+/* Selection */
+::selection {
+	background-color: var(--color-orange);
+	color: var(--bg-primary);
+}
+
+@layer components {
+	/* Card Base */
+	.card-base {
+		@apply bg-white/10 dark:bg-black/30 backdrop-blur-md rounded-xl border border-white/10 dark:border-white/5;
+		transition: all 0.3s ease;
+	}
+
+	.card-base:hover {
+		@apply border-inzies-orange/30;
+		box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
+	}
+
+	/* Glow Button */
+	.btn-glow {
+		@apply relative px-6 py-3 font-bold text-white bg-gradient-to-r from-inzies-orange to-inzies-blue rounded-lg overflow-hidden;
+		transition: all 0.3s ease;
+	}
+
+	.btn-glow::before {
+		content: "";
+		@apply absolute inset-0 bg-gradient-to-r from-inzies-orange to-inzies-blue opacity-0;
+		filter: blur(20px);
+		transition: opacity 0.3s ease;
+		z-index: -1;
+	}
+
+	.btn-glow:hover::before {
+		opacity: 1;
+	}
+
+	.btn-glow:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 40px rgba(255, 107, 0, 0.4);
+	}
+
+	/* Plain Button */
+	.btn-plain {
+		@apply flex items-center justify-center transition-all duration-200;
+	}
+
+	.btn-plain:hover {
+		@apply bg-white/10 dark:bg-white/5;
+	}
+
+	/* Navbar Links */
+	.nav-link {
+		@apply font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inzies-orange/40;
+	}
+
+	.nav-link-desktop {
+		@apply px-4 py-2 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5;
+	}
+
+	.nav-link-mobile {
+		@apply block px-4 py-3 rounded-lg text-[var(--text-secondary)] hover:bg-white/5;
+	}
+
+	.nav-link.is-active {
+		@apply bg-inzies-orange/20 text-inzies-orange;
+	}
+
+	/* Section Title */
+	.section-title {
+		@apply text-3xl md:text-4xl font-bold mb-8 relative inline-block;
+	}
+
+	.section-title::after {
+		content: "";
+		@apply absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-inzies-orange to-inzies-blue rounded-full opacity-40;
+	}
+
+	/* Social Link */
+	.social-link {
+		@apply w-12 h-12 flex items-center justify-center rounded-full bg-white/10 dark:bg-white/5 text-white/70 transition-all duration-300;
+	}
+
+	.social-link:hover {
+		@apply bg-inzies-orange text-white scale-110;
+		box-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+	}
+
+	/* Waveform Bar */
+	.waveform-bar {
+		@apply w-1 bg-inzies-orange rounded-full;
+		animation: waveform 1.2s ease-in-out infinite;
+	}
+
+	.waveform-bar:nth-child(1) { animation-delay: 0s; }
+	.waveform-bar:nth-child(2) { animation-delay: 0.1s; }
+	.waveform-bar:nth-child(3) { animation-delay: 0.2s; }
+	.waveform-bar:nth-child(4) { animation-delay: 0.3s; }
+	.waveform-bar:nth-child(5) { animation-delay: 0.4s; }
+
+	/* Code Block Style */
+	.code-comment {
+		@apply font-mono text-inzies-orange/70 text-sm;
+	}
+
+	.code-comment::before {
+		content: "// ";
+	}
+
+	/* Gradient Text */
+	.gradient-text {
+		@apply bg-gradient-to-r from-inzies-orange via-inzies-blue-glow to-inzies-blue bg-clip-text text-transparent;
+	}
+
+	/* Circuit Background */
+	.circuit-bg {
+		@apply bg-circuit-pattern;
+	}
+
+	/* Grid Background */
+	.grid-bg {
+		@apply bg-grid-pattern;
+	}
+}
+
+/* Page Transitions */
+.transition-swup-leave {
+	animation: fade-out 0.3s ease-out forwards;
+}
+
+.transition-swup-enter {
+	animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-out {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@keyframes fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* Loading Animation */
+.loading-spinner {
+	width: 40px;
+	height: 40px;
+	border: 3px solid var(--color-orange);
+	border-top-color: transparent;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}

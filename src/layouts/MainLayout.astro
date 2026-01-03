@@ -1,0 +1,25 @@
+---
+import Layout from "./Layout.astro";
+import Navbar from "../components/layout/Navbar.astro";
+import Footer from "../components/layout/Footer.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+	showBanner?: boolean;
+}
+
+const { title, description, showBanner = false } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+	<div class="relative min-h-screen flex flex-col z-10">
+		<Navbar />
+		
+		<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+			<slot />
+		</main>
+
+		<Footer />
+	</div>
+</Layout>
