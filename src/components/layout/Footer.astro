@@ -77,12 +77,12 @@ const footerLinks = [
 				<!-- Email obfuscated to prevent scraping -->
 				<button
 					type="button"
-					class="contact-email block rounded text-sm text-[var(--text-muted)] transition-colors hover:text-inzies-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inzies-orange/40"
+					class="contact-email block rounded font-mono text-sm text-[var(--text-muted)] transition-colors hover:text-inzies-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inzies-orange/40"
 					aria-label="Contact us"
 					data-u="hello"
 					data-d="inzies.band"
 				>
-					<span class="email-placeholder">Click to reveal email</span>
+					<span class="email-placeholder">hello@••••••.band</span>
 				</button>
 			</div>
 		</div>
@@ -102,23 +102,29 @@ const footerLinks = [
 
 <script>
 	// Email reveal on interaction - prevents bot scraping
-	document.querySelectorAll('.contact-email').forEach(btn => {
-		btn.addEventListener('click', function() {
+	document.querySelectorAll(".contact-email").forEach((btn) => {
+		btn.addEventListener("click", function () {
 			const el = this as HTMLElement;
 			const u = el.dataset.u;
 			const d = el.dataset.d;
 			if (u && d) {
-				const email = `${u}@${d}`;
-				window.location.href = `mailto:${email}`;
+				window.location.href = `mailto:${u}@${d}`;
 			}
 		});
-		btn.addEventListener('mouseenter', function() {
+		btn.addEventListener("mouseenter", function () {
 			const el = this as HTMLElement;
-			const placeholder = el.querySelector('.email-placeholder');
+			const placeholder = el.querySelector(".email-placeholder");
 			const u = el.dataset.u;
 			const d = el.dataset.d;
 			if (placeholder && u && d) {
 				placeholder.textContent = `${u}@${d}`;
+			}
+		});
+		btn.addEventListener("mouseleave", function () {
+			const el = this as HTMLElement;
+			const placeholder = el.querySelector(".email-placeholder");
+			if (placeholder) {
+				placeholder.textContent = "hello@••••••.band";
 			}
 		});
 	});

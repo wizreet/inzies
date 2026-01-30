@@ -3,28 +3,34 @@
  * About Page
  *
  * Displays band information, member details, and contact information.
- * Uses centralized data from the band-members module.
  */
 import { Icon } from "astro-icon/components";
 import MainLayout from "../layouts/MainLayout.astro";
 import { siteConfig } from "../config";
-import { bandMembers } from "../data/band-members";
 import { ASSET_PATHS, PLATFORM_COLORS } from "../constants";
 
-// Streaming platforms with proper security attributes
+// Band members with their roles
+const members = [
+	{ name: "Reetwiz", role: "Guitar", color: "#FF6B00" },
+	{ name: "Aadish", role: "Guitar", color: "#0066FF" },
+	{ name: "Pratima", role: "Vocals", color: "#E4405F" },
+	{ name: "Biplob", role: "Keyboard", color: "#1DB954" },
+	{ name: "Bibhushan", role: "Drums", color: "#FF0000" },
+	{ name: "Prasanna", role: "Bass", color: "#9B59B6" },
+] as const;
+
+// Streaming platforms
 const streamingLinks = [
 	{
 		name: "Spotify",
 		url: siteConfig.social.spotify ?? "#",
 		color: PLATFORM_COLORS.SPOTIFY,
-		hoverColor: "#1ed760",
 		icon: "fa6-brands:spotify",
 	},
 	{
 		name: "YouTube",
 		url: siteConfig.social.youtube ?? "#",
 		color: PLATFORM_COLORS.YOUTUBE,
-		hoverColor: "#ff1a1a",
 		icon: "fa6-brands:youtube",
 	},
 ] as const;
@@ -32,107 +38,116 @@ const streamingLinks = [
 
 <MainLayout title="About" description="Meet the band.">
 	<!-- Page Header -->
-	<header class="mb-16">
-		<h1 class="section-title mb-6 text-4xl text-white md:text-5xl">
+	<header class="mb-12">
+		<h1 class="section-title mb-4 text-4xl text-white md:text-5xl">
 			{siteConfig.subtitle}
 		</h1>
+		<p class="text-lg text-inzies-orange">Nepali Indie Rock from Kathmandu</p>
 	</header>
 
-	<!-- Our Story -->
-	<section class="mb-20" aria-labelledby="story-heading">
-		<div class="card-base relative overflow-hidden p-8 md:p-12">
-			<!-- Subtle logo watermark -->
-			<div
-				class="pointer-events-none absolute -bottom-16 -right-16 h-64 w-64 opacity-5"
-				aria-hidden="true"
-			>
-				<img
-					src={`${ASSET_PATHS.LOGOS}/logo-transparent.png`}
-					alt=""
-					class="h-full w-full object-contain"
-					loading="lazy"
-				/>
-			</div>
-			<div class="prose prose-invert relative z-10 max-w-none">
-				<h2 id="story-heading" class="mb-6 text-2xl font-bold text-inzies-orange">
+	<!-- About the Sound -->
+	<section class="mb-16" aria-labelledby="sound-heading">
+		<div class="card-base p-8 md:p-10">
+			<h2 id="sound-heading" class="mb-4 text-xl font-bold text-inzies-orange">Our Sound</h2>
+			<p class="mb-4 text-[var(--text-secondary)] leading-relaxed">
+				We blend <span class="text-white font-medium">indie rock</span> with 
+				<span class="text-white font-medium">Nepali folk melodies</span> and 
+				<span class="text-white font-medium">electronic textures</span>. 
+				Think raw guitars meeting synthesizers, traditional rhythms colliding with modern beats.
+			</p>
+			<p class="text-[var(--text-secondary)] leading-relaxed">
+				Our music explores themes of <em class="text-inzies-blue">hope, longing, and finding yourself</em> 
+				— sung in Nepali with English sprinkled in. We write songs that feel like late-night conversations.
+			</p>
+		</div>
+	</section>
+
+	<!-- Band Story -->
+	<section class="mb-16" aria-labelledby="story-heading">
+		<div class="card-base relative overflow-hidden p-8 md:p-10">
+			<div class="relative z-10">
+				<h2 id="story-heading" class="mb-4 text-xl font-bold text-inzies-orange">
 					How it started
 				</h2>
-				<p class="mb-6 text-lg leading-relaxed text-[var(--text-secondary)]">
-					Met in 2023. Jammed. Kept jamming. Now we're here.
+				<p class="mb-4 text-[var(--text-secondary)] leading-relaxed">
+					Met in 2023. Different backgrounds, same obsession with making noise. 
+					Started jamming in a cramped room in Kathmandu. Kept at it.
 				</p>
-				<p class="mb-6 text-lg leading-relaxed text-[var(--text-secondary)]">........</p>
-				<p class="text-lg leading-relaxed text-[var(--text-secondary)]">
-					We put our music everywhere, plus we share our beats on Strudel so you can remix them.
-					That's more fun than just listening.
+				<p class="text-[var(--text-secondary)] leading-relaxed">
+					Now we put our music everywhere, plus we share our beats on 
+					<a href="/inzies/play/" class="text-inzies-blue hover:underline">Strudel</a> 
+					so you can remix them. That's more fun than just listening.
 				</p>
 			</div>
 		</div>
 	</section>
 
 	<!-- Band Members -->
-	<section class="mb-20" aria-labelledby="band-heading">
-		<h2 id="band-heading" class="section-title mb-8">The Band</h2>
-
-		<div
-			class="stage-container relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-zinc-900/50 md:aspect-[2/1]"
-		>
-			<!-- Band image -->
-			<img
-				src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=1200&h=600&fit=crop"
-				alt={`${siteConfig.title} band members`}
-				class="h-full w-full object-cover opacity-40"
-				loading="lazy"
-			/>
-
-			<!-- Streaming Links Overlay -->
-			<div class="absolute inset-0 flex items-center justify-center gap-6">
-				{
-					streamingLinks.map((link) => (
-						<a
-							href={link.url}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="flex items-center gap-3 rounded-full px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-							style={`background-color: ${link.color}`}
-							aria-label={`Listen on ${link.name} (opens in new tab)`}
-						>
-							<Icon name={link.icon} class="text-2xl" />
-							{link.name}
-						</a>
-					))
-				}
+	<section class="mb-16" aria-labelledby="members-heading">
+		<h2 id="members-heading" class="section-title mb-8">The Band</h2>
+		
+		<!-- Retro Photo -->
+		<div class="mb-8 overflow-hidden rounded-2xl border-4 border-inzies-black-700 bg-inzies-black-900">
+			<div class="relative">
+				<!-- Vignette -->
+				<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none z-10"></div>
+				<!-- Image -->
+				<img
+					src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=1200&h=600&fit=crop"
+					alt="INZIES band - retro style"
+					class="w-full aspect-[2/1] object-cover sepia-[.3] contrast-110 brightness-90"
+					loading="lazy"
+				/>
 			</div>
-
-			<!-- Hover hint -->
-			<div
-				class="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-white/40"
-				aria-hidden="true"
-			>
-				hover over us ✨
+			<!-- Retro caption bar -->
+			<div class="bg-inzies-black-800 px-4 py-2 flex items-center justify-between border-t border-inzies-black-700">
+				<span class="font-mono text-xs text-inzies-black-500">INZIES • 2023</span>
+				<span class="font-mono text-xs text-inzies-orange">📷 KTM</span>
 			</div>
 		</div>
 
-		<!-- Member list (screen reader accessible) -->
-		<div class="sr-only">
-			<h3>Band Members:</h3>
-			<ul>
-				{
-					bandMembers.map((member) => (
-						<li>
-							{member.name} - {member.role}
-						</li>
-					))
-				}
-			</ul>
+		<!-- Member Cards -->
+		<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+			{members.map((member) => (
+				<div class="card-base p-4 text-center group hover:scale-105 transition-transform">
+					<div 
+						class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center text-white font-bold text-lg"
+						style={`background: ${member.color}20; border: 2px solid ${member.color}`}
+					>
+						{member.name.charAt(0)}
+					</div>
+					<h3 class="font-bold text-white text-sm">{member.name}</h3>
+					<p class="text-xs text-inzies-black-400">{member.role}</p>
+				</div>
+			))}
 		</div>
 	</section>
 
-	<!-- Contact CTA -->
+	<!-- Listen -->
+	<section class="mb-16" aria-labelledby="listen-heading">
+		<h2 id="listen-heading" class="section-title mb-6">Listen</h2>
+		<div class="flex flex-wrap gap-4">
+			{streamingLinks.map((link) => (
+				<a
+					href={link.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex items-center gap-3 rounded-full px-6 py-3 font-semibold text-white transition-all hover:scale-105"
+					style={`background-color: ${link.color}`}
+				>
+					<Icon name={link.icon} class="text-xl" />
+					{link.name}
+				</a>
+			))}
+		</div>
+	</section>
+
+	<!-- Contact -->
 	<section class="text-center" aria-labelledby="contact-heading">
-		<div class="card-base p-12">
-			<h2 id="contact-heading" class="mb-4 text-3xl font-bold">Say Hi</h2>
-			<p class="mx-auto mb-8 max-w-xl text-[var(--text-secondary)]">
-				Wanna book us? Collab? Just chat? We're around.
+		<div class="card-base p-10">
+			<h2 id="contact-heading" class="mb-3 text-2xl font-bold">Say Hi</h2>
+			<p class="mb-6 text-[var(--text-secondary)]">
+				Bookings, collabs, or just to chat.
 			</p>
 			<button
 				type="button"
@@ -142,15 +157,15 @@ const streamingLinks = [
 				data-d="inzies.band"
 			>
 				<Icon name="material-symbols:mail" class="text-xl" />
-				<span class="btn-text">Click to email us</span>
+				<span class="btn-text font-mono text-sm">hello@••••••.band</span>
 			</button>
 		</div>
 	</section>
 </MainLayout>
 
 <script>
-	document.querySelectorAll('.contact-btn').forEach(btn => {
-		btn.addEventListener('click', function() {
+	document.querySelectorAll(".contact-btn").forEach((btn) => {
+		btn.addEventListener("click", function () {
 			const el = this as HTMLElement;
 			const u = el.dataset.u;
 			const d = el.dataset.d;
@@ -158,20 +173,20 @@ const streamingLinks = [
 				window.location.href = `mailto:${u}@${d}`;
 			}
 		});
-		btn.addEventListener('mouseenter', function() {
+		btn.addEventListener("mouseenter", function () {
 			const el = this as HTMLElement;
-			const text = el.querySelector('.btn-text');
+			const text = el.querySelector(".btn-text");
 			const u = el.dataset.u;
 			const d = el.dataset.d;
 			if (text && u && d) {
 				text.textContent = `${u}@${d}`;
 			}
 		});
-		btn.addEventListener('mouseleave', function() {
+		btn.addEventListener("mouseleave", function () {
 			const el = this as HTMLElement;
-			const text = el.querySelector('.btn-text');
+			const text = el.querySelector(".btn-text");
 			if (text) {
-				text.textContent = 'Click to email us';
+				text.textContent = "hello@••••••.band";
 			}
 		});
 	});

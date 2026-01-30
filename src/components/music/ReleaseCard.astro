@@ -16,9 +16,11 @@ interface Props {
 	release: Release;
 	/** Priority loading for above-the-fold images */
 	priority?: boolean;
+	/** Show as featured (larger) card */
+	featured?: boolean;
 }
 
-const { release, priority = false } = Astro.props;
+const { release, priority = false, featured = false } = Astro.props;
 
 // Format release date for display
 const formattedDate = new Date(release.releaseDate).toLocaleDateString("en-US", {
@@ -31,10 +33,10 @@ const formattedDate = new Date(release.releaseDate).toLocaleDateString("en-US", 
 const hasLinks = release.spotifyUrl || release.youtubeUrl || release.appleMusicUrl || release.bandcampUrl;
 ---
 
-<article class="card-base p-6 hover-lift" itemscope itemtype="https://schema.org/MusicRelease">
-	<div class="flex flex-col md:flex-row gap-6">
+<article class:list={["card-base hover-lift", featured ? "p-6" : "p-4"]} itemscope itemtype="https://schema.org/MusicRelease">
+	<div class:list={["flex gap-4", featured ? "flex-col md:flex-row md:gap-6" : "flex-row"]}>
 		<!-- Album Art -->
-		<div class="relative w-full md:w-48 h-48 flex-shrink-0 group">
+		<div class:list={["relative flex-shrink-0 group", featured ? "w-full md:w-48 h-48" : "w-20 h-20"]}>
 			<img
 				src={release.coverArt}
 				alt={`${release.title} album cover`}
@@ -81,10 +83,10 @@ const hasLinks = release.spotifyUrl || release.youtubeUrl || release.appleMusicU
 		</div>
 
 		<!-- Info -->
-		<div class="flex-1 space-y-3">
+		<div class="flex-1 space-y-2">
 			<p class="code-comment text-xs uppercase tracking-wider">{release.type}</p>
-			<h3 class="text-2xl font-bold" itemprop="name">{release.title}</h3>
-			<p class="text-[var(--text-secondary)]" itemprop="description">{release.description}</p>
+			<h3 class:list={["font-bold", featured ? "text-2xl" : "text-lg"]} itemprop="name">{release.title}</h3>
+			{featured && <p class="text-[var(--text-secondary)] text-sm" itemprop="description">{release.description}</p>}
 
 			<div class="flex items-center gap-4 text-sm text-[var(--text-muted)]">
 				<time datetime={release.releaseDate} itemprop="datePublished" class="flex items-center gap-1">

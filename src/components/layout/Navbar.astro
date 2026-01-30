@@ -80,7 +80,7 @@ const socialLinks = [
 			<!-- Right Side Actions -->
 			<div class="flex items-center gap-2">
 				<!-- Links Dropdown -->
-				<div class="relative hidden md:block">
+				<div class="group relative hidden md:block">
 					<button
 						id="links-dropdown-btn"
 						class="nav-link nav-link-desktop flex items-center gap-1"
@@ -92,13 +92,13 @@ const socialLinks = [
 						Links
 						<Icon
 							name="material-symbols:arrow-drop-down-rounded"
-							class="text-xl"
+							class="text-xl transition-transform group-hover:rotate-180"
 							aria-hidden="true"
 						/>
 					</button>
 					<div
 						id="links-dropdown-menu"
-						class="absolute right-0 mt-2 hidden w-48 rounded-lg border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-lg"
+						class="absolute right-0 mt-2 w-48 rounded-lg border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200"
 						role="menu"
 						aria-labelledby="links-dropdown-btn"
 					>

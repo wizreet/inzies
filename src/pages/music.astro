@@ -2,33 +2,31 @@
 /**
  * Music Page
  *
- * Displays all releases and streaming platform links.
- * Uses centralized data from the releases module.
+ * Displays all releases organized by albums and singles.
  */
 import { Icon } from "astro-icon/components";
 import MainLayout from "../layouts/MainLayout.astro";
 import ReleaseCard from "../components/music/ReleaseCard.astro";
-import { getReleasesSortedByDate } from "../data/releases";
+import { releases } from "../data/releases";
 import { siteConfig } from "../config";
 import { PLATFORM_COLORS } from "../constants";
 
-// Get releases sorted by date (newest first)
-const sortedReleases = getReleasesSortedByDate("desc");
+// Separate albums and singles
+const albums = releases.filter(r => r.type === "album");
+const singles = releases.filter(r => r.type === "single");
 
-// Streaming platforms configuration with proper security attributes
+// Streaming platforms
 const streamingPlatforms = [
 	{
 		name: "Spotify",
 		url: siteConfig.social.spotify ?? "#",
 		color: PLATFORM_COLORS.SPOTIFY,
-		hoverClass: "hover:bg-green-600/20 hover:border-green-500",
 		icon: "fa6-brands:spotify",
 	},
 	{
 		name: "YouTube",
 		url: siteConfig.social.youtube ?? "#",
 		color: PLATFORM_COLORS.YOUTUBE,
-		hoverClass: "hover:bg-red-600/20 hover:border-red-500",
 		icon: "fa6-brands:youtube",
 	},
 ] as const;
@@ -36,56 +34,66 @@ const streamingPlatforms = [
 
 <MainLayout title="Music" description="Our releases and where to stream them.">
 	<!-- Header -->
-	<div class="mb-16">
-		<h1 class="section-title mb-6 text-4xl md:text-5xl">Music</h1>
-		<p class="text-xl text-[var(--text-secondary)]">Our releases</p>
-	</div>
+	<header class="mb-12">
+		<h1 class="section-title mb-4 text-4xl md:text-5xl">Music</h1>
+		<p class="text-lg text-[var(--text-secondary)]">
+			Nepali indie rock — raw guitars, electronic textures, honest lyrics.
+		</p>
+	</header>
 
-	<!-- Releases -->
-	<section class="mb-20" aria-labelledby="releases-heading">
-		<h2
-			id="releases-heading"
-			class="mb-8 border-b border-[var(--border-color)] pb-4 text-2xl font-bold"
-		>
-			Releases
-		</h2>
-		<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-			{
-				sortedReleases.map((release, index) => (
+	<!-- Albums Section -->
+	{albums.length > 0 && (
+		<section class="mb-16" aria-labelledby="albums-heading">
+			<h2 id="albums-heading" class="flex items-center gap-3 mb-8 text-xl font-bold">
+				<Icon name="material-symbols:album" class="text-inzies-orange" />
+				Albums
+			</h2>
+			<div class="grid grid-cols-1 gap-6">
+				{albums.map((album, index) => (
 					<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
-						<ReleaseCard release={release} />
+						<ReleaseCard release={album} featured />
 					</div>
-				))
-			}
-		</div>
-	</section>
+				))}
+			</div>
+		</section>
+	)}
 
-	<!-- Streaming Platforms -->
+	<!-- Singles Section -->
+	{singles.length > 0 && (
+		<section class="mb-16" aria-labelledby="singles-heading">
+			<h2 id="singles-heading" class="flex items-center gap-3 mb-8 text-xl font-bold">
+				<Icon name="material-symbols:music-note" class="text-inzies-blue" />
+				Singles
+			</h2>
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				{singles.map((single, index) => (
+					<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
+						<ReleaseCard release={single} />
+					</div>
+				))}
+			</div>
+		</section>
+	)}
+
+	<!-- Stream Everywhere -->
 	<section aria-labelledby="streaming-heading">
-		<h2
-			id="streaming-heading"
-			class="mb-8 border-b border-[var(--border-color)] pb-4 text-2xl font-bold"
-		>
-			Listen Anywhere
+		<h2 id="streaming-heading" class="flex items-center gap-3 mb-6 text-xl font-bold">
+			<Icon name="material-symbols:headphones" class="text-inzies-orange" />
+			Stream Everywhere
 		</h2>
-		<div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-			{
-				streamingPlatforms.map((platform) => (
-					<a
-						href={platform.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						class:list={[
-							"card-base group flex items-center justify-center gap-3 p-6 transition-all",
-							platform.hoverClass,
-						]}
-						aria-label={`Listen on ${platform.name} (opens in new tab)`}
-					>
-						<Icon name={platform.icon} class="h-8 w-8" style={`color: ${platform.color}`} />
-						<span class="font-medium">{platform.name}</span>
-					</a>
-				))
-			}
+		<div class="flex flex-wrap gap-3">
+			{streamingPlatforms.map((platform) => (
+				<a
+					href={platform.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all hover:scale-105"
+					style={`background-color: ${platform.color}`}
+				>
+					<Icon name={platform.icon} class="text-lg" />
+					{platform.name}
+				</a>
+			))}
 		</div>
 	</section>
 </MainLayout>
