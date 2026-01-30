@@ -57,7 +57,7 @@
 		<!-- Code Display -->
 		<div class="terminal-body bg-inzies-black-900">
 			<pre class="text-sm leading-relaxed overflow-x-auto"><code class="text-green-400">{pattern}</code></pre>
-			
+
 			{#if description}
 				<p class="mt-4 text-inzies-black-400 text-sm font-mono">{description}</p>
 			{/if}
@@ -79,7 +79,7 @@
 					<Icon icon="material-symbols:play-arrow" class="text-xl text-white" />
 				{/if}
 			</button>
-			
+
 			<div class="flex items-center gap-2 text-sm text-inzies-black-400">
 				<Icon icon="material-symbols:speed" class="text-lg" />
 				<span class="font-mono">{bpm} BPM</span>

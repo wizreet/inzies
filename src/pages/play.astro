@@ -1,52 +1,51 @@
 ---
 import { Icon } from "astro-icon/components";
 import MainLayout from "../layouts/MainLayout.astro";
-import StrudelPlayer from "../components/music/StrudelPlayer.svelte";
+import PatternPlayer from "../components/music/PatternPlayer.svelte";
 import { strudelPatterns } from "../data/strudel-patterns";
+
+// Convert readonly patterns to mutable for Svelte component
+const patterns = strudelPatterns.map(p => ({
+	id: p.id,
+	title: p.title,
+	description: p.description,
+	pattern: p.pattern,
+	strudelUrl: p.strudelUrl,
+	bpm: p.bpm,
+	category: p.category,
+	difficulty: p.difficulty,
+}));
 ---
 
 <MainLayout title="Play Along" description="Mess around with our beats.">
 	<!-- Page Header -->
 	<div class="mb-12">
-		<h1 class="section-title text-4xl md:text-5xl mb-6">Play Along</h1>
-		<p class="text-xl text-[var(--text-secondary)] max-w-3xl">
-			 Click around to our beats.
+		<h1 class="section-title mb-6 text-4xl md:text-5xl">Play Along</h1>
+		<p class="max-w-3xl text-xl text-[var(--text-secondary)]">
+			Select a pattern and click play to jam in your browser.
 		</p>
 	</div>
 
-	<!-- Patterns -->
+	<!-- Pattern Player -->
 	<section class="mb-20">
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-			{strudelPatterns.map((pattern, index) => (
-				<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
-					<StrudelPlayer
-						client:load
-						pattern={pattern.pattern}
-						title={pattern.title}
-						description={pattern.description}
-						bpm={pattern.bpm}
-						strudelUrl={pattern.strudelUrl}
-					/>
-				</div>
-			))}
-		</div>
+		<PatternPlayer client:load patterns={patterns} />
 	</section>
 
 	<!-- What is this? -->
 	<section class="mb-20">
 		<div class="card-base p-8">
-			<h2 class="text-2xl font-bold mb-4">What's Strudel?</h2>
-			<p class="text-[var(--text-secondary)] mb-4">
+			<h2 class="mb-4 text-2xl font-bold">What's Strudel?</h2>
+			<p class="mb-4 text-[var(--text-secondary)]">
 				It's a music thing that runs in your browser. No downloads, no sign-ups.
 			</p>
-			<p class="text-[var(--text-secondary)] mb-6">
+			<p class="mb-6 text-[var(--text-secondary)]">
 				We made these patterns. You can remix them or just listen. Either way, cool.
 			</p>
 			<a
 				href="https://strudel.cc"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center gap-2 text-inzies-blue hover:text-inzies-blue-400 transition-colors"
+				class="inline-flex items-center gap-2 text-inzies-blue transition-colors hover:text-inzies-blue-400"
 			>
 				<Icon name="material-symbols:open-in-new" />
 				strudel.cc

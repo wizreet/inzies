@@ -36,7 +36,8 @@ const strudelPatternsData: readonly StrudelPattern[] = [
   s("~ sd ~ sd"),
   s("hh*8")
 ).slow(4)`,
-		strudelUrl: "https://strudel.cc/#c3RhY2soCiAgcygiYmQqMiBiZCBiZCoyIGJkIiksCiAgcygiJnN1cDsgc2QgJnN1cDsgc2QiKSwKICBzKCJoaCo4IikKKS5zbG93KDQp",
+		strudelUrl:
+			"https://strudel.cc/#c3RhY2soCiAgcygiYmQqMiBiZCBiZCoyIGJkIiksCiAgcygiJnN1cDsgc2QgJnN1cDsgc2QiKSwKICBzKCJoaCo4IikKKS5zbG93KDQp",
 		bpm: 120,
 		category: "drums",
 		difficulty: "beginner",
@@ -51,7 +52,8 @@ const strudelPatternsData: readonly StrudelPattern[] = [
   s("hh*16").gain(0.6),
   s("~ ~ ~ ~ ~ ~ oh ~").gain(0.4)
 ).slow(2)`,
-		strudelUrl: "https://strudel.cc/#c3RhY2soCiAgcygiYmQgfiBbfiBiZF0gfiBiZCB%2BIFtiZCBiZF0gfiIpLAogIHMoIn4gc2QgfiBbc2Qgc2Q6MV0gfiBzZCB%2BIHNkIiksCiAgcygiaGgqMTYiKS5nYWluKDAuNiksCiAgcygiAG4gfiB%2BIH4gfiB%2BIG9oIH4iKS5nYWluKDAuNCkKKS5zbG93KDIp",
+		strudelUrl:
+			"https://strudel.cc/#c3RhY2soCiAgcygiYmQgfiBbfiBiZF0gfiBiZCB%2BIFtiZCBiZF0gfiIpLAogIHMoIn4gc2QgfiBbc2Qgc2Q6MV0gfiBzZCB%2BIHNkIiksCiAgcygiaGgqMTYiKS5nYWluKDAuNiksCiAgcygiAG4gfiB%2BIH4gfiB%2BIG9oIH4iKS5nYWluKDAuNCkKKS5zbG93KDIp",
 		bpm: 95,
 		category: "drums",
 		difficulty: "intermediate",
@@ -66,7 +68,8 @@ const strudelPatternsData: readonly StrudelPattern[] = [
   .decay(0.2)
   .sustain(0.3)
   .slow(2)`,
-		strudelUrl: "https://strudel.cc/#bm90ZSgiYzIgfiBODIgIGcyIH4gZTIgYzIiKQogIC5zKCJzYXd0b290aCIpCiAgLmxwZig4MDApCiAgLmRlY2F5KDAuMikKICAuc3VzdGFpbigwLjMpCiAgLnNsb3coMik%3D",
+		strudelUrl:
+			"https://strudel.cc/#bm90ZSgiYzIgfiBODIgIGcyIH4gZTIgYzIiKQogIC5zKCJzYXd0b290aCIpCiAgLmxwZig4MDApCiAgLmRlY2F5KDAuMikKICAuc3VzdGFpbigwLjMpCiAgLnNsb3coMik%3D",
 		bpm: 110,
 		category: "bass",
 		difficulty: "beginner",
@@ -81,7 +84,8 @@ const strudelPatternsData: readonly StrudelPattern[] = [
   s("[hh:2 hh:2]*4 [hh:2 oh:1]").gain(0.5),
   note("c3 c3 eb3 g3").s("square").lpf(600).gain(0.4)
 ).slow(2)`,
-		strudelUrl: "https://strudel.cc/#c3RhY2soCiAgcygiYmQ6MyoyIFtiZDozIGJkOjNdIGJkOjMgW34gYmQ6M10iKS5nYWluKDAuOSksCiAgcygifiDhcDoyIH4gc2Q6MiIpLmdhaW4oMC44KSwKICBzKCJbaGg6MiBoaDoyXSo0IFtoaDoyIG9oOjFdIikuZ2FpbigwLjUpLAogIG5vdGUoImMzIGMzIGViMyBnMyIpLnMoInNxdWFyZSIpLmxwZig2MDApLmdhaW4oMC40KQopLnNsb3coMik%3D",
+		strudelUrl:
+			"https://strudel.cc/#c3RhY2soCiAgcygiYmQ6MyoyIFtiZDozIGJkOjNdIGJkOjMgW34gYmQ6M10iKS5nYWluKDAuOSksCiAgcygifiDhcDoyIH4gc2Q6MiIpLmdhaW4oMC44KSwKICBzKCJbaGg6MiBoaDoyXSo0IFtoaDoyIG9oOjFdIikuZ2FpbigwLjUpLAogIG5vdGUoImMzIGMzIGViMyBnMyIpLnMoInNxdWFyZSIpLmxwZig2MDApLmdhaW4oMC40KQopLnNsb3coMik%3D",
 		bpm: 140,
 		category: "full",
 		difficulty: "advanced",
@@ -101,7 +105,8 @@ const strudelPatternsData: readonly StrudelPattern[] = [
     .lpf(400)
     .gain(0.2)
 ).slow(2)`,
-		strudelUrl: "https://strudel.cc/#c3RhY2soCiAgbm90ZSgiYzQgZTQgZzQgYjQiLnNsb3coNCkpCiAgICAucygic2luZSIpCiAgICAuZGVjYXkoMikKICAgIC5zdXN0YWluKDAuNSkKICAgIC5nYWluKDAuMyksCiAgbm90ZSgiYzMiLnNsb3coOCkpCiAgICAucygidHJpYW5nbGUiKQogICAgLmxwZig0MDApCiAgICAuZ2FpbigwLjIpCikuc2xvdygyKQ%3D%3D",
+		strudelUrl:
+			"https://strudel.cc/#c3RhY2soCiAgbm90ZSgiYzQgZTQgZzQgYjQiLnNsb3coNCkpCiAgICAucygic2luZSIpCiAgICAuZGVjYXkoMikKICAgIC5zdXN0YWluKDAuNSkKICAgIC5nYWluKDAuMyksCiAgbm90ZSgiYzMiLnNsb3coOCkpCiAgICAucygidHJpYW5nbGUiKQogICAgLmxwZig0MDApCiAgICAuZ2FpbigwLjIpCikuc2xvdygyKQ%3D%3D",
 		bpm: 70,
 		category: "melody",
 		difficulty: "beginner",
