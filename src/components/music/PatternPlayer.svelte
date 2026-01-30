@@ -81,8 +81,8 @@
 			<button
 				on:click={() => selectPattern(index)}
 				class="group flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200
-					{selectedIndex === index 
-						? 'bg-inzies-orange text-white shadow-lg shadow-inzies-orange/20' 
+					{selectedIndex === index
+						? 'bg-inzies-orange text-white shadow-lg shadow-inzies-orange/20'
 						: 'bg-inzies-black-800 text-inzies-black-300 hover:bg-inzies-black-700 hover:text-white'}"
 			>
 				<Icon icon={getCategoryIcon(pattern.category)} class="text-lg" />
@@ -100,7 +100,7 @@
 				<div class="terminal-dot yellow"></div>
 				<div class="terminal-dot green"></div>
 				<span class="terminal-title font-mono text-xs">strudel.cc ~ {currentPattern.title}</span>
-				
+
 				<!-- Pattern Info Badge -->
 				<div class="ml-auto flex items-center gap-2">
 					<span class="rounded px-2 py-0.5 text-xs font-mono {getDifficultyColor(currentPattern.difficulty)}">
@@ -127,7 +127,7 @@
 				<!-- Code Display -->
 				<div class="terminal-body bg-inzies-black-900 min-h-[200px]">
 					<pre class="overflow-x-auto text-sm leading-relaxed"><code class="text-green-400">{currentPattern.pattern}</code></pre>
-					
+
 					<p class="mt-6 text-lg text-inzies-black-300">
 						{currentPattern.description}
 					</p>
@@ -201,8 +201,8 @@
 			<button
 				on:click={() => selectPattern(index)}
 				class="flex items-center gap-3 rounded-lg p-3 text-left transition-all
-					{selectedIndex === index 
-						? 'bg-inzies-orange/20 border border-inzies-orange' 
+					{selectedIndex === index
+						? 'bg-inzies-orange/20 border border-inzies-orange'
 						: 'bg-inzies-black-800 border border-transparent hover:border-inzies-black-600'}"
 			>
 				<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-inzies-black-700">

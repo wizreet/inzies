@@ -73,36 +73,73 @@ export interface BandMember {
 }
 
 // =============================================================================
-// STRUDEL PATTERN TYPES
+// SONG & ALBUM TYPES
+// =============================================================================
+
+/**
+ * Represents a song with its Strudel pattern
+ */
+export interface Song {
+	readonly id: string;
+	readonly title: string;
+	readonly album: string;
+	readonly albumId: string;
+	readonly description: string;
+	readonly coverArt: string;
+	/** The Strudel pattern code for display */
+	readonly pattern: string;
+	/** Pre-generated shareable URL from strudel.cc */
+	readonly strudelUrl: string;
+	readonly bpm: number;
+	readonly duration: string;
+	readonly releaseDate: string;
+	readonly spotifyUrl?: string;
+	readonly youtubeUrl?: string;
+}
+
+/**
+ * Represents an album containing multiple songs
+ */
+export interface Album {
+	readonly id: string;
+	readonly title: string;
+	readonly type: "album" | "EP" | "single";
+	readonly description: string;
+	readonly coverArt: string;
+	readonly releaseDate: string;
+	readonly songs: readonly string[];
+	readonly spotifyUrl?: string;
+	readonly youtubeUrl?: string;
+	readonly appleMusicUrl?: string;
+}
+
+// =============================================================================
+// LEGACY STRUDEL PATTERN TYPES (for backward compatibility)
 // =============================================================================
 
 /**
  * Valid pattern categories for Strudel patterns
+ * @deprecated Use Song interface instead
  */
 export const PATTERN_CATEGORIES = ["drums", "bass", "melody", "full"] as const;
 export type PatternCategory = (typeof PATTERN_CATEGORIES)[number];
 
 /**
  * Valid difficulty levels for Strudel patterns
+ * @deprecated Use Song interface instead
  */
 export const DIFFICULTY_LEVELS = ["beginner", "intermediate", "advanced"] as const;
 export type DifficultyLevel = (typeof DIFFICULTY_LEVELS)[number];
 
 /**
  * Represents a Strudel.cc music pattern
- *
- * @remarks
- * The `strudelUrl` field contains a pre-generated shareable URL from strudel.cc.
- * This is preferred over encoding patterns because strudel.cc generates
- * optimized URLs with proper compression.
+ * @deprecated Use Song interface instead
  */
 export interface StrudelPattern {
 	readonly id: string;
 	readonly title: string;
 	readonly description: string;
-	/** The pattern code for display purposes */
 	readonly pattern: string;
-	/** Pre-generated shareable URL from strudel.cc */
 	readonly strudelUrl: string;
 	readonly bpm: number;
 	readonly category: PatternCategory;

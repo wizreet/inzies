@@ -1,34 +1,35 @@
 ---
 import { Icon } from "astro-icon/components";
 import MainLayout from "../layouts/MainLayout.astro";
-import PatternPlayer from "../components/music/PatternPlayer.svelte";
-import { strudelPatterns } from "../data/strudel-patterns";
+import SongPlayer from "../components/music/SongPlayer.svelte";
+import { songs } from "../data/songs";
 
-// Convert readonly patterns to mutable for Svelte component
-const patterns = strudelPatterns.map(p => ({
-	id: p.id,
-	title: p.title,
-	description: p.description,
-	pattern: p.pattern,
-	strudelUrl: p.strudelUrl,
-	bpm: p.bpm,
-	category: p.category,
-	difficulty: p.difficulty,
+// Convert readonly songs to mutable for Svelte component
+const songsData = songs.map((s) => ({
+	id: s.id,
+	title: s.title,
+	album: s.album,
+	description: s.description,
+	coverArt: s.coverArt,
+	pattern: s.pattern,
+	strudelUrl: s.strudelUrl,
+	bpm: s.bpm,
+	duration: s.duration,
 }));
 ---
 
-<MainLayout title="Play Along" description="Mess around with our beats.">
+<MainLayout title="Play Along" description="Play our songs in your browser with Strudel.">
 	<!-- Page Header -->
 	<div class="mb-12">
 		<h1 class="section-title mb-6 text-4xl md:text-5xl">Play Along</h1>
 		<p class="max-w-3xl text-xl text-[var(--text-secondary)]">
-			Select a pattern and click play to jam in your browser.
+			Select a song and hit play. Each song is recreated as a live-coding pattern you can remix.
 		</p>
 	</div>
 
-	<!-- Pattern Player -->
+	<!-- Song Player -->
 	<section class="mb-20">
-		<PatternPlayer client:load patterns={patterns} />
+		<SongPlayer client:load songs={songsData} />
 	</section>
 
 	<!-- What is this? -->
@@ -36,10 +37,11 @@ const patterns = strudelPatterns.map(p => ({
 		<div class="card-base p-8">
 			<h2 class="mb-4 text-2xl font-bold">What's Strudel?</h2>
 			<p class="mb-4 text-[var(--text-secondary)]">
-				It's a music thing that runs in your browser. No downloads, no sign-ups.
+				Strudel is a live coding platform that runs in your browser. Each of our songs is recreated 
+				as a pattern you can play, modify, and remix in real-time.
 			</p>
 			<p class="mb-6 text-[var(--text-secondary)]">
-				We made these patterns. You can remix them or just listen. Either way, cool.
+				Click "Open in Strudel" to get the full experience - change the code, hear the changes instantly.
 			</p>
 			<a
 				href="https://strudel.cc"
@@ -48,7 +50,7 @@ const patterns = strudelPatterns.map(p => ({
 				class="inline-flex items-center gap-2 text-inzies-blue transition-colors hover:text-inzies-blue-400"
 			>
 				<Icon name="material-symbols:open-in-new" />
-				strudel.cc
+				Learn more at strudel.cc
 			</a>
 		</div>
 	</section>
