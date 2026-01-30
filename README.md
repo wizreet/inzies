@@ -11,11 +11,14 @@
 - **Geeky Aesthetic**: Terminal-style elements, code syntax highlighting
 - **Social Integration**: Spotify, YouTube, Instagram, Facebook links
 - **GitHub Pages**: Easy deployment with GitHub Actions
+- **Service Worker**: Offline support and intelligent caching
+- **Performance Optimized**: Lazy loading, preconnects, requestIdleCallback
+- **Type-Safe**: Full TypeScript with strict mode and validation
 
 ## 🎨 Brand Colors
 
 - **Orange**: `#FF6B00` - Primary accent
-- **Blue**: `#0066FF` - Secondary accent  
+- **Blue**: `#0066FF` - Secondary accent
 - **Blue Glow**: `#00D4FF` - Neon highlights
 - **Black**: `#0A0A0A` - Background
 
@@ -29,11 +32,52 @@ src/
 │   ├── music/          # Release cards, Strudel player, embeds
 │   ├── social/         # Social links
 │   └── ui/             # Reusable UI components
+├── constants/          # Centralized constants (routes, colors, labels)
 ├── data/               # Band members, releases, Strudel patterns
 ├── layouts/            # Page layouts
 ├── pages/              # Astro pages
-└── styles/             # CSS files
+├── styles/             # CSS files
+├── types/              # TypeScript type definitions
+└── utils/              # Utility functions (validation, URL, performance, image)
 ```
+
+## 🏗️ Architecture
+
+### Path Aliases
+
+The project uses TypeScript path aliases for cleaner imports:
+
+```typescript
+import { siteConfig } from "@/config";
+import { ROUTES, ARIA_LABELS } from "@constants/index";
+import { validateRelease } from "@utils/validation";
+import type { Release } from "@types/index";
+```
+
+### Centralized Data Management
+
+- **Types** (`src/types/index.ts`): All TypeScript interfaces
+- **Constants** (`src/constants/index.ts`): Routes, URLs, colors, labels
+- **Validation** (`src/utils/validation.ts`): Runtime data validation
+- **Data** (`src/data/`): Immutable data with helper functions
+
+### Performance Utilities
+
+Located in `src/utils/performance.ts`:
+
+- `memoize()` - Cache expensive computations
+- `debounce()` - Delay rapid function calls
+- `throttle()` - Limit execution rate
+- `onIdle()` - Schedule non-critical work
+- `createIntersectionObserver()` - Efficient visibility detection
+
+### Image Utilities
+
+Located in `src/utils/image.ts`:
+
+- `getImageAttributes()` - Generate optimized img attributes
+- `getResponsiveSizes()` - Common responsive size patterns
+- `buildImagePath()` - Path building with base URL
 
 ## 🛠️ Development
 
@@ -60,12 +104,12 @@ pnpm preview
 
 ### Commands
 
-| Command | Action |
-|---------|--------|
-| `pnpm dev` | Start dev server at `localhost:4321` |
-| `pnpm build` | Build production site to `./dist/` |
-| `pnpm preview` | Preview build locally |
-| `pnpm format` | Format code with Prettier |
+| Command        | Action                               |
+| -------------- | ------------------------------------ |
+| `pnpm dev`     | Start dev server at `localhost:4321` |
+| `pnpm build`   | Build production site to `./dist/`   |
+| `pnpm preview` | Preview build locally                |
+| `pnpm format`  | Format code with Prettier            |
 
 ## 🚀 Deployment
 
@@ -91,9 +135,9 @@ Edit `src/config.ts`:
 
 ```typescript
 export const siteConfig: SiteConfig = {
-  title: "INZIES",
-  subtitle: "Engineers Making Music",
-  // ...
+	title: "INZIES",
+	subtitle: "Engineers Making Music",
+	// ...
 };
 ```
 
@@ -116,11 +160,7 @@ We use [Strudel](https://strudel.cc) to share music patterns as code. Patterns a
 Example pattern:
 
 ```javascript
-stack(
-  s("bd*2 [~ bd] bd [bd ~]"),
-  s("[~ hh]*4"),
-  s("~ sd ~ sd")
-).slow(2)
+stack(s("bd*2 [~ bd] bd [bd ~]"), s("[~ hh]*4"), s("~ sd ~ sd")).slow(2);
 ```
 
 ## 📄 License

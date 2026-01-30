@@ -1,22 +1,26 @@
 ---
-import { Icon } from "astro-icon/components";
-import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/layout/Navbar.astro";
-import Footer from "../components/layout/Footer.astro";
-import GlowButton from "../components/ui/GlowButton.svelte";
+/**
+ * 404 Error Page
+ *
+ * Displays a styled error page when users navigate to non-existent routes.
+ * Uses terminal-style design to match the geeky aesthetic.
+ */
+import Layout from "@layouts/Layout.astro";
+import Navbar from "@components/layout/Navbar.astro";
+import Footer from "@components/layout/Footer.astro";
+import GlowButton from "@components/ui/GlowButton.svelte";
+import { ROUTES } from "@constants/index";
 ---
 
 <Layout title="404 - Page Not Found">
-	<div class="relative min-h-screen flex flex-col z-10">
+	<div class="relative z-10 flex min-h-screen flex-col">
 		<Navbar />
-		
-		<main class="flex-1 flex items-center justify-center px-4">
-			<div class="text-center max-w-2xl mx-auto">
+
+		<main class="flex flex-1 items-center justify-center px-4">
+			<div class="mx-auto max-w-2xl text-center">
 				<!-- 404 Display -->
 				<div class="mb-8">
-					<h1 class="text-[150px] md:text-[200px] font-bold leading-none gradient-text">
-						404
-					</h1>
+					<h1 class="gradient-text text-[150px] font-bold leading-none md:text-[200px]">404</h1>
 				</div>
 
 				<!-- Terminal Style Error -->
@@ -28,13 +32,11 @@ import GlowButton from "../components/ui/GlowButton.svelte";
 						<span class="terminal-title">error.log</span>
 					</div>
 					<div class="terminal-body">
-						<p class="text-red-400 font-mono text-sm">
-							Error: Page not found
-						</p>
-						<p class="text-[var(--text-muted)] font-mono text-sm mt-2">
+						<p class="font-mono text-sm text-red-400">Error: Page not found</p>
+						<p class="mt-2 font-mono text-sm text-[var(--text-muted)]">
 							Looks like this route doesn't exist.
 						</p>
-						<p class="text-inzies-orange font-mono text-sm mt-4">
+						<p class="mt-4 font-mono text-sm text-inzies-orange">
 							The page you're looking for has been moved, deleted, <br />
 							or maybe it was never here in the first place...
 						</p>
@@ -42,26 +44,19 @@ import GlowButton from "../components/ui/GlowButton.svelte";
 				</div>
 
 				<!-- Message -->
-				<h2 class="text-2xl md:text-3xl font-bold mb-4">
-					This page doesn't exist
-				</h2>
-				<p class="text-[var(--text-secondary)] mb-8">
+				<h2 class="mb-4 text-2xl font-bold md:text-3xl">This page doesn't exist</h2>
+				<p class="mb-8 text-[var(--text-secondary)]">
 					Looks like you've hit a broken link or mistyped the URL.
 				</p>
 
 				<!-- Actions -->
 				<div class="flex flex-wrap items-center justify-center gap-4">
-					<GlowButton 
-						client:load 
-						href="/" 
-						variant="primary"
-						icon="material-symbols:home"
-					>
+					<GlowButton client:load href={ROUTES.home} variant="primary" icon="material-symbols:home">
 						Go Home
 					</GlowButton>
-					<GlowButton 
-						client:load 
-						href="/music/" 
+					<GlowButton
+						client:load
+						href={ROUTES.music}
 						variant="outline"
 						icon="material-symbols:music-note"
 					>

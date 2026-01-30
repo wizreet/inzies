@@ -11,6 +11,10 @@ export default defineConfig({
 	trailingSlash: "always",
 	output: "static",
 
+	server: {
+		port: 4322,
+	},
+
 	integrations: [
 		tailwind({
 			nesting: true,
@@ -28,6 +32,9 @@ export default defineConfig({
 				"@layouts": "/src/layouts",
 				"@styles": "/src/styles",
 				"@data": "/src/data",
+				"@types": "/src/types",
+				"@utils": "/src/utils",
+				"@constants": "/src/constants",
 			},
 		},
 	},

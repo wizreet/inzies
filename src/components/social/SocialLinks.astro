@@ -1,80 +1,108 @@
 ---
+/**
+ * SocialLinks Component
+ *
+ * Displays social media links with icons from centralized configuration.
+ * Follows accessibility best practices with ARIA labels.
+ *
+ * @component
+ */
 import { Icon } from "astro-icon/components";
-import { siteConfig } from "../../config";
+import { siteConfig } from "@/config";
+import { ARIA_LABELS, PLATFORM_COLORS } from "@constants/index";
+import { getExternalLinkAttributes } from "@utils/url";
 
-const social = siteConfig.social;
+interface Props {
+	/** Optional size variant */
+	size?: "sm" | "md" | "lg";
+	/** Whether to show labels */
+	showLabels?: boolean;
+}
+
+const { size = "md", showLabels = false } = Astro.props;
+
+/** Social platform configuration */
+interface SocialPlatform {
+	href: string | undefined;
+	icon: string;
+	label: string;
+	colorClass: string;
+}
+
+/** All social platforms with their configuration */
+const platforms: SocialPlatform[] = [
+	{
+		href: siteConfig.social.spotify,
+		icon: "fa6-brands:spotify",
+		label: ARIA_LABELS.spotify,
+		colorClass: "hover:bg-[#1DB954] hover:text-white",
+	},
+	{
+		href: siteConfig.social.youtube,
+		icon: "fa6-brands:youtube",
+		label: ARIA_LABELS.youtube,
+		colorClass: "hover:bg-[#FF0000] hover:text-white",
+	},
+	{
+		href: siteConfig.social.instagram,
+		icon: "fa6-brands:instagram",
+		label: ARIA_LABELS.instagram,
+		colorClass:
+			"hover:bg-gradient-to-br hover:from-[#833AB4] hover:via-[#FD1D1D] hover:to-[#FCAF45] hover:text-white",
+	},
+	{
+		href: siteConfig.social.facebook,
+		icon: "fa6-brands:facebook",
+		label: ARIA_LABELS.facebook,
+		colorClass: "hover:bg-[#1877F2] hover:text-white",
+	},
+	{
+		href: siteConfig.social.twitter,
+		icon: "fa6-brands:x-twitter",
+		label: ARIA_LABELS.twitter,
+		colorClass: "hover:bg-black hover:text-white",
+	},
+	{
+		href: siteConfig.social.tiktok,
+		icon: "fa6-brands:tiktok",
+		label: ARIA_LABELS.tiktok,
+		colorClass: "hover:bg-black hover:text-white",
+	},
+];
+
+/** Filter to only show platforms that have URLs configured */
+const activePlatforms = platforms.filter((p): p is SocialPlatform & { href: string } =>
+	Boolean(p.href)
+);
+
+/** External link attributes for security */
+const externalLinkAttrs = getExternalLinkAttributes();
+
+/** Icon size based on size prop */
+const iconSizes = {
+	sm: "text-xl",
+	md: "text-3xl",
+	lg: "text-4xl",
+} as const;
 ---
 
-<div class="flex items-center gap-3 flex-wrap">
-	{social.spotify && (
-		<a
-			href={social.spotify}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="social-link"
-			aria-label="Spotify"
-		>
-			<Icon name="fa6-brands:spotify" class="text-3xl" />
-		</a>
-	)}
-	
-	{social.youtube && (
-		<a
-			href={social.youtube}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="social-link"
-			aria-label="YouTube"
-		>
-			<Icon name="fa6-brands:youtube" class="text-3xl" />
-		</a>
-	)}
-	
-	{social.instagram && (
-		<a
-			href={social.instagram}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="social-link"
-			aria-label="Instagram"
-		>
-			<Icon name="fa6-brands:instagram" class="text-3xl" />
-		</a>
-	)}
-	
-	{social.facebook && (
-		<a
-			href={social.facebook}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="social-link"
-			aria-label="Facebook"
-		>
-			<Icon name="fa6-brands:facebook" class="text-3xl" />
-		</a>
-	)}
-
-	{social.twitter && (
-		<a
-			href={social.twitter}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="social-link"
-			aria-label="X (Twitter)"
-		>
-			<Icon name="fa6-brands:x-twitter" class="text-3xl" />
-		</a>
-	)}
-
-	{social.tiktok && (
-		<a
-			href={social.tiktok}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="social-link"
-			aria-label="TikTok"
-		>
-			<Icon name="fa6-brands:tiktok" class="text-3xl" />
-		</a>
-	)}
+<div class="flex flex-wrap items-center gap-3" role="list" aria-label="Social media links">
+	{
+		activePlatforms.map((platform) => (
+			<a
+				href={platform.href}
+				{...externalLinkAttrs}
+				class="social-link group"
+				aria-label={platform.label}
+				role="listitem"
+			>
+				<Icon
+					name={platform.icon}
+					class={`${iconSizes[size]} transition-transform group-hover:scale-110`}
+					aria-hidden="true"
+				/>
+				{showLabels && <span class="sr-only">{platform.label}</span>}
+			</a>
+		))
+	}
 </div>

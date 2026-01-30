@@ -1,20 +1,41 @@
 ---
+/**
+ * Base Layout Component
+ *
+ * Provides the HTML structure, meta tags, and performance optimizations
+ * for all pages. Includes:
+ * - SEO meta tags and Open Graph
+ * - Font loading with display swap
+ * - Theme persistence (prevents flash)
+ * - Scroll reveal animations (intersection observer)
+ * - Resource preconnects for external services
+ *
+ * @module layouts/Layout
+ */
 import "@fontsource/roboto-slab/400.css";
 import "@fontsource/roboto-slab/500.css";
 import "@fontsource/roboto-slab/700.css";
 import "@fontsource-variable/jetbrains-mono";
 import "../styles/main.css";
-import { siteConfig } from "../config";
+import { siteConfig, getPageTitle } from "../config";
 
 interface Props {
+	/** Page-specific title (will be appended with site name) */
 	title?: string;
+	/** Page-specific description for SEO */
 	description?: string;
+	/** Canonical URL for the page */
+	canonicalUrl?: string;
+	/** Open Graph image URL */
+	ogImage?: string;
 }
 
-const { title, description } = Astro.props;
-const pageTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title;
-const pageDescription = description || siteConfig.description;
+const { title, description, canonicalUrl, ogImage } = Astro.props;
+const pageTitle = getPageTitle(title);
+const pageDescription =
+	description || siteConfig.description || `${siteConfig.title} - ${siteConfig.subtitle}`;
 const baseUrl = import.meta.env.BASE_URL;
+const siteUrl = siteConfig.siteURL;
 ---
 
 <!doctype html>
@@ -25,56 +46,133 @@ const baseUrl = import.meta.env.BASE_URL;
 		<meta name="description" content={pageDescription} />
 		<meta name="generator" content={Astro.generator} />
 
+		<!-- Performance: Preconnect to external origins -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="preconnect" href="https://images.unsplash.com" />
+		<link rel="dns-prefetch" href="https://open.spotify.com" />
+		<link rel="dns-prefetch" href="https://youtube.com" />
+		<link rel="dns-prefetch" href="https://strudel.cc" />
+
 		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.png`} />
 		<link rel="apple-touch-icon" href={`${baseUrl}apple-touch-icon.png`} />
+
+		<!-- Canonical URL -->
+		{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 
 		<!-- Open Graph / Social -->
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={pageDescription} />
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={siteConfig.title} />
+		<meta property="og:url" content={canonicalUrl || siteUrl} />
+		{ogImage && <meta property="og:image" content={ogImage} />}
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={pageDescription} />
+		{ogImage && <meta name="twitter:image" content={ogImage} />}
 
 		<!-- Theme Color -->
 		<meta name="theme-color" content={siteConfig.themeColor.primary} />
 
+		<!-- Security Headers -->
+		<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+		<meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+		<meta name="referrer" content="strict-origin-when-cross-origin" />
+
 		<title>{pageTitle}</title>
 
-		<!-- Theme Script (prevent flash) -->
+		<!-- Theme Script (prevent flash) - must be inline and blocking -->
 		<script is:inline>
-			const theme = localStorage.getItem('theme') || 'dark';
-			if (theme === 'dark') {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
+			(function () {
+				const theme = localStorage.getItem("theme") || "dark";
+				document.documentElement.classList.toggle("dark", theme === "dark");
+			})();
 		</script>
 	</head>
-	<body class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
+	<body
+		class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300"
+	>
 		<!-- Background Pattern -->
-		<div class="fixed inset-0 circuit-bg opacity-30 dark:opacity-10 pointer-events-none z-0"></div>
+		<div
+			class="circuit-bg pointer-events-none fixed inset-0 z-0 opacity-30 dark:opacity-10"
+			aria-hidden="true"
+		>
+		</div>
 
 		<slot />
 
-		<!-- Scroll Reveal Script -->
+		<!-- Scroll Reveal Script - deferred for performance -->
 		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach(entry => {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('visible');
-						}
-					});
-				}, { threshold: 0.1 });
+			// Use requestIdleCallback for non-critical initialization
+			const initScrollReveal = (): void => {
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add("visible");
+								// Unobserve after revealing for better performance
+								observer.unobserve(entry.target);
+							}
+						});
+					},
+					{
+						threshold: 0.1,
+						rootMargin: "50px", // Start animation slightly before element is in view
+					}
+				);
 
-				document.querySelectorAll('.scroll-reveal').forEach(el => {
+				document.querySelectorAll(".scroll-reveal").forEach((el) => {
 					observer.observe(el);
 				});
+			};
+
+			// Register service worker for offline support and caching
+			const registerServiceWorker = async (): Promise<void> => {
+				if ("serviceWorker" in navigator) {
+					try {
+						const registration = await navigator.serviceWorker.register("/inzies/sw.js", {
+							scope: "/inzies/",
+						});
+
+						// Handle updates
+						registration.addEventListener("updatefound", () => {
+							const newWorker = registration.installing;
+							if (newWorker) {
+								newWorker.addEventListener("statechange", () => {
+									if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+										// New content available, could show update notification
+										console.log("[SW] New content available");
+									}
+								});
+							}
+						});
+					} catch (error) {
+						console.warn("[SW] Registration failed:", error);
+					}
+				}
+			};
+
+			// Initialize when DOM is ready
+			if (document.readyState === "loading") {
+				document.addEventListener("DOMContentLoaded", initScrollReveal);
+			} else {
+				// Use requestIdleCallback if available, otherwise setTimeout
+				if ("requestIdleCallback" in window) {
+					(
+						window as Window & { requestIdleCallback: (cb: () => void) => void }
+					).requestIdleCallback(initScrollReveal);
+				} else {
+					setTimeout(initScrollReveal, 1);
+				}
+			}
+
+			// Register service worker after page load for best performance
+			window.addEventListener("load", () => {
+				registerServiceWorker();
 			});
 		</script>
 	</body>

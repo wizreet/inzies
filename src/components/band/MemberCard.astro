@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import type { BandMember } from "../../data/band-members";
+import type { BandMember } from "../../types";
 
 interface Props {
 	member: BandMember;
@@ -35,7 +35,7 @@ const { member } = Astro.props;
 		<!-- Instruments -->
 		{member.instruments && (
 			<div class="flex flex-wrap gap-2">
-				{member.instruments.map((instrument) => (
+				{member.instruments.map((instrument: string) => (
 					<span class="px-2 py-1 bg-inzies-blue/10 text-inzies-blue text-xs rounded-lg font-mono">
 						{instrument}
 					</span>

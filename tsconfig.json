@@ -7,10 +7,23 @@
 			"@components/*": ["src/components/*"],
 			"@layouts/*": ["src/layouts/*"],
 			"@styles/*": ["src/styles/*"],
-			"@data/*": ["src/data/*"]
+			"@data/*": ["src/data/*"],
+			"@data": ["src/data/index.ts"],
+			"@types/*": ["src/types/*"],
+			"@types": ["src/types/index.ts"],
+			"@utils/*": ["src/utils/*"],
+			"@utils": ["src/utils/index.ts"],
+			"@constants/*": ["src/constants/*"],
+			"@constants": ["src/constants/index.ts"]
 		},
 		"jsx": "react-jsx",
-		"jsxImportSource": "react"
+		"jsxImportSource": "react",
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true
 	},
 	"include": ["src/**/*", "src/**/*.astro"],
 	"exclude": ["node_modules"]

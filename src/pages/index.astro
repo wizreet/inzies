@@ -1,5 +1,10 @@
 ---
-import { Icon } from "astro-icon/components";
+/**
+ * Home Page
+ *
+ * Main landing page with hero section, latest release, and CTA.
+ * Optimized for fast rendering with lazy loading and deferred scripts.
+ */
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/layout/Navbar.astro";
 import Footer from "../components/layout/Footer.astro";
@@ -8,43 +13,67 @@ import GlowButton from "../components/ui/GlowButton.astro";
 import ReleaseCard from "../components/music/ReleaseCard.astro";
 import { siteConfig } from "../config";
 import { getLatestRelease } from "../data/releases";
+import { ROUTES, ASSET_PATHS } from "../constants";
 
 const latestRelease = getLatestRelease();
 ---
 
 <Layout>
-	<div class="relative min-h-screen flex flex-col z-10">
+	<div class="relative z-10 flex min-h-screen flex-col">
 		<Navbar />
 
 		<!-- Hero Section -->
-		<section id="hero-trigger" class="group relative min-h-0 md:min-h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-80 pb-4 md:pb-0">
+		<section
+			id="hero-trigger"
+			class="group relative flex min-h-0 items-start justify-center overflow-hidden pb-4 pt-32 md:min-h-screen md:pb-0 md:pt-80"
+			aria-label="Hero"
+		>
 			<!-- Background Gradient -->
-			<div class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"></div>
+			<div
+				class="absolute inset-0 bg-gradient-to-br from-inzies-black via-inzies-black-800 to-inzies-black"
+				aria-hidden="true"
+			>
+			</div>
 			<!-- Animated Grid Background -->
-			<div class="absolute inset-0 grid-bg opacity-20"></div>
+			<div class="grid-bg absolute inset-0 opacity-20" aria-hidden="true"></div>
 
 			<!-- Glow Effects -->
-			<div class="absolute top-1/4 -left-32 w-96 h-96 bg-inzies-orange/20 rounded-full blur-[128px]"></div>
-			<div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-inzies-blue/20 rounded-full blur-[128px]"></div>
+			<div
+				class="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-inzies-orange/20 blur-[128px]"
+				aria-hidden="true"
+			>
+			</div>
+			<div
+				class="absolute -right-32 bottom-1/4 h-96 w-96 rounded-full bg-inzies-blue/20 blur-[128px]"
+				aria-hidden="true"
+			>
+			</div>
 
-			<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-
+			<div class="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
 				<!-- Logo Container -->
-				<div class="mb-12 md:mb-16 animate-fade-in flex justify-center">
-					<div class="relative w-52 md:w-96 lg:w-[32rem] h-40 md:h-48 logo-container cursor-pointer">
-						<div class="absolute inset-0 flex items-center justify-center logo-static-wrapper">
+				<div class="mb-12 flex animate-fade-in justify-center md:mb-16">
+					<div
+						class="logo-container relative h-40 w-52 cursor-pointer md:h-48 md:w-96 lg:w-[32rem]"
+					>
+						<div class="logo-static-wrapper absolute inset-0 flex items-center justify-center">
 							<img
-								src="/inzies/LogoAnimations/logo-transparent.png"
-								alt="Inzies Logo"
-								class="w-full h-auto logo-static"
+								src={`${ASSET_PATHS.LOGOS}/logo-transparent.png`}
+								alt={`${siteConfig.title} Logo`}
+								class="logo-static h-auto w-full"
+								width="512"
+								height="192"
+								fetchpriority="high"
 							/>
 						</div>
-						<div class="absolute inset-0 flex items-center justify-center logo-gif-wrapper">
+						<div
+							class="logo-gif-wrapper absolute inset-0 flex items-center justify-center"
+							aria-hidden="true"
+						>
 							<img
 								id="main-logo-gif"
-								data-src="/inzies/LogoAnimations/Logo-gif.gif"
+								data-src={`${ASSET_PATHS.LOGOS}/Logo-gif.gif`}
 								src=""
-								alt="Inzies Animated Logo"
+								alt=""
 								class="logo-gif"
 							/>
 						</div>
@@ -52,22 +81,30 @@ const latestRelease = getLatestRelease();
 				</div>
 
 				<!-- Title -->
-				<div class="mb-6 md:mb-8 animate-fade-in" style="animation-delay: 0.2s;">
-					<p class="text-xl md:text-3xl text-[#FF6B00] font-bold tracking-wider uppercase">
+				<div class="mb-6 animate-fade-in md:mb-8" style="animation-delay: 0.2s;">
+					<h1 class="text-xl font-bold uppercase tracking-wider text-inzies-orange md:text-3xl">
 						{siteConfig.subtitle}
-					</p>
+					</h1>
 				</div>
 
-				{siteConfig.description && (
-					<p class="max-w-2xl mx-auto text-lg md:text-xl text-[var(--text-secondary)] mb-10 md:mb-12 animate-slide-up" style="animation-delay: 0.3s;">
-						{siteConfig.description}
-					</p>
-				)}
+				{
+					siteConfig.description && (
+						<p
+							class="mx-auto mb-10 max-w-2xl animate-slide-up text-lg text-[var(--text-secondary)] md:mb-12 md:text-xl"
+							style="animation-delay: 0.3s;"
+						>
+							{siteConfig.description}
+						</p>
+					)
+				}
 
 				<!-- Social Links -->
-				<div class="flex flex-col items-center animate-slide-up mt-8 md:mt-24" style="animation-delay: 0.5s;">
+				<div
+					class="mt-8 flex animate-slide-up flex-col items-center md:mt-24"
+					style="animation-delay: 0.5s;"
+				>
 					<SocialLinks />
-					<p class="mt-6 md:mt-8 text-sm text-[var(--text-secondary)]">
+					<p class="mt-6 text-sm text-[var(--text-secondary)] md:mt-8">
 						Find us on our social channels
 					</p>
 				</div>
@@ -75,41 +112,41 @@ const latestRelease = getLatestRelease();
 		</section>
 
 		<!-- Latest Release Section -->
-		{latestRelease && (
-			/* ADJUSTED: Better mobile padding */
-			<section class="pt-8 pb-12 md:pt-24 md:pb-8 bg-[var(--bg-secondary)]/30">
-				<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-					<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Latest Release</h2>
-					<div class="scroll-reveal" style="animation-delay: 0.2s;">
-						<ReleaseCard release={latestRelease} />
+		{
+			latestRelease && (
+				<section
+					class="bg-[var(--bg-secondary)]/30 pb-12 pt-8 md:pb-8 md:pt-24"
+					aria-labelledby="latest-release-heading"
+				>
+					<div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-8">
+						<h2 id="latest-release-heading" class="section-title scroll-reveal mb-8 md:mb-12">
+							Latest Release
+						</h2>
+						<div class="scroll-reveal" style="animation-delay: 0.2s;">
+							<ReleaseCard release={latestRelease} priority />
+						</div>
 					</div>
-				</div>
-			</section>
-		)}
+				</section>
+			)
+		}
 
 		<!-- Play Along CTA -->
-		<!-- ADJUSTED: Better mobile padding -->
-		<section class="pt-8 pb-12 md:pt-8 md:pb-24">
-			<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-
-				<h2 class="section-title mb-8 md:mb-12 scroll-reveal">Remix Our Stuff</h2>
+		<section class="pb-12 pt-8 md:pb-24 md:pt-8" aria-labelledby="remix-heading">
+			<div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-8">
+				<h2 id="remix-heading" class="section-title scroll-reveal mb-8 md:mb-12">
+					Remix Our Stuff
+				</h2>
 
 				<div class="scroll-reveal" style="animation-delay: 0.2s;">
-					<div class="card-base p-8 md:p-12 text-center">
-						<p class="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
+					<div class="card-base p-8 text-center md:p-12">
+						<p class="mx-auto mb-8 max-w-2xl text-lg text-[var(--text-secondary)]">
 							We put our beats on Strudel. You can mess with them, remix them, whatever.
 						</p>
-						<GlowButton
-							href="/inzies/play/"
-							variant="primary"
-							size="lg"
-							icon="material-symbols:code"
-						>
+						<GlowButton href={ROUTES.PLAY} variant="primary" size="lg" icon="material-symbols:code">
 							Play Around
 						</GlowButton>
 					</div>
 				</div>
-
 			</div>
 		</section>
 
@@ -118,7 +155,9 @@ const latestRelease = getLatestRelease();
 </Layout>
 
 <style>
-	.logo-container { overflow: visible; }
+	.logo-container {
+		overflow: visible;
+	}
 
 	.logo-static-wrapper {
 		transition: opacity 0.3s ease;
@@ -157,11 +196,11 @@ const latestRelease = getLatestRelease();
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const section = document.getElementById('hero-trigger');
-		const container = document.querySelector('.logo-container');
-		const gifImg = document.getElementById('main-logo-gif') as HTMLImageElement;
-		const gifSrc = gifImg?.getAttribute('data-src');
+	document.addEventListener("DOMContentLoaded", () => {
+		const section = document.getElementById("hero-trigger");
+		const container = document.querySelector(".logo-container");
+		const gifImg = document.getElementById("main-logo-gif") as HTMLImageElement;
+		const gifSrc = gifImg?.getAttribute("data-src");
 
 		let isPlaying = false;
 
@@ -169,34 +208,37 @@ const latestRelease = getLatestRelease();
 			if (!isPlaying && gifImg && gifSrc) {
 				gifImg.src = `${gifSrc}?t=${new Date().getTime()}`;
 				isPlaying = true;
-				container?.classList.add('is-active');
+				container?.classList.add("is-active");
 			}
 		};
 
 		const stopAnimation = () => {
 			isPlaying = false;
-			container?.classList.remove('is-active');
+			container?.classList.remove("is-active");
 		};
 
-		section?.addEventListener('mouseenter', startAnimation);
-		section?.addEventListener('mouseleave', stopAnimation);
+		section?.addEventListener("mouseenter", startAnimation);
+		section?.addEventListener("mouseleave", stopAnimation);
 
 		if (container) {
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-						startAnimation();
-					} else {
-						const isHovered = document.querySelector('#hero-trigger:hover');
-						if (!isHovered) {
-							stopAnimation();
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+							startAnimation();
+						} else {
+							const isHovered = document.querySelector("#hero-trigger:hover");
+							if (!isHovered) {
+								stopAnimation();
+							}
 						}
-					}
-				});
-			}, {
-				threshold: [0, 0.3, 1],
-				rootMargin: '100px 0px 100px 0px'
-			});
+					});
+				},
+				{
+					threshold: [0, 0.3, 1],
+					rootMargin: "100px 0px 100px 0px",
+				}
+			);
 			observer.observe(container);
 		}
 	});

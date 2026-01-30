@@ -9,10 +9,16 @@
 	export let title: string = "Pattern";
 	export let description: string = "";
 	export let bpm: number = 120;
+	/** Pre-generated shareable URL from strudel.cc */
+	export let strudelUrl: string = "";
 
 	let showEmbed = false;
 
 	function getStrudelUrl() {
+		// Use pre-generated URL if provided, otherwise fall back to encoding
+		if (strudelUrl) {
+			return strudelUrl;
+		}
 		const cleanPattern = pattern.trim();
 		const encodedPattern = encodeURIComponent(cleanPattern);
 		return `https://strudel.cc/#${encodedPattern}`;
