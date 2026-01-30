@@ -74,13 +74,16 @@ const footerLinks = [
 			<div class="space-y-4">
 				<h4 class="text-lg font-bold">Connect</h4>
 				<SocialLinks />
-				<a
-					href={`mailto:${siteConfig.social.email || "hello@inzies.band"}`}
-					class="block rounded text-sm text-[var(--text-muted)] transition-colors hover:text-inzies-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inzies-orange/40"
-					aria-label="Send email"
+				<!-- Email obfuscated to prevent scraping -->
+				<button
+					type="button"
+					class="contact-email block rounded text-sm text-[var(--text-muted)] transition-colors hover:text-inzies-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inzies-orange/40"
+					aria-label="Contact us"
+					data-u="hello"
+					data-d="inzies.band"
 				>
-					{siteConfig.social.email || "hello@inzies.band"}
-				</a>
+					<span class="email-placeholder">Click to reveal email</span>
+				</button>
 			</div>
 		</div>
 
@@ -96,3 +99,27 @@ const footerLinks = [
 		</div>
 	</div>
 </footer>
+
+<script>
+	// Email reveal on interaction - prevents bot scraping
+	document.querySelectorAll('.contact-email').forEach(btn => {
+		btn.addEventListener('click', function() {
+			const el = this as HTMLElement;
+			const u = el.dataset.u;
+			const d = el.dataset.d;
+			if (u && d) {
+				const email = `${u}@${d}`;
+				window.location.href = `mailto:${email}`;
+			}
+		});
+		btn.addEventListener('mouseenter', function() {
+			const el = this as HTMLElement;
+			const placeholder = el.querySelector('.email-placeholder');
+			const u = el.dataset.u;
+			const d = el.dataset.d;
+			if (placeholder && u && d) {
+				placeholder.textContent = `${u}@${d}`;
+			}
+		});
+	});
+</script>

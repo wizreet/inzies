@@ -158,7 +158,6 @@ self.addEventListener("install", (event) => {
 		caches
 			.open(STATIC_CACHE)
 			.then((cache) => {
-				console.log("[SW] Precaching static assets");
 				return cache.addAll(STATIC_ASSETS);
 			})
 			.then(() => self.skipWaiting())
@@ -180,7 +179,6 @@ self.addEventListener("activate", (event) => {
 							return name.startsWith("inzies-") && !name.endsWith(CACHE_VERSION);
 						})
 						.map((name) => {
-							console.log("[SW] Deleting old cache:", name);
 							return caches.delete(name);
 						})
 				);

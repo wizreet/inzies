@@ -56,6 +56,7 @@ export interface SocialLinks {
 	readonly twitter?: string;
 	readonly facebook?: string;
 	readonly youtube?: string;
+	readonly whatsapp?: string;
 }
 
 /**

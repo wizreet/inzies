@@ -42,6 +42,8 @@ export const siteConfig: Readonly<SiteConfig> = Object.freeze({
 		youtube: "https://youtube.com/@inzies",
 		instagram: "https://instagram.com/inzies_/",
 		facebook: "https://facebook.com/inzies",
+		whatsapp: "https://wa.me/9779800000000", // Update with actual number
+		email: "hello@inzies.band",
 	}),
 
 	banner: Object.freeze({

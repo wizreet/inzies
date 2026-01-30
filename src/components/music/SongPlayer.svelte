@@ -48,148 +48,127 @@
 	}
 </script>
 
-<div class="space-y-8">
-	<!-- Song Selector Cards -->
-	<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-		{#each songs as song, index}
-			<button
-				on:click={() => selectSong(index)}
-				class="group relative overflow-hidden rounded-xl transition-all duration-300
-					{selectedIndex === index
-						? 'ring-2 ring-inzies-orange ring-offset-2 ring-offset-inzies-black-900 scale-[1.02]'
-						: 'hover:scale-[1.01] opacity-70 hover:opacity-100'}"
-			>
-				<!-- Cover Art -->
-				<div class="aspect-square overflow-hidden">
+<div class="overflow-hidden rounded-2xl border border-inzies-black-700 bg-inzies-black-800/50 backdrop-blur">
+	<!-- Top Control Bar -->
+	<div class="flex items-center gap-3 border-b border-inzies-black-700 bg-inzies-black-900/80 px-4 py-3">
+		<!-- Play/Code Toggle -->
+		<button
+			on:click={toggleEmbed}
+			class="flex h-10 w-10 items-center justify-center rounded-full bg-inzies-orange shadow-lg shadow-inzies-orange/20 transition-all hover:scale-105 hover:bg-inzies-orange-400"
+			aria-label={showEmbed ? "Show Code" : "Play in Strudel"}
+		>
+			{#if showEmbed}
+				<Icon icon="material-symbols:code" class="text-xl text-white" />
+			{:else}
+				<Icon icon="material-symbols:play-arrow" class="text-2xl text-white" />
+			{/if}
+		</button>
+
+		<!-- Song Selector Dropdown-style tabs -->
+		<div class="flex flex-1 items-center gap-1 overflow-x-auto rounded-lg bg-inzies-black-800 p-1">
+			{#each songs as song, index}
+				<button
+					on:click={() => selectSong(index)}
+					class="flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-all
+						{selectedIndex === index
+							? 'bg-inzies-orange/20 text-inzies-orange'
+							: 'text-inzies-black-400 hover:bg-inzies-black-700 hover:text-white'}"
+				>
 					<img
 						src={song.coverArt}
-						alt={song.title}
-						class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-						loading="lazy"
+						alt=""
+						class="h-6 w-6 rounded object-cover"
 					/>
-				</div>
-				
-				<!-- Song Info Overlay -->
-				<div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4">
-					<h3 class="text-xl font-bold text-white">{song.title}</h3>
-					<p class="text-sm text-inzies-black-300">{song.album}</p>
-					<div class="mt-2 flex items-center gap-3 text-xs text-inzies-black-400">
-						<span>{song.bpm} BPM</span>
-						<span>•</span>
-						<span>{song.duration}</span>
-					</div>
-				</div>
+					<span class="hidden sm:inline">{song.title}</span>
+					<span class="sm:hidden">{song.title.slice(0, 8)}</span>
+				</button>
+			{/each}
+		</div>
 
-				<!-- Selected Indicator -->
-				{#if selectedIndex === index}
-					<div class="absolute right-3 top-3 rounded-full bg-inzies-orange p-1">
-						<Icon icon="material-symbols:check" class="text-lg text-white" />
-					</div>
-				{/if}
-			</button>
-		{/each}
+		<!-- Open in Strudel -->
+		<button
+			on:click={openInStrudel}
+			class="flex h-10 items-center gap-2 rounded-lg bg-inzies-blue/20 px-3 text-sm font-medium text-inzies-blue transition-colors hover:bg-inzies-blue/30"
+			title="Open in Strudel"
+		>
+			<Icon icon="material-symbols:open-in-new" class="text-lg" />
+			<span class="hidden md:inline">Strudel</span>
+		</button>
 	</div>
 
-	<!-- Main Player -->
 	{#if currentSong}
-		<div class="overflow-hidden rounded-2xl border border-inzies-black-700 bg-inzies-black-800">
-			<!-- Header with song info -->
-			<div class="flex items-center gap-4 border-b border-inzies-black-700 bg-inzies-black-900 p-4">
+		{#if showEmbed}
+			<!-- Embedded Strudel Player -->
+			<div class="relative w-full bg-black" style="height: 500px;">
+				<iframe
+					src={currentSong.strudelUrl}
+					title="Play {currentSong.title} in Strudel"
+					class="h-full w-full border-0"
+					allow="autoplay"
+					sandbox="allow-scripts allow-same-origin allow-popups"
+				></iframe>
+			</div>
+		{:else}
+			<!-- Song Info Bar -->
+			<div class="flex items-center gap-4 border-b border-inzies-black-700/50 bg-inzies-black-800/30 px-4 py-3">
 				<img
 					src={currentSong.coverArt}
 					alt={currentSong.title}
-					class="h-16 w-16 rounded-lg object-cover"
+					class="h-12 w-12 rounded-lg object-cover shadow-lg"
 				/>
-				<div class="flex-1">
-					<h2 class="text-xl font-bold text-white">{currentSong.title}</h2>
-					<p class="text-sm text-inzies-black-400">{currentSong.album}</p>
+				<div class="min-w-0 flex-1">
+					<h2 class="truncate text-lg font-bold text-white">{currentSong.title}</h2>
+					<p class="truncate text-xs text-inzies-black-400">{currentSong.description}</p>
 				</div>
-				<div class="hidden items-center gap-4 text-sm text-inzies-black-400 md:flex">
-					<span class="font-mono">{currentSong.bpm} BPM</span>
-					<span>•</span>
-					<span class="font-mono">{currentSong.duration}</span>
+				<div class="hidden items-center gap-3 text-xs text-inzies-black-500 sm:flex">
+					<span class="rounded bg-inzies-black-700 px-2 py-1 font-mono">{currentSong.bpm} BPM</span>
+					<span class="rounded bg-inzies-black-700 px-2 py-1 font-mono">{currentSong.duration}</span>
 				</div>
 			</div>
 
-			{#if showEmbed}
-				<!-- Embedded Strudel Player -->
-				<div class="relative w-full bg-black" style="height: 500px;">
-					<iframe
-						src={currentSong.strudelUrl}
-						title="Play {currentSong.title} in Strudel"
-						class="h-full w-full border-0"
-						allow="autoplay"
-						sandbox="allow-scripts allow-same-origin allow-popups"
-					></iframe>
-				</div>
-			{:else}
-				<!-- Code Display -->
-				<div class="max-h-[400px] overflow-y-auto bg-inzies-black-900 p-6">
-					<pre class="overflow-x-auto text-sm leading-relaxed"><code class="text-green-400 font-mono">{currentSong.pattern}</code></pre>
+			<!-- Code Display -->
+			<div class="relative">
+				<!-- Line numbers gutter effect -->
+				<div class="max-h-[450px] overflow-y-auto bg-gradient-to-br from-inzies-black-900 to-inzies-black-800">
+					<pre class="p-4 text-sm leading-relaxed"><code class="font-mono text-green-400">{currentSong.pattern}</code></pre>
 				</div>
 
-				<!-- Description -->
-				<div class="border-t border-inzies-black-700 bg-inzies-black-800/50 p-4">
-					<p class="text-inzies-black-300">{currentSong.description}</p>
-				</div>
-			{/if}
+				<!-- Fade overlay at bottom -->
+				<div class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-inzies-black-800 to-transparent"></div>
+			</div>
 
-			<!-- Controls -->
-			<div class="flex items-center justify-between border-t border-inzies-black-700 bg-inzies-black-800 p-4">
-				<!-- Navigation -->
-				<div class="flex items-center gap-2">
-					<button
-						on:click={prevSong}
-						class="flex h-10 w-10 items-center justify-center rounded-full bg-inzies-black-700 text-inzies-black-300 transition-colors hover:bg-inzies-black-600 hover:text-white"
-						aria-label="Previous song"
-					>
-						<Icon icon="material-symbols:skip-previous" class="text-xl" />
-					</button>
+			<!-- Bottom Nav -->
+			<div class="flex items-center justify-between border-t border-inzies-black-700/50 bg-inzies-black-800/50 px-4 py-2">
+				<button
+					on:click={prevSong}
+					class="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-inzies-black-400 transition-colors hover:bg-inzies-black-700 hover:text-white"
+				>
+					<Icon icon="material-symbols:chevron-left" class="text-lg" />
+					<span class="hidden sm:inline">Previous</span>
+				</button>
 
-					<button
-						on:click={toggleEmbed}
-						class="flex h-14 w-14 items-center justify-center rounded-full bg-inzies-orange shadow-lg shadow-inzies-orange/30 transition-all hover:scale-105 hover:bg-inzies-orange-400"
-						aria-label={showEmbed ? "Show Code" : "Play Pattern"}
-					>
-						{#if showEmbed}
-							<Icon icon="material-symbols:code" class="text-2xl text-white" />
-						{:else}
-							<Icon icon="material-symbols:play-arrow" class="text-3xl text-white" />
-						{/if}
-					</button>
-
-					<button
-						on:click={nextSong}
-						class="flex h-10 w-10 items-center justify-center rounded-full bg-inzies-black-700 text-inzies-black-300 transition-colors hover:bg-inzies-black-600 hover:text-white"
-						aria-label="Next song"
-					>
-						<Icon icon="material-symbols:skip-next" class="text-xl" />
-					</button>
-				</div>
-
-				<!-- Track indicator -->
-				<div class="flex items-center gap-2">
-					{#each songs as _, index}
+				<!-- Track dots -->
+				<div class="flex items-center gap-1.5">
+					{#each songs as song, index}
 						<button
 							on:click={() => selectSong(index)}
-							class="h-2 w-2 rounded-full transition-all
+							class="h-1.5 rounded-full transition-all
 								{selectedIndex === index
-									? 'bg-inzies-orange w-6'
-									: 'bg-inzies-black-600 hover:bg-inzies-black-500'}"
-							aria-label="Go to song {index + 1}"
+									? 'bg-inzies-orange w-4'
+									: 'bg-inzies-black-600 hover:bg-inzies-black-500 w-1.5'}"
+							aria-label="Go to {song.title}"
 						></button>
 					{/each}
 				</div>
 
-				<!-- Open in Strudel -->
 				<button
-					on:click={openInStrudel}
-					class="flex items-center gap-2 rounded-lg bg-inzies-blue/20 px-4 py-2 text-sm font-medium text-inzies-blue transition-colors hover:bg-inzies-blue/30"
+					on:click={nextSong}
+					class="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-inzies-black-400 transition-colors hover:bg-inzies-black-700 hover:text-white"
 				>
-					<Icon icon="material-symbols:open-in-new" class="text-lg" />
-					<span class="hidden sm:inline">Open in Strudel</span>
+					<span class="hidden sm:inline">Next</span>
+					<Icon icon="material-symbols:chevron-right" class="text-lg" />
 				</button>
 			</div>
-		</div>
+		{/if}
 	{/if}
 </div>

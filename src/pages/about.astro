@@ -28,9 +28,6 @@ const streamingLinks = [
 		icon: "fa6-brands:youtube",
 	},
 ] as const;
-
-// Contact email (could be moved to config)
-const CONTACT_EMAIL = "hello@inzies.band" as const;
 ---
 
 <MainLayout title="About" description="Meet the band.">
@@ -137,14 +134,45 @@ const CONTACT_EMAIL = "hello@inzies.band" as const;
 			<p class="mx-auto mb-8 max-w-xl text-[var(--text-secondary)]">
 				Wanna book us? Collab? Just chat? We're around.
 			</p>
-			<a
-				href={`mailto:${CONTACT_EMAIL}`}
-				class="btn-glow inline-flex items-center gap-2"
-				aria-label={`Send email to ${CONTACT_EMAIL}`}
+			<button
+				type="button"
+				class="btn-glow contact-btn inline-flex items-center gap-2"
+				aria-label="Contact us via email"
+				data-u="hello"
+				data-d="inzies.band"
 			>
 				<Icon name="material-symbols:mail" class="text-xl" />
-				{CONTACT_EMAIL}
-			</a>
+				<span class="btn-text">Click to email us</span>
+			</button>
 		</div>
 	</section>
 </MainLayout>
+
+<script>
+	document.querySelectorAll('.contact-btn').forEach(btn => {
+		btn.addEventListener('click', function() {
+			const el = this as HTMLElement;
+			const u = el.dataset.u;
+			const d = el.dataset.d;
+			if (u && d) {
+				window.location.href = `mailto:${u}@${d}`;
+			}
+		});
+		btn.addEventListener('mouseenter', function() {
+			const el = this as HTMLElement;
+			const text = el.querySelector('.btn-text');
+			const u = el.dataset.u;
+			const d = el.dataset.d;
+			if (text && u && d) {
+				text.textContent = `${u}@${d}`;
+			}
+		});
+		btn.addEventListener('mouseleave', function() {
+			const el = this as HTMLElement;
+			const text = el.querySelector('.btn-text');
+			if (text) {
+				text.textContent = 'Click to email us';
+			}
+		});
+	});
+</script>

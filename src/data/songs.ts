@@ -51,54 +51,38 @@ export const songs: readonly Song[] = [
 		title: "Asha",
 		album: "Self-Titled",
 		albumId: "album-self-titled",
-		description: "A track about reminiscence and hope. The melody carries you through memories while the rhythm keeps you grounded in the present.",
+		description:
+			"A track about reminiscence and hope. The melody carries you through memories while the rhythm keeps you grounded.",
 		coverArt: `${ASSET_PATHS.RELEASES}/asha.png`,
-		pattern: `// Asha - INZIES
+		pattern: `// ========================================
+// ASHA - INZIES (Self-Titled)
 // A song about hope and reminiscence
+// ========================================
 
-// Main chord progression (Am - F - C - G)
-let chords = note("<a3 f3 c3 g3>")
-  .s("piano")
-  .velocity(0.6)
-  .sustain(0.8)
-  .delay(0.2)
-  .room(0.4);
+// #reetwiz - Drums & Percussion
+$: s("[bd ~ bd ~] [~ bd ~ bd]").bank("RolandTR909").gain(.9)
+$: s("~ [sd:3 ~] ~ sd:3").bank("RolandTR909").gain(.8)
+$: s("[hh hh hh hh]*2").bank("RolandTR909").gain(.5).dec(.1)
 
-// Melodic arpeggio pattern
-let melody = note("a4 c5 e5 a5 e5 c5 a4 ~")
-  .s("piano")
-  .velocity(0.5)
-  .delay(0.3)
-  .room(0.5)
-  .fast(2);
+// #aadish - Bass
+$: note("<a1 f1 c2 g1>").s("sawtooth").lpf(400).gain(.7).dec(.3)
 
-// Gentle pad for atmosphere
-let pad = note("<a2 f2 c2 g2>")
-  .s("sawtooth")
-  .lpf(600)
-  .resonance(0.2)
-  .attack(0.5)
-  .decay(1)
-  .sustain(0.6)
-  .release(2)
-  .gain(0.3)
-  .room(0.6);
+// #bibhushan - Keys & Chords
+$: note("<[a3,c4,e4] [f3,a3,c4] [c3,e3,g3] [g3,b3,d4]>")
+  .s("piano").velocity(.6).room(.4)
 
-// Soft drum pattern
-let drums = stack(
-  s("bd ~ ~ bd ~ ~ bd ~"),
-  s("~ ~ sd ~ ~ ~ sd ~").gain(0.7),
-  s("hh*8").gain(0.4)
-);
+// #prasanna - Lead Melody
+$: note("a4 c5 e5 ~ e5 c5 a4 ~").s("triangle")
+  .lpf(1200).gain(.5).delay(.25).room(.5)
 
-// Combine all elements
-stack(
-  chords,
-  melody,
-  pad,
-  drums
-).slow(4)`,
-		strudelUrl: "https://strudel.cc/#Ly8gQXNoYSAtIElOWklFUwovLyBBIHNvbmcgYWJvdXQgaG9wZSBhbmQgcmVtaW5pc2NlbmNlCgpsZXQgY2hvcmRzID0gbm90ZSgiPGEzIGYzIGMzIGczPiIpCiAgLnMoInBpYW5vIikKICAudmVsb2NpdHkoMC42KQogIC5zdXN0YWluKDAuOCkKICAuZGVsYXkoMC4yKQogIC5yb29tKDAuNCk7CgpsZXQgbWVsb2R5ID0gbm90ZSgiYTQgYzUgZTUgYTUgZTUgYzUgYTQgfiIpCiAgLnMoInBpYW5vIikKICAudmVsb2NpdHkoMC41KQogIC5kZWxheSgwLjMpCiAgLnJvb20oMC41KQogIC5mYXN0KDIpOwoKbGV0IHBhZCA9IG5vdGUoIjxhMiBmMiBjMiBnMj4iKQogIC5zKCJzYXd0b290aCIpCiAgLmxwZig2MDApCiAgLnJlc29uYW5jZSgwLjIpCiAgLmF0dGFjaygwLjUpCiAgLmRlY2F5KDEpCiAgLnN1c3RhaW4oMC42KQogIC5yZWxlYXNlKDIpCiAgLmdhaW4oMC4zKQogIC5yb29tKDAuNik7CgpsZXQgZHJ1bXMgPSBzdGFjaygKICBzKCJiZCB%2BIH4gYmQgfiB%2BIGJkIH4iKSwKICBzKCJ%2BIH4gc2QgfiB%2BIH4gc2Qgfi4iKS5nYWluKDAuNyksCiAgcygiaGgqOCIpLmdhaW4oMC40KQopOwoKc3RhY2soCiAgY2hvcmRzLAogIG1lbG9keSwKICBwYWQsCiAgZHJ1bXMKKS5zbG93KDQp",
+// #biplob - Rhythm Guitar
+$: note("<a2 f2 c3 g2>").s("sawtooth").lpf(800).gain(.4).dec(.2)
+
+// #pratima - Atmospheric Pads
+$: note("<a3 f3 c3 g3>").s("sine").lpf(600)
+  .attack(.5).decay(1).sustain(.6).gain(.25).room(.6)`,
+		strudelUrl:
+			"https://strudel.cc/#Ly8gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Ci8vIEFTSEEgLSBJTlpJRVMgKFNlbGYtVGl0bGVkKQovLyBBIHNvbmcgYWJvdXQgaG9wZSBhbmQgcmVtaW5pc2NlbmNlCi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoKLy8gI3JlZXR3aXogLSBEcnVtcyAmIFBlcmN1c3Npb24KJDQ6IHMoIltiZCB%2BIGJkIH5dIFt%2BIGJkIH4gYmRdIikuYmFuaygiUm9sYW5kVFI5MDkiKS5nYWluKC45KQokOiBzKCJ%2BIFtzZDozIH5dIH4gc2Q6MyIpLmJhbmsoIlJvbGFuZFRSOTA5IikuZ2FpbiguOCkKJDogcygiW2hoIGhoIGhoIGhoXSoyIikuYmFuaygiUm9sYW5kVFI5MDkiKS5nYWluKC41KS5kZWMoLjEpCgovLyAjYWFkaXNoIC0gQmFzcwokOiBub3RlKCI8YTEgZjEgYzIgZzE%2BIikucygic2F3dG9vdGgiKS5scGYoNDAwKS5nYWluKC43KS5kZWMoLjMpCgovLyAjYmliaHVzaGFuIC0gS2V5cyAmIENob3JkcwokOiBub3RlKCI8W2EzLGM0LGU0XSBbZjMsYTMsYzRdIFtjMyxlMyxnM10gW2czLGIzLGQ0XT4iKQogIC5zKCJwaWFubyIpLnZlbG9jaXR5KC42KS5yb29tKC40KQoKLy8gI3ByYXNhbm5hIC0gTGVhZCBNZWxvZHkKJDogbm90ZSgiYTQgYzUgZTUgfiBFNSBjNSBhNCB%2BIikucygidHJpYW5nbGUiKQogIC5scGYoMTIwMCkuZ2FpbiguNSkuZGVsYXkoLjI1KS5yb29tKC41KQoKLy8gI2JpcGxvYiAtIFJoeXRobSBHdWl0YXIKJDQ6IG5vdGUoIjxhMiBmMiBjMyBnMj4iKS5zKCJzYXd0b290aCIpLmxwZig4MDApLmdhaW4oLjQpLmRlYyguMikKCi8vICNwcmF0aW1hIC0gQXRtb3NwaGVyaWMgUGFkcwokOiBub3RlKCI8YTMgZjMgYzMgZzM%2BIikucygic2luZSIpLmxwZig2MDApCiAgLmF0dGFjayguNSkuZGVjYXkoMSkuc3VzdGFpbiguNikuZ2FpbiguMjUpLnJvb20oLjYp",
 		bpm: 85,
 		duration: "4:12",
 		releaseDate: "2025-01-15",
@@ -114,62 +98,39 @@ stack(
 		title: "K Ka Lagi",
 		album: "Self-Titled",
 		albumId: "album-self-titled",
-		description: "An emotional journey asking the questions we're afraid to answer. Building from quiet introspection to cathartic release.",
+		description:
+			"An emotional journey asking the questions we're afraid to answer. Building from quiet introspection to cathartic release.",
 		coverArt: `${ASSET_PATHS.RELEASES}/k-ka-lagi.png`,
-		pattern: `// K Ka Lagi - INZIES
+		pattern: `// ========================================
+// K KA LAGI - INZIES (Self-Titled)
 // An emotional journey
+// ========================================
 
-// Intro arpeggios (Em - Bm - C - D)
-let intro = note("e4 g4 b4 e5 b4 g4")
-  .s("triangle")
-  .lpf(1200)
-  .decay(0.3)
-  .sustain(0.4)
-  .gain(0.5)
-  .delay(0.25)
-  .room(0.5);
+// #reetwiz - Drums & Percussion
+$: s("[bd ~ ~ bd] [~ ~ bd ~]").bank("RolandTR909").gain(.85)
+$: s("~ sd:2 ~ [sd:2 sd:2]").bank("RolandTR909").gain(.75)
+$: s("hh*8").bank("RolandTR909").gain(.45).dec(.08)
+$: s("~ ~ ~ ~ ~ ~ ~ oh").bank("RolandTR909").gain(.4)
 
-// Verse chords - quiet and contemplative
-let verse = note("<e3 b2 c3 d3>")
-  .s("sawtooth")
-  .lpf(800)
-  .attack(0.3)
-  .decay(0.5)
-  .sustain(0.5)
-  .gain(0.4)
-  .room(0.4);
+// #aadish - Bass
+$: note("<e1 b0 c1 d1>").s("sawtooth").lpf(350).gain(.75).dec(.25)
 
-// Chorus lift - brighter and fuller
-let chorus = note("<e4 [e4,g4,b4]> <b3 [b3,d4,f#4]> <c4 [c4,e4,g4]> <d4 [d4,f#4,a4]>")
-  .s("piano")
-  .velocity(0.7)
-  .sustain(0.9)
-  .room(0.5);
+// #bibhushan - Keys & Chords
+$: note("<[e3,g3,b3] [b2,d3,fs3] [c3,e3,g3] [d3,fs3,a3]>")
+  .s("piano").velocity(.55).room(.45)
 
-// Bass movement
-let bass = note("e2 ~ e2 e2 b1 ~ b1 ~ c2 ~ c2 ~ d2 ~ d2 d2")
-  .s("sawtooth")
-  .lpf(400)
-  .decay(0.2)
-  .sustain(0.3)
-  .gain(0.6);
+// #prasanna - Lead Melody
+$: note("e4 g4 b4 e5 b4 g4 e4 ~").s("triangle")
+  .lpf(1400).gain(.5).delay(.2).room(.4)
 
-// Building drums
-let drums = stack(
-  s("bd ~ [~ bd] ~ bd ~ bd ~"),
-  s("~ ~ sd ~ ~ ~ sd ~").gain(0.8),
-  s("hh*8").gain(0.35),
-  s("~ ~ ~ ~ ~ ~ ~ oh").gain(0.3)
-);
+// #biplob - Rhythm Guitar
+$: note("<e2 b1 c2 d2>").s("square").lpf(700).gain(.35).dec(.15)
 
-// Layer everything
-stack(
-  intro.fast(2),
-  verse,
-  bass,
-  drums
-).slow(4)`,
-		strudelUrl: "https://strudel.cc/#Ly8gSyBLYSBMYWdpIC0gSU5aSUVTCi8vIEFuIGVtb3Rpb25hbCBqb3VybmV5CgpsZXQgaW50cm8gPSBub3RlKCJlNCBnNCBiNCBlNSBiNCBnNCIpCiAgLnMoInRyaWFuZ2xlIikKICAubHBmKDEyMDApCiAgLmRlY2F5KDAuMykKICAuc3VzdGFpbigwLjQpCiAgLmdhaW4oMC41KQogIC5kZWxheSgwLjI1KQogIC5yb29tKDAuNSk7CgpsZXQgdmVyc2UgPSBub3RlKCI8ZTMgYjIgYzMgZDM%2BIikKICAucygic2F3dG9vdGgiKQogIC5scGYoODAwKQogIC5hdHRhY2soMC4zKQogIC5kZWNheSgwLjUpCiAgLnN1c3RhaW4oMC41KQogIC5nYWluKDAuNCkKICAucm9vbSgwLjQpOwoKbGV0IGJhc3MgPSBub3RlKCJlMiB%2BIGV%2BIGUyIGIxIH4gYjEgfiBjMiB%2BIGMyIH4gZDIgfiBkMiBkMiIpCiAgLnMoInNhd3Rvb3RoIikKICAubHBmKDQwMCkKICAuZGVjYXkoMC4yKQogIC5zdXN0YWluKDAuMykKICAuZ2FpbigwLjYpOwoKbGV0IGRydW1zID0gc3RhY2soCiAgcygiYmQgfiBbfiBiZF0gfiBiZCB%2BIGJkIH4iKSwKICBzKCJ%2BIH4gc2QgfiB%2BIH4gc2Qgfi4iKS5nYWluKDAuOCksCiAgcygiaGgqOCIpLmdhaW4oMC4zNSksCiAgcygifiB%2BIH4gfiB%2BIH4gfiBvaCIpLmdhaW4oMC4zKQopOwoKc3RhY2soCiAgaW50cm8uZmFzdCgyKSwKICB2ZXJzZSwKICBiYXNzLAogIGRydW1zCikuc2xvdyg0KQ%3D%3D",
+// #pratima - Atmospheric Pads
+$: note("<[e3,b3] [b2,fs3] [c3,g3] [d3,a3]>").s("sine")
+  .lpf(500).attack(.6).decay(1.2).sustain(.5).gain(.2).room(.55)`,
+		strudelUrl:
+			"https://strudel.cc/#Ly8gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Ci8vIEsgS0EgTEFHSSAtIElOWklFUyAoU2VsZi1UaXRsZWQpCi8vIEFuIGVtb3Rpb25hbCBqb3VybmV5Ci8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoKLy8gI3JlZXR3aXogLSBEcnVtcyAmIFBlcmN1c3Npb24KJDQ6IHMoIltiZCB%2BIH4gYmRdIFt%2BIH4gYmQgfl0iKS5iYW5rKCJSb2xhbmRUUjkwOSIpLmdhaW4oLjg1KQokOiBzKCJ%2BIHNkOjIgfiBbc2Q6MiBzZDoyXSIpLmJhbmsoIlJvbGFuZFRSOTA5IikuZ2FpbiguNzUpCiQ6IHMoImhoKjgiKS5iYW5rKCJSb2xhbmRUUjkwOSIpLmdhaW4oLjQ1KS5kZWMoLjA4KQokOiBzKCJ%2BIH4gfiB%2BIH4gfiB%2BIG9oIikuYmFuaygiUm9sYW5kVFI5MDkiKS5nYWluKC40KQoKLy8gI2FhZGlzaCAtIEJhc3MKJDQ6IG5vdGUoIjxlMSBiMCBjMSBkMT4iKS5zKCJzYXd0b290aCIpLmxwZigzNTApLmdhaW4oLjc1KS5kZWMoLjI1KQoKLy8gI2JpYmh1c2hhbiAtIEtleXMgJiBDaG9yZHMKJDogbm90ZSgiPFtlMyxnMyxiM10gW2IyLGQzLGZzM10gW2MzLGUzLGczXSBbZDMsZnMzLGEzXT4iKQogIC5zKCJwaWFubyIpLnZlbG9jaXR5KC41NSkucm9vbSguNDUpCgovLyAjcHJhc2FubmEgLSBMZWFkIE1lbG9keQokOiBub3RlKCJlNCBnNCBiNCBlNSBiNCBnNCBlNCB%2BIikucygidHJpYW5nbGUiKQogIC5scGYoMTQwMCkuZ2FpbiguNSkuZGVsYXkoLjIpLnJvb20oLjQpCgovLyAjYmlwbG9iIC0gUmh5dGhtIEd1aXRhcgokOiBub3RlKCI8ZTIgYjEgYzIgZDI%2BIikucygic3F1YXJlIikubHBmKDcwMCkuZ2FpbiguMzUpLmRlYyguMTUpCgovLyAjcHJhdGltYSAtIEF0bW9zcGhlcmljIFBhZHMKJDogbm90ZSgiPFtlMyxiM10gW2IyLGZzM10gW2MzLGczXSBbZDMsYTNdPiIpLnMoInNpbmUiKQogIC5scGYoNTAwKS5hdHRhY2soLjYpLmRlY2F5KDEuMikuc3VzdGFpbiguNSkuZ2FpbiguMikucm9vbSguNTUp",
 		bpm: 92,
 		duration: "3:48",
 		releaseDate: "2025-01-15",
@@ -185,74 +146,39 @@ stack(
 		title: "Rahar",
 		album: "Self-Titled",
 		albumId: "album-self-titled",
-		description: "A song about desire and longing. The push and pull between what we want and what we have, expressed through dynamic shifts.",
+		description:
+			"A song about desire and longing. The push and pull between what we want and what we have.",
 		coverArt: `${ASSET_PATHS.RELEASES}/rahar.png`,
-		pattern: `// Rahar - INZIES
+		pattern: `// ========================================
+// RAHAR - INZIES (Self-Titled)
 // Desire and longing
+// ========================================
 
-// Longing melody (Dm - Am - Bb - F)
-let longing = note("d4 ~ f4 a4 ~ f4 d4 ~")
-  .s("piano")
-  .velocity(0.55)
-  .sustain(0.7)
-  .delay(0.2)
-  .room(0.6);
+// #reetwiz - Drums & Percussion
+$: s("[bd ~ bd ~] [bd ~ ~ bd]").bank("RolandTR909").gain(.9)
+$: s("~ sd ~ sd").bank("RolandTR909").gain(.8)
+$: s("[hh hh]*4").bank("RolandTR909").gain(.5).dec(.12)
+$: s("~ ~ ~ ~ ~ ~ oh ~").bank("RolandTR909").gain(.35)
 
-// Harmonic foundation
-let harmony = note("<d3 a2 bb2 f2>")
-  .s("sawtooth")
-  .lpf(700)
-  .attack(0.4)
-  .decay(0.8)
-  .sustain(0.5)
-  .gain(0.35)
-  .room(0.5);
+// #aadish - Bass
+$: note("<d1 a0 bb0 f1>").s("sawtooth").lpf(380).gain(.7).dec(.28)
 
-// Plucked texture
-let pluck = note("d5 a4 f5 d5 a4 ~ ~ ~")
-  .s("pluck")
-  .decay(0.5)
-  .sustain(0.2)
-  .lpf(2000)
-  .gain(0.4)
-  .delay(0.15)
-  .fast(2);
+// #bibhushan - Keys & Chords
+$: note("<[d3,f3,a3] [a2,c3,e3] [bb2,d3,f3] [f3,a3,c4]>")
+  .s("piano").velocity(.6).room(.5)
 
-// Deep bass
-let bass = note("d2 ~ ~ d2 a1 ~ ~ ~ bb1 ~ ~ bb1 f2 ~ ~ ~")
-  .s("sawtooth")
-  .lpf(350)
-  .decay(0.15)
-  .sustain(0.4)
-  .gain(0.65);
+// #prasanna - Lead Melody
+$: note("d4 ~ f4 a4 ~ f4 d4 ~").s("triangle")
+  .lpf(1100).gain(.5).delay(.22).room(.5)
 
-// Rhythmic drive
-let rhythm = stack(
-  s("bd ~ bd ~ bd ~ [bd bd] ~"),
-  s("~ sd ~ sd ~ sd ~ sd").gain(0.75),
-  s("hh*8").gain(0.4),
-  s("~ ~ ~ ~ ~ ~ oh ~").gain(0.25)
-);
+// #biplob - Rhythm Guitar
+$: note("<d2 a1 bb1 f2>").s("sawtooth").lpf(750).gain(.38).dec(.18)
 
-// Atmospheric texture
-let atmos = note("<d4 a4 bb4 f4>")
-  .s("sine")
-  .lpf(500)
-  .attack(1)
-  .sustain(0.8)
-  .gain(0.15)
-  .room(0.7);
-
-// Full arrangement
-stack(
-  longing,
-  harmony,
-  pluck,
-  bass,
-  rhythm,
-  atmos
-).slow(4)`,
-		strudelUrl: "https://strudel.cc/#Ly8gUmFoYXIgLSBJTlpJRVMKLy8gRGVzaXJlIGFuZCBsb25naW5nCgpsZXQgbG9uZ2luZyA9IG5vdGUoImQ0IH4gZjQgYTQgfiBmNCBkNCB%2BIikKICAucygicGlhbm8iKQogIC52ZWxvY2l0eSgwLjU1KQogIC5zdXN0YWluKDAuNykKICAuZGVsYXkoMC4yKQogIC5yb29tKDAuNik7CgpsZXQgaGFybW9ueSA9IG5vdGUoIjxkMyBhMiBiYjIgZjI%2BIikKICAucygic2F3dG9vdGgiKQogIC5scGYoNzAwKQogIC5hdHRhY2soMC40KQogIC5kZWNheSgwLjgpCiAgLnN1c3RhaW4oMC41KQogIC5nYWluKDAuMzUpCiAgLnJvb20oMC41KTsKCmxldCBwbHVjayA9IG5vdGUoImQ1IGE0IGY1IGQ1IGE0IH4gfiB%2BIikKICAucygicGx1Y2siKQogIC5kZWNheSgwLjUpCiAgLnN1c3RhaW4oMC4yKQogIC5scGYoMjAwMCkKICAuZ2FpbigwLjQpCiAgLmRlbGF5KDAuMTUpCiAgLmZhc3QoMik7CgpsZXQgYmFzcyA9IG5vdGUoImQyIH4gfiBkMiBhMSB%2BIH4gfiBiYjEgfiB%2BIGJiMSBmMiB%2BIH4gfiIpCiAgLnMoInNhd3Rvb3RoIikKICAubHBmKDM1MCkKICAuZGVjYXkoMC4xNSkKICAuc3VzdGFpbigwLjQpCiAgLmdhaW4oMC42NSk7CgpsZXQgcmh5dGhtID0gc3RhY2soCiAgcygiYmQgfiBiZCB%2BIGJkIH4gW2JkIGJkXSB%2BIiksCiAgcygifiWOIH4gc2QgfiBzZCB%2BIHNkIikuZ2FpbigwLjc1KSwKICBzKCJoaCo4IikuZ2FpbigwLjQpLAogIHMoIn4gfiB%2BIH4gfiB%2BIG9oIH4iKS5nYWluKDAuMjUpCik7CgpzdGFjaygKICBsb25naW5nLAogIGhhcm1vbnksCiAgcGx1Y2ssCiAgYmFzcywKICByaHl0aG0KKS5zbG93KDQp",
+// #pratima - Atmospheric Pads
+$: note("<d3 a2 bb2 f3>").s("sine").lpf(550)
+  .attack(.55).decay(1.1).sustain(.55).gain(.22).room(.6)`,
+		strudelUrl:
+			"https://strudel.cc/#Ly8gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Ci8vIFJBSEFSIC0gSU5aSUVTIChTZWxmLVRpdGxlZCkKLy8gRGVzaXJlIGFuZCBsb25naW5nCi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoKLy8gI3JlZXR3aXogLSBEcnVtcyAmIFBlcmN1c3Npb24KJDQ6IHMoIltiZCB%2BIGJkIH5dIFtiZCB%2BIH4gYmRdIikuYmFuaygiUm9sYW5kVFI5MDkiKS5nYWluKC45KQokOiBzKCJ%2BIHNkIH4gc2QiKS5iYW5rKCJSb2xhbmRUUjkwOSIpLmdhaW4oLjgpCiQ6IHMoIltoaCBoaF0qNCIpLmJhbmsoIlJvbGFuZFRSOTA5IikuZ2FpbiguNSkuZGVjKC4xMikKJDogcygifiB%2BIH4gfiB%2BIH4gb2ggfiIpLmJhbmsoIlJvbGFuZFRSOTA5IikuZ2FpbiguMzUpCgovLyAjYWFkaXNoIC0gQmFzcwokOiBub3RlKCI8ZDEgYTAgYmIwIGYxPiIpLnMoInNhd3Rvb3RoIikubHBmKDM4MCkuZ2FpbiguNykuZGVjKC4yOCkKCi8vICNiaWJodXNoYW4gLSBLZXlzICYgQ2hvcmRzCiQ6IG5vdGUoIjxbZDMsZjMsYTNdIFthMixjMyxlM10gW2JiMixkMyxmM10gW2YzLGEzLGM0XT4iKQogIC5zKCJwaWFubyIpLnZlbG9jaXR5KC42KS5yb29tKC41KQoKLy8gI3ByYXNhbm5hIC0gTGVhZCBNZWxvZHkKJDogbm90ZSgiZDQgfiBmNCBhNCB%2BIGY0IGQ0IH4iKS5zKCJ0cmlhbmdsZSIpCiAgLmxwZigxMTAwKS5nYWluKC41KS5kZWxheSguMjIpLnJvb20oLjUpCgovLyAjYmlwbG9iIC0gUmh5dGhtIEd1aXRhcgokOiBub3RlKCI8ZDIgYTEgYmIxIGYyPiIpLnMoInNhd3Rvb3RoIikubHBmKDc1MCkuZ2FpbiguMzgpLmRlYyguMTgpCgovLyAjcHJhdGltYSAtIEF0bW9zcGhlcmljIFBhZHMKJDogbm90ZSgiPGQzIGEyIGJiMiBmMz4iKS5zKCJzaW5lIikubHBmKDU1MCkKICAuYXR0YWNrKC41NSkuZGVjYXkoMS4xKS5zdXN0YWluKC41NSkuZ2FpbiguMjIpLnJvb20oLjYp",
 		bpm: 78,
 		duration: "5:02",
 		releaseDate: "2025-01-15",

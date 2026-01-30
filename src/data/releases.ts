@@ -31,7 +31,8 @@ const releasesData: readonly Release[] = [
 		id: "album-self-titled",
 		title: "Self-Titled",
 		type: "album",
-		description: "Our debut album. Three years of writing, recording, and figuring out who we are. Features Asha, K Ka Lagi, and Rahar.",
+		description:
+			"Our debut album. Three years of writing, recording, and figuring out who we are. Features Asha, K Ka Lagi, and Rahar.",
 		coverArt: `${ASSET_PATHS.RELEASES}/self-titled.png`,
 		releaseDate: "2025-01-15",
 		tracks: 3,
@@ -63,7 +64,8 @@ const releasesData: readonly Release[] = [
 		id: "single-rahar",
 		title: "Rahar",
 		type: "single",
-		description: "A song about desire and longing. The push and pull between what we want and what we have.",
+		description:
+			"A song about desire and longing. The push and pull between what we want and what we have.",
 		coverArt: `${ASSET_PATHS.RELEASES}/rahar.png`,
 		releaseDate: "2024-09-01",
 		spotifyUrl: "https://open.spotify.com/track/rahar",
