@@ -12,8 +12,8 @@ import { siteConfig } from "../config";
 import { PLATFORM_COLORS } from "../constants";
 
 // Separate albums and singles
-const albums = releases.filter(r => r.type === "album");
-const singles = releases.filter(r => r.type === "single");
+const albums = releases.filter((r) => r.type === "album");
+const singles = releases.filter((r) => r.type === "single");
 
 // Streaming platforms
 const streamingPlatforms = [
@@ -42,58 +42,64 @@ const streamingPlatforms = [
 	</header>
 
 	<!-- Albums Section -->
-	{albums.length > 0 && (
-		<section class="mb-16" aria-labelledby="albums-heading">
-			<h2 id="albums-heading" class="flex items-center gap-3 mb-8 text-xl font-bold">
-				<Icon name="material-symbols:album" class="text-inzies-orange" />
-				Albums
-			</h2>
-			<div class="grid grid-cols-1 gap-6">
-				{albums.map((album, index) => (
-					<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
-						<ReleaseCard release={album} featured />
-					</div>
-				))}
-			</div>
-		</section>
-	)}
+	{
+		albums.length > 0 && (
+			<section class="mb-16" aria-labelledby="albums-heading">
+				<h2 id="albums-heading" class="mb-8 flex items-center gap-3 text-xl font-bold">
+					<Icon name="material-symbols:album" class="text-inzies-orange" />
+					Albums
+				</h2>
+				<div class="grid grid-cols-1 gap-6">
+					{albums.map((album, index) => (
+						<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
+							<ReleaseCard release={album} featured />
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
 
 	<!-- Singles Section -->
-	{singles.length > 0 && (
-		<section class="mb-16" aria-labelledby="singles-heading">
-			<h2 id="singles-heading" class="flex items-center gap-3 mb-8 text-xl font-bold">
-				<Icon name="material-symbols:music-note" class="text-inzies-blue" />
-				Singles
-			</h2>
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-				{singles.map((single, index) => (
-					<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
-						<ReleaseCard release={single} />
-					</div>
-				))}
-			</div>
-		</section>
-	)}
+	{
+		singles.length > 0 && (
+			<section class="mb-16" aria-labelledby="singles-heading">
+				<h2 id="singles-heading" class="mb-8 flex items-center gap-3 text-xl font-bold">
+					<Icon name="material-symbols:music-note" class="text-inzies-blue" />
+					Singles
+				</h2>
+				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{singles.map((single, index) => (
+						<div class="scroll-reveal" style={`animation-delay: ${index * 0.1}s`}>
+							<ReleaseCard release={single} />
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
 
 	<!-- Stream Everywhere -->
 	<section aria-labelledby="streaming-heading">
-		<h2 id="streaming-heading" class="flex items-center gap-3 mb-6 text-xl font-bold">
+		<h2 id="streaming-heading" class="mb-6 flex items-center gap-3 text-xl font-bold">
 			<Icon name="material-symbols:headphones" class="text-inzies-orange" />
 			Stream Everywhere
 		</h2>
 		<div class="flex flex-wrap gap-3">
-			{streamingPlatforms.map((platform) => (
-				<a
-					href={platform.url}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all hover:scale-105"
-					style={`background-color: ${platform.color}`}
-				>
-					<Icon name={platform.icon} class="text-lg" />
-					{platform.name}
-				</a>
-			))}
+			{
+				streamingPlatforms.map((platform) => (
+					<a
+						href={platform.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all hover:scale-105"
+						style={`background-color: ${platform.color}`}
+					>
+						<Icon name={platform.icon} class="text-lg" />
+						{platform.name}
+					</a>
+				))
+			}
 		</div>
 	</section>
 </MainLayout>

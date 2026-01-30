@@ -30,130 +30,160 @@ const formattedDate = new Date(release.releaseDate).toLocaleDateString("en-US", 
 });
 
 // Check if release has any streaming links
-const hasLinks = release.spotifyUrl || release.youtubeUrl || release.appleMusicUrl || release.bandcampUrl;
+const hasLinks =
+	release.spotifyUrl || release.youtubeUrl || release.appleMusicUrl || release.bandcampUrl;
 ---
 
-<article class:list={["card-base hover-lift", featured ? "p-6" : "p-4"]} itemscope itemtype="https://schema.org/MusicRelease">
+<article
+	class:list={["card-base hover-lift", featured ? "p-6" : "p-4"]}
+	itemscope
+	itemtype="https://schema.org/MusicRelease"
+>
 	<div class:list={["flex gap-4", featured ? "flex-col md:flex-row md:gap-6" : "flex-row"]}>
 		<!-- Album Art -->
-		<div class:list={["relative flex-shrink-0 group", featured ? "w-full md:w-48 h-48" : "w-20 h-20"]}>
+		<div
+			class:list={["group relative flex-shrink-0", featured ? "h-48 w-full md:w-48" : "h-20 w-20"]}
+		>
 			<img
 				src={release.coverArt}
 				alt={`${release.title} album cover`}
-				class="w-full h-full object-cover rounded-lg"
+				class="h-full w-full rounded-lg object-cover"
 				loading={priority ? "eager" : "lazy"}
 				decoding={priority ? "sync" : "async"}
 				fetchpriority={priority ? "high" : "auto"}
 				itemprop="image"
 			/>
-			{hasLinks && (
-				<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-4">
-					{release.spotifyUrl && (
-						<a
-							href={release.spotifyUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-							style={`background-color: ${PLATFORM_COLORS.SPOTIFY}`}
-							aria-label={`Play ${release.title} on Spotify (opens in new tab)`}
-						>
-							<Icon name="fa6-brands:spotify" class="text-2xl text-white" />
-						</a>
-					)}
-					{release.youtubeUrl && (
-						<a
-							href={release.youtubeUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-							style={`background-color: ${PLATFORM_COLORS.YOUTUBE}`}
-							aria-label={`Watch ${release.title} on YouTube (opens in new tab)`}
-						>
-							<Icon name="fa6-brands:youtube" class="text-2xl text-white" />
-						</a>
-					)}
-				</div>
-			)}
+			{
+				hasLinks && (
+					<div class="absolute inset-0 flex items-center justify-center gap-4 rounded-lg bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+						{release.spotifyUrl && (
+							<a
+								href={release.spotifyUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="flex h-12 w-12 items-center justify-center rounded-full transition-transform hover:scale-110"
+								style={`background-color: ${PLATFORM_COLORS.SPOTIFY}`}
+								aria-label={`Play ${release.title} on Spotify (opens in new tab)`}
+							>
+								<Icon name="fa6-brands:spotify" class="text-2xl text-white" />
+							</a>
+						)}
+						{release.youtubeUrl && (
+							<a
+								href={release.youtubeUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="flex h-12 w-12 items-center justify-center rounded-full transition-transform hover:scale-110"
+								style={`background-color: ${PLATFORM_COLORS.YOUTUBE}`}
+								aria-label={`Watch ${release.title} on YouTube (opens in new tab)`}
+							>
+								<Icon name="fa6-brands:youtube" class="text-2xl text-white" />
+							</a>
+						)}
+					</div>
+				)
+			}
 
-			{release.isLatest && (
-				<div class="absolute -top-2 -right-2 px-3 py-1 bg-inzies-orange text-white text-xs font-bold rounded-full animate-glow-pulse">
-					NEW
-				</div>
-			)}
+			{
+				release.isLatest && (
+					<div class="absolute -right-2 -top-2 animate-glow-pulse rounded-full bg-inzies-orange px-3 py-1 text-xs font-bold text-white">
+						NEW
+					</div>
+				)
+			}
 		</div>
 
 		<!-- Info -->
 		<div class="flex-1 space-y-2">
 			<p class="code-comment text-xs uppercase tracking-wider">{release.type}</p>
-			<h3 class:list={["font-bold", featured ? "text-2xl" : "text-lg"]} itemprop="name">{release.title}</h3>
-			{featured && <p class="text-[var(--text-secondary)] text-sm" itemprop="description">{release.description}</p>}
+			<h3 class:list={["font-bold", featured ? "text-2xl" : "text-lg"]} itemprop="name">
+				{release.title}
+			</h3>
+			{
+				featured && (
+					<p class="text-sm text-[var(--text-secondary)]" itemprop="description">
+						{release.description}
+					</p>
+				)
+			}
 
 			<div class="flex items-center gap-4 text-sm text-[var(--text-muted)]">
-				<time datetime={release.releaseDate} itemprop="datePublished" class="flex items-center gap-1">
+				<time
+					datetime={release.releaseDate}
+					itemprop="datePublished"
+					class="flex items-center gap-1"
+				>
 					<Icon name="material-symbols:calendar-today" class="text-lg" aria-hidden="true" />
 					{formattedDate}
 				</time>
-				{release.tracks && (
-					<span class="flex items-center gap-1" itemprop="numTracks">
-						<Icon name="material-symbols:music-note" class="text-lg" aria-hidden="true" />
-						{release.tracks} tracks
-					</span>
-				)}
+				{
+					release.tracks && (
+						<span class="flex items-center gap-1" itemprop="numTracks">
+							<Icon name="material-symbols:music-note" class="text-lg" aria-hidden="true" />
+							{release.tracks} tracks
+						</span>
+					)
+				}
 			</div>
 
 			<!-- Play Buttons -->
-			{hasLinks && (
-				<nav class="flex flex-wrap gap-3 pt-2" aria-label={`Streaming links for ${release.title}`}>
-					{release.spotifyUrl && (
-						<a
-							href={release.spotifyUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:brightness-110 transition-all text-sm font-medium"
-							style={`background-color: ${PLATFORM_COLORS.SPOTIFY}`}
-						>
-							<Icon name="fa6-brands:spotify" aria-hidden="true" />
-							Spotify
-						</a>
-					)}
-					{release.youtubeUrl && (
-						<a
-							href={release.youtubeUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:brightness-110 transition-all text-sm font-medium"
-							style={`background-color: ${PLATFORM_COLORS.YOUTUBE}`}
-						>
-							<Icon name="fa6-brands:youtube" aria-hidden="true" />
-							YouTube
-						</a>
-					)}
-					{release.appleMusicUrl && (
-						<a
-							href={release.appleMusicUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:brightness-110 transition-all text-sm font-medium"
-							style={`background-color: ${PLATFORM_COLORS.APPLE_MUSIC}`}
-						>
-							<Icon name="fa6-brands:apple" aria-hidden="true" />
-							Apple Music
-						</a>
-					)}
-					{release.bandcampUrl && (
-						<a
-							href={release.bandcampUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:brightness-110 transition-all text-sm font-medium"
-							style={`background-color: ${PLATFORM_COLORS.BANDCAMP}`}
-						>
-							<Icon name="fa6-brands:bandcamp" aria-hidden="true" />
-							Bandcamp
-						</a>
-					)}
-				</nav>
-			)}
+			{
+				hasLinks && (
+					<nav
+						class="flex flex-wrap gap-3 pt-2"
+						aria-label={`Streaming links for ${release.title}`}
+					>
+						{release.spotifyUrl && (
+							<a
+								href={release.spotifyUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-all hover:brightness-110"
+								style={`background-color: ${PLATFORM_COLORS.SPOTIFY}`}
+							>
+								<Icon name="fa6-brands:spotify" aria-hidden="true" />
+								Spotify
+							</a>
+						)}
+						{release.youtubeUrl && (
+							<a
+								href={release.youtubeUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-all hover:brightness-110"
+								style={`background-color: ${PLATFORM_COLORS.YOUTUBE}`}
+							>
+								<Icon name="fa6-brands:youtube" aria-hidden="true" />
+								YouTube
+							</a>
+						)}
+						{release.appleMusicUrl && (
+							<a
+								href={release.appleMusicUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-all hover:brightness-110"
+								style={`background-color: ${PLATFORM_COLORS.APPLE_MUSIC}`}
+							>
+								<Icon name="fa6-brands:apple" aria-hidden="true" />
+								Apple Music
+							</a>
+						)}
+						{release.bandcampUrl && (
+							<a
+								href={release.bandcampUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-all hover:brightness-110"
+								style={`background-color: ${PLATFORM_COLORS.BANDCAMP}`}
+							>
+								<Icon name="fa6-brands:bandcamp" aria-hidden="true" />
+								Bandcamp
+							</a>
+						)}
+					</nav>
+				)
+			}
 		</div>
 	</div>
 </article>

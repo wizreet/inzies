@@ -28,6 +28,17 @@ import { ASSET_PATHS } from "../constants";
  */
 const releasesData: readonly Release[] = [
 	{
+		id: "single-asha",
+		title: "Asha",
+		type: "single",
+		description: "A track about reminiscence and hope. The first glimpse of what was to come.",
+		coverArt: `${ASSET_PATHS.RELEASES}/asha.png`,
+		releaseDate: "2025-01-01",
+		spotifyUrl: "https://open.spotify.com/track/asha",
+		youtubeUrl: "https://youtube.com/watch?v=asha",
+		isLatest: true,
+	},
+	{
 		id: "album-self-titled",
 		title: "Self-Titled",
 		type: "album",
@@ -38,17 +49,6 @@ const releasesData: readonly Release[] = [
 		tracks: 3,
 		spotifyUrl: "https://open.spotify.com/album/inzies-self-titled",
 		youtubeUrl: "https://youtube.com/playlist?list=inzies-self-titled",
-		isLatest: true,
-	},
-	{
-		id: "single-asha",
-		title: "Asha",
-		type: "single",
-		description: "A track about reminiscence and hope. The first glimpse of what was to come.",
-		coverArt: `${ASSET_PATHS.RELEASES}/asha.png`,
-		releaseDate: "2025-01-01",
-		spotifyUrl: "https://open.spotify.com/track/asha",
-		youtubeUrl: "https://youtube.com/watch?v=asha",
 	},
 	{
 		id: "single-k-ka-lagi",

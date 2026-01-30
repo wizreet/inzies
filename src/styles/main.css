@@ -17,11 +17,18 @@ body {
 	background-color: var(--bg-primary);
 	color: var(--text-primary);
 	min-height: 100vh;
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease;
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-family: "Roboto Slab", serif;
 	font-weight: 700;
 }
@@ -54,18 +61,20 @@ h1, h2, h3, h4, h5, h6 {
 @layer components {
 	/* Card Base */
 	.card-base {
-		@apply bg-white/10 dark:bg-black/30 backdrop-blur-md rounded-xl border border-white/10 dark:border-white/5;
+		@apply rounded-xl border border-inzies-orange/30 bg-inzies-black-800/50 backdrop-blur-md;
 		transition: all 0.3s ease;
 	}
 
 	.card-base:hover {
-		@apply border-inzies-orange/30;
-		box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
+		@apply border-inzies-orange/60;
+		box-shadow:
+			0 0 25px rgba(255, 107, 0, 0.25),
+			0 0 50px rgba(255, 107, 0, 0.1);
 	}
 
 	/* Glow Button */
 	.btn-glow {
-		@apply relative px-6 py-3 font-bold text-white bg-gradient-to-r from-inzies-orange to-inzies-blue rounded-lg overflow-hidden;
+		@apply relative overflow-hidden rounded-lg bg-gradient-to-r from-inzies-orange to-inzies-blue px-6 py-3 font-bold text-white;
 		transition: all 0.3s ease;
 	}
 
@@ -101,11 +110,11 @@ h1, h2, h3, h4, h5, h6 {
 	}
 
 	.nav-link-desktop {
-		@apply px-4 py-2 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5;
+		@apply rounded-lg px-4 py-2 text-[var(--text-secondary)] hover:bg-white/5 hover:text-[var(--text-primary)];
 	}
 
 	.nav-link-mobile {
-		@apply block px-4 py-3 rounded-lg text-[var(--text-secondary)] hover:bg-white/5;
+		@apply block rounded-lg px-4 py-3 text-[var(--text-secondary)] hover:bg-white/5;
 	}
 
 	.nav-link.is-active {
@@ -114,39 +123,49 @@ h1, h2, h3, h4, h5, h6 {
 
 	/* Section Title */
 	.section-title {
-		@apply text-3xl md:text-4xl font-bold mb-8 relative inline-block;
+		@apply relative mb-6 inline-block text-3xl font-bold md:text-4xl;
 	}
 
 	.section-title::after {
 		content: "";
-		@apply absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-inzies-orange to-inzies-blue rounded-full opacity-40;
+		@apply absolute -bottom-2 left-0 h-1 w-full rounded-full bg-inzies-orange;
 	}
 
 	/* Social Link */
 	.social-link {
-		@apply w-12 h-12 flex items-center justify-center rounded-full bg-white/10 dark:bg-white/5 text-white/70 transition-all duration-300;
+		@apply flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white/70 transition-all duration-300 dark:bg-white/5;
 	}
 
 	.social-link:hover {
-		@apply bg-inzies-orange text-white scale-110;
+		@apply scale-110 bg-inzies-orange text-white;
 		box-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
 	}
 
 	/* Waveform Bar */
 	.waveform-bar {
-		@apply w-1 bg-inzies-orange rounded-full;
+		@apply w-1 rounded-full bg-inzies-orange;
 		animation: waveform 1.2s ease-in-out infinite;
 	}
 
-	.waveform-bar:nth-child(1) { animation-delay: 0s; }
-	.waveform-bar:nth-child(2) { animation-delay: 0.1s; }
-	.waveform-bar:nth-child(3) { animation-delay: 0.2s; }
-	.waveform-bar:nth-child(4) { animation-delay: 0.3s; }
-	.waveform-bar:nth-child(5) { animation-delay: 0.4s; }
+	.waveform-bar:nth-child(1) {
+		animation-delay: 0s;
+	}
+	.waveform-bar:nth-child(2) {
+		animation-delay: 0.1s;
+	}
+	.waveform-bar:nth-child(3) {
+		animation-delay: 0.2s;
+	}
+	.waveform-bar:nth-child(4) {
+		animation-delay: 0.3s;
+	}
+	.waveform-bar:nth-child(5) {
+		animation-delay: 0.4s;
+	}
 
 	/* Code Block Style */
 	.code-comment {
-		@apply font-mono text-inzies-orange/70 text-sm;
+		@apply font-mono text-sm text-inzies-orange/70;
 	}
 
 	.code-comment::before {
@@ -179,13 +198,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes fade-out {
-	from { opacity: 1; }
-	to { opacity: 0; }
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
 @keyframes fade-in {
-	from { opacity: 0; }
-	to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 /* Loading Animation */
@@ -199,5 +226,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes spin {
-	to { transform: rotate(360deg); }
+	to {
+		transform: rotate(360deg);
+	}
 }
